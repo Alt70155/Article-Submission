@@ -159,4 +159,6 @@ ActiveRecord::Base.default_timezone = :local
 
 ```Bash
 bundle exec rackup config.ru
+# ip指定
+bundle exec rackup config.ru -o 0.0.0.0
 ```

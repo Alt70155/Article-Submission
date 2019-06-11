@@ -4,8 +4,10 @@ h1 プレビュー
   br
   h2 ページ番号
   p= @post.id
-  h2 タイトル
-  p= @post.title
+
+  .article-title
+    h1= @post.title
+
   h2 本文
   p== markdown(@post.body)
   h2 投稿日

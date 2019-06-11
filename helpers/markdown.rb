@@ -22,7 +22,7 @@ helpers do
 
   def replace_html(html)
     html.gsub!(/<h2>/, '<div class="text-sub-title"><h2 class="sub-title-border">&nbsp;')
-        .gsub!(%r{</h2>}, '</h2></div>')
+       &.gsub!(%r{</h2>}, '</h2></div>')
     # コードブロックが何言語かをcodeのclassから探して取り出す
     str_len = 'code class="'.length
     program_language_list = html.scan(/code class=".*"/).map { |m| m[str_len..-2] }

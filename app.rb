@@ -24,6 +24,11 @@ get '/' do
   slim :index
 end
 
+get '/create_article' do
+  @category = Category.all
+  slim :create_article
+end
+
 get '/articles/:id' do
   @post = Post.find(params[:id])
   @category = Category.where(category_id: @post.category_id)

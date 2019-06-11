@@ -1,0 +1,33 @@
+h1 プレビュー
+
+.article-content
+  br
+  h2 ページ番号
+  p= @post.id
+  h2 タイトル
+  p= @post.title
+  h2 本文
+  p== markdown(@post.body)
+  h2 投稿日
+  p= @post.created_at
+
+  br
+  p カテゴリー
+  ul
+  - @category.each do |f|
+    li= f.cate_name
+
+  h3= "file_name: #{@post.top_picture}"
+
+  img src="/img/#{@post.top_picture}"
+
+form method="post" action="/article_post"
+  input    type="text"   name="title"     style="display: none;" value="#{@post.title}"
+  textarea type="text"   name="body"      style="display: none;" #{@post.body}
+  input    type="radio"  name="cate_id"   style="display: none;" value="#{@post.cate_id}" checked="checked"
+  input    type="text"   name="pic_name"  style="display: none;" value="#{@post.top_picture}"
+  input    type="submit" id="input_submit" value="投稿"
+  br
+  input    type="submit" name="back" id="input_submit" value="修正"
+br
+br

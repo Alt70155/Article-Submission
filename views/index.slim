@@ -1,0 +1,92 @@
+.error-messages-area
+  - if !@post.nil? && @post.errors.messages
+    ul
+    - @post.errors.full_messages.each do |error_message|
+      li= error_message
+
+h2.new-title 新しい記事投稿
+
+form method="post" action="/article_post" enctype="multipart/form-data"
+  / nameの値をparamsで取得する
+  / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
+  .title-body-content
+    p タイトル
+    input.title type="text" name="title" value="#{@post.nil? ? '' : @post.title}"
+    br
+    p 本文
+    textarea.body type="text" name="body" = @post.nil? ? '' : @post.body
+    br
+
+  p カテゴリーを選択
+  - @category.each_with_index do |cate, i|
+    - i += 1
+    - @post.nil? ? radio_val = 1 : radio_val = @post.cate_id
+    p
+      - if i == radio_val
+        input type="radio" name="cate_id" value="#{i}" checked="checked"
+      - else
+        input type="radio" name="cate_id" value="#{i}"
+      = cate.cate_name
+
+  p ・トップ画像
+  input id="top_picture" type="file" name="file" accept="image/*"
+  br
+  .article-imgs-input
+    p ・記事内画像
+    input id="article_img_files" type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
+    br
+    span#article_img_files_span.error-messages-area
+  br
+  / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
+  input class="input_submit" type="submit" value="投稿" name="submit" onclick="submitAction('/article_post')" disabled="disabled"
+  br
+  input class="input_submit" type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')" disabled="disabled"
+  br
+
+javascript:
+  const topPicture  = document.querySelector('#top_picture')
+  const articleImg  = document.querySelector('#article_img_files')
+  const textArea    = document.querySelector('textarea')
+  const errorArea   = document.querySelector('#article_img_files_span')
+  const inputImages = document.querySelector('.article-imgs-input')
+
+  // formが投稿か修正かでサブミット先を変更する
+  const submitAction = url => document.querySelector('form').setAttribute('action', url)
+
+  const isSubmitDisable = isLockedSubmit => {
+    document.querySelectorAll('.input_submit').forEach(submitBtn => {
+      submitBtn.disabled = isLockedSubmit
+    })
+  }
+
+  const articleImageDecisionIn = () => {
+    // 記事内画像![]()を検索 カッコの間に空白が入るとNG
+    const matchImgTag = textArea.value.match(/!\[\S*\]\(\S*\)/g)
+    if (matchImgTag) {
+      // 記事内に画像がある場合
+      articleImg.disabled = false
+      const selectedImgLen = articleImg.files.length
+      const matchImgTagLen = matchImgTag.length
+      // 記事内の画像タグ数と選択された画像数が同じかつtop画像が選択されていたらsubmitを表示
+      const isLockedSubmit = !(selectedImgLen === matchImgTagLen && topPicture.files.length)
+      isSubmitDisable(isLockedSubmit)
+      if (selectedImgLen > matchImgTagLen) {
+        errorArea.textContent = '本文に挿入されている画像より多いです'
+      } else if (selectedImgLen < matchImgTagLen) {
+        errorArea.textContent = '記事内画像を選択してください'
+      } else {
+        errorArea.textContent = ''
+      }
+    } else {
+      // 記事内に画像がない場合
+      articleImg.disabled = true
+      if (topPicture.files.length) {
+        isSubmitDisable(false)
+      }
+    }
+  }
+  // todo:画像を選択した後に![]()を消した場合にファイルを送らないようにする
+  textArea.addEventListener('keyup', articleImageDecisionIn)
+  articleImg.addEventListener('change', articleImageDecisionIn)
+  topPicture.addEventListener('change', articleImageDecisionIn)
+  articleImageDecisionIn()

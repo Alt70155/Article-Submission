@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Sample Sinatra
+    css:
+      .new-title {
+        text-align: center;
+      }
+      body {
+        min-width: 400px;
+        max-width: 500px;
+        min-height: 800px;
+        margin: auto;
+      }
+      .title {
+        width: 100%;
+        height: 30px;
+        font-size: 20px;
+      }
+      .body {
+        width: 100%;
+        height: 250px;
+        font-size: 17px;
+      }
+      .title-body-content {
+        margin: auto;
+        text-align: center;
+      }
+      img {
+        width: 400px;
+        height: 300px;
+      }
+      .error-messages-area {
+        color: red;
+      }
+
+  body
+   / イコールを2個にしないとslimではエスケープされてしまう
+   == yield

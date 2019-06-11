@@ -26,7 +26,7 @@ end
 
 get '/articles/:id' do
   @post = Post.find(params[:id])
-  @category = Category.where(cate_id: @post.cate_id)
+  @category = Category.where(category_id: @post.category_id)
   slim :articles
 end
 
@@ -37,15 +37,14 @@ post '/article_post' do
   if params[:file] || params[:pic_name]
     params[:pic_name] ? pic_name = params[:pic_name] : pic_name = params[:file][:filename]
     @post = Post.new(
-      cate_id: params[:cate_id],
+      category_id: params[:category_id],
       title: params[:title],
       body: params[:body],
       top_picture: pic_name
     )
 
     img_files = params[:article_img_files]
-    if ((@post.body.scan(/!\[\S*\]\(\S*\)/).length.zero? && img_files.nil?) \
-      || is_not_include_image?(@post.body, img_files)) && params[:back].nil? && @post.save
+    if img_valid?(@post.body, img_files) && params[:back].nil? && @post.save
       # top画像ファイル保存
       File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
       # 記事内画像があればそれも保存
@@ -79,7 +78,7 @@ post '/article_prev' do
   if params[:file]
     @post = Post.new(
       id:      Post.count + 1, # ダミー
-      cate_id: params[:cate_id],
+      category_id: params[:category_id],
       title:   params[:title],
       body:    params[:body],
       top_picture: params[:file][:filename]
@@ -99,7 +98,7 @@ post '/article_prev' do
         end
         session[:img_files] = img_name_ary
       end
-      @category = Category.where(cate_id: @post.cate_id)
+      @category = Category.where(category_id: @post.category_id)
       slim :article_prev
     else
       # エラーメッセージを表示させたいのでレンダリング

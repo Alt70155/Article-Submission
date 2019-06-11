@@ -1,5 +1,4 @@
-# 環境構築メモ
-
+# Sinatra環境構築メモ
 
 ```Bash
 bundle init

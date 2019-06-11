@@ -44,25 +44,21 @@ post '/article_post' do
     )
 
     img_files = params[:article_img_files]
-    if img_valid?(@post.body, img_files) && params[:back].nil? && @post.save
+    if params[:back].nil? && img_valid?(@post.body, img_files) && @post.save
       # top画像ファイル保存
       File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
       # 記事内画像があればそれも保存
-      if img_files
-        img_files.each do |img|
-          File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-        end
+      img_files&.each do |img|
+        File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
       end
-      flash[:notice] = "投稿完了"
+      flash[:notice] = '投稿完了'
       redirect "/articles/#{@post.id}"
     else
       # プレビュー画面から修正に戻った場合
       if params[:back]
         File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
-        if session[:img_files]
-          session[:img_files].each do |img_name|
-            File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
-          end
+        session[:img_files]&.each do |img_name|
+          File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
         end
       end
       @category = Category.all
@@ -91,12 +87,11 @@ post '/article_prev' do
       File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
       if img_files
         # 修正に戻った場合、記事内画像ファイルの名前をセッションで保持し、削除する
-        img_name_ary = []
+        session[:img_files] = []
         img_files.each do |img|
           File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-          img_name_ary << img[:filename]
+          session[:img_files] << img[:filename]
         end
-        session[:img_files] = img_name_ary
       end
       @category = Category.where(category_id: @post.category_id)
       slim :article_prev

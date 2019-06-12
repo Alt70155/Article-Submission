@@ -1,0 +1,14 @@
+- @page_name = "index"
+
+#wrap.wrap-index-color
+
+p.page_title 最新記事
+
+.container
+  - @post.each do |article|
+    a.article-item.box.fly href="../articles/#{article.id}"
+      article.article-inside
+        img src="../img/#{article.top_picture}" alt="記事サムネイル"
+        p
+          span.date Posted on #{article.created_at.strftime('%Y/%m/%d')}
+          br

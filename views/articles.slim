@@ -1,25 +1,12 @@
-- if flash[:notice]
-  h3= flash[:notice]
+.wrap
+  .content
+    .main-aside-wrap
+      .text-content
+        .article-title
+          h1= @post.title
+        .posted-date-area
+          p= "投稿日：#{@post.created_at.strftime('%Y/%m/%d')}"
 
-.text-content
-  br
-  h2 ページ番号
-  p= @post.id
-
-  .article-title
-    h1= @post.title
-
-  h2 本文
-  p== markdown(@post.body)
-  h2 投稿日
-  p= @post.created_at
-
-  br
-  p カテゴリー
-  ul
-  - @category.each do |f|
-    li= f.cate_name
-
-  h3= "file_name: #{@post.top_picture}"
-
-  img src="/img/#{@post.top_picture}"
+        .article-main-contents
+          == markdown(@post.body)
+      ==slim :"partial/_right_bar"

@@ -1,20 +1,28 @@
+css:
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
 .wrap
   .content
     .main-aside-wrap
       .text-content
         .article-title
           h1= @post.title
+        .posted-date-area
+          p= "投稿日#{@post.created_at}"
 
         .article-main-contents
           == markdown(@post.body)
 
-      form method="post" action="/article_post"
-        input    type="text"   name="title"       style="display: none;" value="#{@post.title}"
-        textarea type="text"   name="body"        style="display: none;" #{@post.body}
-        input    type="radio"  name="category_id" style="display: none;" value="#{@post.category_id}" checked="checked"
-        input    type="text"   name="pic_name"    style="display: none;" value="#{@post.top_picture}"
-        input    type="submit" id="input_submit" value="投稿"
-        br
-        input    type="submit" name="back" id="input_submit" value="修正"
-      br
-      br
+form method="post" action="/article_post"
+  input    type="text"   name="title"       style="display: none;" value="#{@post.title}"
+  textarea type="text"   name="body"        style="display: none;" #{@post.body}
+  input    type="radio"  name="category_id" style="display: none;" value="#{@post.category_id}" checked="checked"
+  input    type="text"   name="pic_name"    style="display: none;" value="#{@post.top_picture}"
+  input    type="submit" id="input_submit" value="投稿"
+  br
+  input    type="submit" name="back" id="input_submit" value="修正"
+br
+br

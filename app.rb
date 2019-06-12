@@ -1,12 +1,13 @@
-# require 'rubygems'
-# require 'bundler'
-# require 'sinatra'
-# require 'slim'
-# require 'sinatra/reloader'
-# require 'sinatra/activerecord'
-# require 'redcarpet'
-# require './models/posts.rb'
-# require './models/categories.rb'
+require 'rubygems'
+require 'bundler'
+require 'sinatra'
+require 'slim'
+require 'sinatra/reloader'
+require 'sinatra/activerecord'
+require 'redcarpet'
+require './models/posts.rb'
+require './models/categories.rb'
+require 'rack-flash'
 
 require './helpers/img_valid?.rb'
 require './helpers/markdown.rb'
@@ -20,13 +21,13 @@ use Rack::Flash # flashはセッションを使うためenable :sessionsの下�
 # set :session_secret, 'super secret'
 
 get '/' do
-  @category = Category.all
+  @post = Post.all
   slim :index
 end
 
 get '/create_article' do
   @category = Category.all
-  slim :create_article
+  slim :create_article, layout: nil
 end
 
 get '/articles/:id' do
@@ -51,7 +52,9 @@ post '/article_post' do
     img_files = params[:article_img_files]
     if params[:back].nil? && img_valid?(@post.body, img_files) && @post.save
       # top画像ファイル保存
-      File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
+      if params[:file]
+        File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
+      end
       # 記事内画像があればそれも保存
       img_files&.each do |img|
         File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
@@ -68,7 +71,7 @@ post '/article_post' do
       end
       @category = Category.all
       # エラーメッセージを表示させたいのでレンダーする
-      slim :index
+      slim :create_article
     end
   else
     redirect '/'
@@ -103,7 +106,7 @@ post '/article_prev' do
     else
       # エラーメッセージを表示させたいのでレンダリング
       @category = Category.all
-      slim :index
+      slim :create_article
     end
   else
     redirect '/'

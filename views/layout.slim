@@ -3,11 +3,10 @@ html
   head
     meta charset="utf-8"
     title Sample Sinatra
-    - if @page_name == "create_article"
-      link rel="stylesheet" href="css/create-article-style.css"
-    - else
-      link rel="stylesheet" href="css/style.css"
-      link rel="stylesheet" href="css/code-highlight.css"
+    link rel="stylesheet" href="../css/style.css"
+    link rel="stylesheet" href="../css/code-highlight.css"
+    script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
   body
    / イコールを2個にしないとslimではエスケープされてしまう
+   == slim :"partial/_header"
    == yield

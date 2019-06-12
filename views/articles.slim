@@ -1,12 +1,12 @@
-.wrap
-  .content
-    .main-aside-wrap
-      .text-content
-        .article-title
-          h1= @post.title
-        .posted-date-area
-          p= "投稿日：#{@post.created_at.strftime('%Y/%m/%d')}"
+.main-aside-wrap
+  .text-content
+    .article-title
+      h1= @post.title
 
-        .article-main-contents
-          == markdown(@post.body)
-      ==slim :"partial/_right_bar"
+    .posted-date-area
+      p= "投稿日：#{@post.created_at.strftime('%Y/%m/%d')}"
+
+    .article-main-contents
+      == markdown(@post.body)
+    ==slim :"partial/_other_list"
+  ==slim :"partial/_right_bar"

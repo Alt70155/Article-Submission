@@ -32,6 +32,7 @@ end
 
 get '/articles/:id' do
   @post = Post.find(params[:id])
+  @other_articles = Post.order('id DESC').first(6)
   @category = Category.where(category_id: @post.category_id)
   slim :articles
 end

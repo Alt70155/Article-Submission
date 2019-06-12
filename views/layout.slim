@@ -7,6 +7,8 @@ html
     link rel="stylesheet" href="../css/code-highlight.css"
     script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
   body
-   / イコールを2個にしないとslimではエスケープされてしまう
-   == slim :"partial/_header"
-   == yield
+    / イコールを2個にしないとslimではエスケープされてしまう
+    == slim :"partial/_header"
+    #wrap class="#{'wrap-index-color' if @page_name == 'index'}"
+      .content
+        == yield

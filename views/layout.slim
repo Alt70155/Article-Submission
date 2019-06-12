@@ -6,9 +6,11 @@ html
     link rel="stylesheet" href="../css/style.css"
     link rel="stylesheet" href="../css/code-highlight.css"
     script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
-    script src="../js/sidebar-fixed.js" defer="defer"
+    - if @page_name == "article"
+      script src="../js/sidebar-fixed.js" defer="defer"
+      script src="../js/code-block-width-value-change.js" defer="defer"
   body id="#{@page_name}"
-    / イコールを2個にしないとslimではエスケープされてしまう
+    / イコールを2個にしないとslimではエスケープされる
     /! --header--
     == slim :"partial/_header"
 

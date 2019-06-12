@@ -1,12 +1,12 @@
 h2.other-title その他記事
 .container
-- @other_articles.each do |article|
-  a.article-item.other-article-item.box.fly href="../articles/#{article.id}"
-    article.article-inside
-      img alt="" src="../img/#{article.top_picture}" /
-      p
-        span.date
-          | Posted on #{article.created_at.strftime('%Y/%m/%d')}
-        br/
-        = article.title
+  - @other_articles.each do |article|
+    a.article-item.other-article-item.box.fly href="../articles/#{article.id}"
+      article.article-inside
+        img alt="" src="../img/#{article.top_picture}" /
+        p
+          span.date
+            | Posted on #{article.created_at.strftime('%Y/%m/%d')}
+          br/
+          = article.title
 h2.other-title.display-none その他コンテンツ

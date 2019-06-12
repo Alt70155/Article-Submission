@@ -1,3 +1,4 @@
+- @page_name = "article"
 .main-aside-wrap
   .text-content
     .article-title
@@ -8,5 +9,6 @@
 
     .article-main-contents
       == markdown(@post.body)
+
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"

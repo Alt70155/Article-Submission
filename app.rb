@@ -48,6 +48,7 @@ get '/category/:cate_name' do
 end
 
 get '/articles/:id' do
+  @page_name = 'article'
   if params[:id].to_i > Post.count
     slim :not_found
   else
@@ -60,6 +61,7 @@ get '/articles/:id' do
 end
 
 post '/article_post' do
+  @page_name = 'article'
   # 画像ファイル自体はモデルを持っていないため、存在チェックをコントローラで行う
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
@@ -95,7 +97,7 @@ post '/article_post' do
       end
       @category = Category.all
       # エラーメッセージを表示させたいのでレンダーする
-      slim :create_article
+      slim :create_article, layout: nil
     end
   else
     redirect '/'
@@ -103,6 +105,7 @@ post '/article_post' do
 end
 
 post '/article_prev' do
+  @page_name = 'article'
   if params[:file]
     @post = Post.new(
       id:      Post.count + 1, # ダミー

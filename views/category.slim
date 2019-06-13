@@ -1,1 +1,23 @@
-div= @post_by_category.count
+- @page_name = "index"
+
+p.page-title= @cate_name
+
+.container
+  - @post_by_category.each do |article|
+    a.article-item.box.fly href="../articles/#{article.id}"
+      article.article-inside
+        img src="../img/#{article.top_picture}" alt="記事サムネイル"
+        p
+          span.date Posted on #{article.created_at.strftime('%Y/%m/%d')}
+          br
+
+  /! ダミー記事
+  - 2.times do
+    article.article-item.hidden-item
+      div.article-inside
+        a href="#"
+          img src="../img/header.jpg" alt=""
+        p
+          a href="#"
+          br
+          span class="date"

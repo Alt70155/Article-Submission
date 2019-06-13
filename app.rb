@@ -31,17 +31,17 @@ get '/create_article' do
 end
 
 get '/category/:cate_name' do
-  cate_name = case params[:cate_name]
-              when 'html-css'   then 'HTML/CSS'
-              when 'javascript' then 'JavaScript'
-              when 'site'       then 'サイト運営'
-              when 'etc'        then '他記事'
-              else nil
-              end
-  if cate_name.nil?
+  # URLに指定されたカテゴリーを変換
+  @cate_name = case params[:cate_name]
+               when 'html-css'   then 'HTML/CSS'
+               when 'javascript' then 'JavaScript'
+               when 'site'       then 'サイト運営'
+               when 'etc'        then '他記事'
+               end
+  if @cate_name.nil?
     slim :error
   else
-    selected_cate_id = Category.find_by(cate_name: cate_name).category_id
+    selected_cate_id = Category.find_by(cate_name: @cate_name).category_id
     @post_by_category = Post.where(category_id: selected_cate_id)
     slim :category
   end

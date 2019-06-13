@@ -3,12 +3,21 @@ html
   head
     meta charset="utf-8"
     title Sample Sinatra
+    meta http-equiv="x-ua-compatible" content="ie=edge"
     link rel="stylesheet" href="../css/style.css"
     link rel="stylesheet" href="../css/code-highlight.css"
-    script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Kaushan+Script|Ropa+Sans"
+    link rel="shortcut icon" href="../img/favicon.png"
     - if @page_name == "article"
+      script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
       script src="../js/sidebar-fixed.js" defer="defer"
       script src="../js/code-block-width-value-change.js" defer="defer"
+      meta name="twitter:card" content="summary"
+      meta name="twitter:site" content="@70155"
+      meta property="og:url"   content="http://Knowledge-blog.net/articles/#{@post.id}"
+      meta property="og:title" content="#{@post.title}"
+      meta property="og:image" content="http://Knowledge-blog.net/img/#{@post.top_picture}"
+      meta property="og:description" content=""
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる
     /! --header--

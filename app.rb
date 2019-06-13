@@ -49,6 +49,7 @@ end
 
 get '/articles/:id' do
   @post = Post.find(params[:id])
+  # その他記事を降順で6個取得
   @other_articles = Post.order('id DESC').first(6)
   @category = Category.where(category_id: @post.category_id)
   slim :articles
@@ -129,4 +130,9 @@ post '/article_prev' do
   else
     redirect '/'
   end
+end
+
+get '/profile' do
+  @page_name = 'Profile'
+  slim :profile, layout: nil
 end

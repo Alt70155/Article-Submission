@@ -1,0 +1,90 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Sample Sinatra
+    meta http-equiv="x-ua-compatible" content="ie=edge"
+    link rel="stylesheet" href="../css/profile.css"
+    link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Kaushan+Script|Ropa+Sans"
+    link rel="shortcut icon" href="../img/favicon.png"
+  body#Profile
+    .mask
+      /! header
+      header
+        .nav-flex
+          h1.top
+          ul.global-nav
+            li
+              a href="/" Blog
+            li
+              a href="profile" Profile
+            li
+              a href="portfolio" Portfolio
+      /! wrapper
+      #wrap
+        .content
+          .main-center
+            section
+              h1 専門学生のWEB開発・技術系ブログ
+              p.title About
+              p
+                | 主にWeb関連について勉強している専門学生です。
+                br/
+                | プログラミングで作ったものなどをポートフォリオとして載せたり、それについての記事や勉強したことを書いています！
+                br/
+                | フロントエンドからバックエンドにかけて全般的な知識と技術の基礎を学びつつ、それを使って何か作ったりするのが好きです。
+                br/
+                | 現在CentOS・Apache・静的サイトジェネレータMiddlemanを用いて自宅サーバにてサイト運営中
+              a.square_btn href="/"  記事一覧へ
+              a.square_btn href="portfolio"  Portfolioへ
+            section.prof
+              p.title Profile
+              table
+                tr
+                  th Age
+                  td 20
+                tr
+                  th Skill / Study
+                  td
+                    | 少し：C・Java・Python・SQL
+                    br/
+                    | ある程度：HTML/CSS
+                    br/
+                    | そこそこ：JavaScript・Ruby
+                    br/
+                    | その他：Rails,　Sinatra,　CentOS7,　Webサーバー構築,　Webセキュリティ,　オブジェクト指向設計 など
+                tr
+                  th Hobby
+                  td プログラミング　自作PC　洋画　アニメ鑑賞　EDM
+            section
+              p.title Other
+              .sns
+                p Twitter 
+                .sns-twi
+                  a href="https://twitter.com/70155" rel="noopener" target="_blank"
+                    img.twi-image alt="twitter" src="../img/twi_link.png" /
+                p   GitHub
+                a href="https://github.com/Alt70155" rel="noopener" target="_blank"
+                  img.github-image alt="github" src="../img/github_link.png" /
+            section
+              p.title Recent Technology Preferences
+              ul.recent-tech-preferences
+                li 2019/5/18〜　Sinatra
+                li 2019/4/1〜　Ruby on Rails
+      /! footer
+      footer
+        small (C)2018-2019 knowledge-Blog.
+    javascript:
+      (() => {
+        const str = "Knowledge of Programming"
+        const topTitle = document.querySelector('.top')
+        let ct = 0
+        const id = setInterval(() => {
+          const char = document.querySelector('.char')
+          if (char) char.classList.remove('char')
+          topTitle.innerHTML = `${topTitle.innerHTML}<span class='char'>${str[ct++]}</span>`
+          if (ct === str.length) {
+            clearInterval(id)
+          }
+        }, 85)
+      })()

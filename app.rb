@@ -21,7 +21,7 @@ use Rack::Flash # flashはセッションを使うためenable :sessionsの下�
 # set :session_secret, 'super secret'
 
 get '/' do
-  @post = Post.all
+  @post = Post.order('id DESC')
   slim :index
 end
 
@@ -39,7 +39,7 @@ get '/category/:cate_name' do
                when 'etc'        then '他記事'
                end
   if @cate_name.nil?
-    slim :error
+    slim :not_found
   else
     selected_cate_id = Category.find_by(cate_name: @cate_name).category_id
     @post_by_category = Post.where(category_id: selected_cate_id)
@@ -48,11 +48,15 @@ get '/category/:cate_name' do
 end
 
 get '/articles/:id' do
-  @post = Post.find(params[:id])
-  # その他記事を降順で6個取得
-  @other_articles = Post.order('id DESC').first(6)
-  @category = Category.where(category_id: @post.category_id)
-  slim :articles
+  if params[:id].to_i > Post.count
+    slim :not_found
+  else
+    @post = Post.find(params[:id])
+    # その他記事を降順で6個取得
+    @other_articles = Post.order('id DESC').first(6)
+    @category = Category.where(category_id: @post.category_id)
+    slim :articles
+  end
 end
 
 post '/article_post' do
@@ -84,6 +88,7 @@ post '/article_post' do
       # プレビュー画面から修正に戻った場合
       if params[:back]
         File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
+        # 記事内画像名をセッションで受け取って削除
         session[:img_files]&.each do |img_name|
           File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
         end
@@ -125,7 +130,7 @@ post '/article_prev' do
     else
       # エラーメッセージを表示させたいのでレンダリング
       @category = Category.all
-      slim :create_article
+      slim :create_article, layout: nil
     end
   else
     redirect '/'
@@ -138,6 +143,6 @@ end
 
 get '/portfolio' do
   @page_name = 'portfolio'
-  @title = 'My Portfolio'
+  @title     = 'My Portfolio'
   slim :portfolio
 end

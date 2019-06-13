@@ -49,15 +49,11 @@ end
 
 get '/articles/:id' do
   @page_name = 'article'
-  if params[:id].to_i > Post.count
-    slim :not_found
-  else
-    @post = Post.find(params[:id])
-    # その他記事を降順で6個取得
-    @other_articles = Post.order('id DESC').first(6)
-    @category = Category.where(category_id: @post.category_id)
-    slim :articles
-  end
+  @post = Post.find(params[:id])
+  # その他記事を降順で6個取得
+  @other_articles = Post.order('id DESC').first(6)
+  @category = Category.where(category_id: @post.category_id)
+  slim :articles
 end
 
 post '/article_post' do

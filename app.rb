@@ -31,18 +31,14 @@ get '/create_article' do
 end
 
 get '/category/:cate_name' do
-  # URLに指定されたカテゴリーを変換
-  @cate_name = case params[:cate_name]
-               when 'html-css'   then 'HTML/CSS'
-               when 'javascript' then 'JavaScript'
-               when 'site'       then 'サイト運営'
-               when 'etc'        then '他記事'
-               end
-  if @cate_name.nil?
+  # URLに指定されたカテゴリー名を数字に置き換える
+  category_name_to_id = { 'html-css': 1, 'js': 2, 'site': 3, 'etc': 4 }
+  cate_id = category_name_to_id[params[:cate_name].to_sym]
+  if cate_id.nil?
     slim :not_found
   else
-    selected_cate_id = Category.find_by(cate_name: @cate_name).category_id
-    @post_by_category = Post.where(category_id: selected_cate_id)
+    @cate_name = Category.find(cate_id).cate_name
+    @post_by_category = Post.where(category_id: cate_id).order('id DESC')
     slim :category
   end
 end

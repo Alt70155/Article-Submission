@@ -5,7 +5,6 @@ html
     title Create Articles
     link rel="stylesheet" href="../css/create-article-style.css"
   body
-
     .error-messages-area
       - if !@post.nil? && @post.errors.messages
         ul
@@ -14,42 +13,42 @@ html
 
     h2.new-title 新しい記事投稿
 
-    form method="post" action="/article_post" enctype="multipart/form-data"
-      / nameの値をparamsで取得する
-      / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
-      .title-body-content
+    .form-wrap
+      form method="post" action="/article_post" enctype="multipart/form-data"
+        / nameの値をparamsで取得する
+        / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
         p タイトル
-        input.title type="text" name="title" value="#{@post.nil? ? '' : @post.title}"
+        input.title type="text" name="title" value="#{@post.nil? ? '' : @post.title}" placeholder="タイトル"
         br
         p 本文
-        textarea.body type="text" name="body" = @post.nil? ? '' : @post.body
+        textarea.body type="text" name="body" placeholder="記事を入力" = @post.nil? ? '' : @post.body
         br
 
-      p カテゴリーを選択
-      - @category.each_with_index do |cate, i|
-        - i += 1
-        - @post.nil? ? radio_val = 1 : radio_val = @post.category_id
-        p
-          - if i == radio_val
-            input type="radio" name="category_id" value="#{i}" checked="checked"
-          - else
-            input type="radio" name="category_id" value="#{i}"
-          = cate.cate_name
+        p カテゴリーを選択
+        - @category.each_with_index do |cate, i|
+          - i += 1
+          - @post.nil? ? radio_val = 1 : radio_val = @post.category_id
+          p
+            - if i == radio_val
+              input type="radio" name="category_id" value="#{i}" checked="checked"
+            - else
+              input type="radio" name="category_id" value="#{i}"
+            = cate.cate_name
 
-      p ・トップ画像
-      input id="top_picture" type="file" name="file" accept="image/*"
-      br
-      .article-imgs-input
-        p ・記事内画像
-        input id="article_img_files" type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
+        p ・トップ画像
+        input id="top_picture" type="file" name="file" accept="image/*"
         br
-        span#article_img_files_span.error-messages-area
-      br
-      / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
-      input class="input_submit" type="submit" value="投稿" name="submit" onclick="submitAction('/article_post')" disabled="disabled"
-      br
-      input class="input_submit" type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')" disabled="disabled"
-      br
+        .article-imgs-input
+          p ・記事内画像
+          input id="article_img_files" type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
+          br
+          span#article_img_files_span.error-messages-area
+        br
+        / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
+        input class="input_submit" type="submit" value="投稿" name="submit" onclick="submitAction('/article_post')" disabled="disabled"
+        br
+        input class="input_submit" type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')" disabled="disabled"
+        br
 
     javascript:
       const topPicture  = document.querySelector('#top_picture')

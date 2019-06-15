@@ -92,7 +92,7 @@ post '/article_post' do
       slim :create_article, layout: nil
     end
   else
-    redirect '/'
+    redirect '/create_article'
   end
 end
 
@@ -128,7 +128,7 @@ post '/article_prev' do
       slim :create_article, layout: nil
     end
   else
-    redirect '/'
+    redirect '/create_article'
   end
 end
 

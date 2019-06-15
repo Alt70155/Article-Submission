@@ -4,7 +4,6 @@ html
     meta charset="utf-8"
     title Create Articles
     link rel="stylesheet" href="../css/create-article-style.css"
-
   body
     h2.form-title Article Post
     .border
@@ -47,10 +46,11 @@ html
           span#article_img_files_span.error-messages-area
         br
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
-        input class="input_submit" type="submit" value="投稿" name="submit" onclick="submitAction('/article_post')" disabled="disabled"
-        br
-        input class="input_submit" type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')" disabled="disabled"
-        br
+        .submit-wrap
+          input class="submit-button" type="submit" value="投稿" name="submit" onclick="submitAction('/article_post')"
+          br
+          input class="submit-button" type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')"
+          br
 
     javascript:
       const topPicture  = document.querySelector('#top_picture')
@@ -63,7 +63,7 @@ html
       const submitAction = url => document.querySelector('form').setAttribute('action', url)
 
       const isSubmitDisable = isLockedSubmit => {
-        document.querySelectorAll('.input_submit').forEach(submitBtn => {
+        document.querySelectorAll('.submit-button').forEach(submitBtn => {
           submitBtn.disabled = isLockedSubmit
         })
       }

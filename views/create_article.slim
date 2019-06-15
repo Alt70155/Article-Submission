@@ -4,36 +4,38 @@ html
     meta charset="utf-8"
     title Create Articles
     link rel="stylesheet" href="../css/create-article-style.css"
+
   body
-    .error-messages-area
-      - if !@post.nil? && @post.errors.messages
-        ul
-        - @post.errors.full_messages.each do |error_message|
-          li= error_message
-
-    h2.new-title 新しい記事投稿
-
+    h2.form-title Article Post
+    .border
     .form-wrap
+      .error-messages-area
+        - if !@post.nil? && @post.errors.messages
+          ul
+          - @post.errors.full_messages.each do |error_message|
+            li= error_message
+
       form method="post" action="/article_post" enctype="multipart/form-data"
         / nameの値をparamsで取得する
         / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
-        p タイトル
+        / p タイトル
         input.title type="text" name="title" value="#{@post.nil? ? '' : @post.title}" placeholder="タイトル"
         br
-        p 本文
+        / p 本文
         textarea.body type="text" name="body" placeholder="記事を入力" = @post.nil? ? '' : @post.body
         br
 
-        p カテゴリーを選択
-        - @category.each_with_index do |cate, i|
-          - i += 1
-          - @post.nil? ? radio_val = 1 : radio_val = @post.category_id
-          p
+        p ・カテゴリーを選択
+        .radio
+          - @category.each_with_index do |cate, i|
+            - i += 1
+            / 修正から戻った場合はそのカテゴリーを、無ければ1を選択する
+            - radio_val = @post.nil? ? 1 : @post.category_id
             - if i == radio_val
-              input type="radio" name="category_id" value="#{i}" checked="checked"
+              input type="radio" name="category_id" value="#{i}" id="radio_#{i}" class="radio-input" checked="checked"
             - else
-              input type="radio" name="category_id" value="#{i}"
-            = cate.cate_name
+              input type="radio" name="category_id" value="#{i}" id="radio_#{i}" class="radio-input"
+            label for="radio_#{i}" = cate.cate_name
 
         p ・トップ画像
         input id="top_picture" type="file" name="file" accept="image/*"

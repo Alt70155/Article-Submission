@@ -12,6 +12,8 @@ require 'rack-flash'
 
 require './helpers/img_valid?.rb'
 require './helpers/markdown.rb'
+require './helpers/current_user.rb'
+require './helpers/login_required.rb'
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
@@ -22,6 +24,8 @@ Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local
 
 enable :sessions
+# put/deleteフォームをサポートしないブラウザで_methodのおまじないを使えるようにする
+enable :method_override
 use Rack::Flash # flashはセッションを使うためenable :sessionsの下に書く
 # use Rack::Session::Cookie
 # クッキー内のセッションデータはセッション秘密鍵(session secret)で署名されます。
@@ -35,12 +39,9 @@ get '/' do
   slim :index
 end
 
-get '/create_article' do
-  @category = Category.all
-  slim :create_article, layout: nil
-end
 
 get '/category/:cate_name' do
+  @page_name = 'index'
   # URLに指定されたカテゴリー名を数字に置き換える
   category_name_to_id = { 'html-css': 1, 'js': 2, 'site': 3, 'etc': 4 }
   cate_id = category_name_to_id[params[:cate_name].to_sym]
@@ -53,6 +54,12 @@ get '/category/:cate_name' do
   end
 end
 
+get '/create_article' do
+  login_required
+  @category = Category.all
+  slim :create_article, layout: nil
+end
+
 get '/articles/:id' do
   @page_name = 'article'
   @post = Post.find(params[:id])
@@ -63,6 +70,7 @@ get '/articles/:id' do
 end
 
 post '/article_post' do
+  login_required
   @page_name = 'article'
   # 画像ファイル自体はモデルを持っていないため、存在チェックをコントローラで行う
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
@@ -107,6 +115,7 @@ post '/article_post' do
 end
 
 post '/article_prev' do
+  login_required
   @page_name = 'article'
   if params[:file]
     @post = Post.new(
@@ -150,4 +159,27 @@ get '/portfolio' do
   @page_name = 'portfolio'
   @title     = 'My Portfolio'
   slim :portfolio
+end
+
+# ---- ログイン機能 ----
+
+get '/login' do
+  slim :login, layout: nil
+end
+
+post '/login' do
+  user = User.find_by(user_id: params[:user_id])
+
+  # ユーザーが存在すればパスワードを比較
+  if user&.authenticate(params[:password])
+    session[:user_id] = user.user_id
+    redirect '/create_article'
+  else
+    slim :login, layout: nil
+  end
+end
+
+delete '/logout' do
+  session.clear
+  redirect 'login'
 end

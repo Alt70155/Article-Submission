@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'redcarpet'
 require 'rack-flash'
+require 'bcrypt'
 Bundler.require
 require './app.rb'
 require './models/posts.rb'

@@ -2,14 +2,15 @@
 
 source "https://rubygems.org"
 
+gem 'activerecord'
+gem 'bcrypt'
+gem 'minitest'
+gem 'mysql2'
+gem 'rack-flash3'
+gem 'rack-test'
+gem 'rake'
+gem 'redcarpet'
 gem 'sinatra'
+gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
 gem 'slim'
-gem 'activerecord'
-gem 'sinatra-activerecord'
-gem 'mysql2'
-gem 'redcarpet'
-gem 'minitest'
-gem 'rake'
-gem 'rack-test'
-gem 'rack-flash3'

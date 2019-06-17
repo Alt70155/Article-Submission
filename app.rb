@@ -7,6 +7,7 @@ require 'sinatra/activerecord'
 require 'redcarpet'
 require './models/posts.rb'
 require './models/categories.rb'
+require './models/users.rb'
 require 'rack-flash'
 
 require './helpers/img_valid?.rb'
@@ -22,6 +23,7 @@ use Rack::Flash # flashはセッションを使うためenable :sessionsの下�
 
 get '/' do
   @post = Post.order('id DESC')
+  @page_name = 'index'
   slim :index
 end
 

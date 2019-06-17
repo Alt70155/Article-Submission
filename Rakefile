@@ -1,4 +1,6 @@
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
+require 'bcrypt'
 require './models/posts.rb'
 require './models/categories.rb'
+require './models/users.rb'

@@ -39,7 +39,6 @@ get '/' do
   slim :index
 end
 
-
 get '/category/:cate_name' do
   @page_name = 'index'
   # URLに指定されたカテゴリー名を数字に置き換える

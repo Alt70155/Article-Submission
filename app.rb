@@ -13,6 +13,14 @@ require 'rack-flash'
 require './helpers/img_valid?.rb'
 require './helpers/markdown.rb'
 
+# database.ymlを読み込み
+ActiveRecord::Base.configurations = YAML.load_file('database.yml')
+# developmentを設定
+ActiveRecord::Base.establish_connection(:development)
+# タイムゾーン指定
+Time.zone = 'Tokyo'
+ActiveRecord::Base.default_timezone = :local
+
 enable :sessions
 use Rack::Flash # flashはセッションを使うためenable :sessionsの下に書く
 # use Rack::Session::Cookie

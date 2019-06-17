@@ -11,5 +11,6 @@ Bundler.require
 require './app.rb'
 require './models/posts.rb'
 require './models/categories.rb'
+require './models/users.rb'
 
 run Sinatra::Application

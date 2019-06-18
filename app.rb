@@ -39,6 +39,8 @@ get '/' do
   slim :index
 end
 
+# ---- カテゴリー ----
+
 get '/category/:cate_name' do
   @page_name = 'index'
   # URLに指定されたカテゴリー名を数字に置き換える
@@ -58,6 +60,8 @@ get '/create_article' do
   @category = Category.all
   slim :create_article, layout: nil
 end
+
+# ---- 記事関連 ----
 
 get '/articles/:id' do
   @page_name = 'article'
@@ -150,16 +154,6 @@ post '/article_prev' do
   end
 end
 
-get '/profile' do
-  slim :profile, layout: nil
-end
-
-get '/portfolio' do
-  @page_name = 'portfolio'
-  @title     = 'My Portfolio'
-  slim :portfolio
-end
-
 # ---- ログイン機能 ----
 
 get '/login' do
@@ -179,6 +173,19 @@ post '/login' do
 end
 
 delete '/logout' do
+  login_required
   session.clear
   redirect 'login'
+end
+
+# ---- その他ルーティング ----
+
+get '/profile' do
+  slim :profile, layout: nil
+end
+
+get '/portfolio' do
+  @page_name = 'portfolio'
+  @title     = 'My Portfolio'
+  slim :portfolio
 end

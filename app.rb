@@ -10,11 +10,8 @@ require './models/posts.rb'
 require './models/categories.rb'
 require './models/users.rb'
 require 'rack-flash'
-
-require './helpers/img_valid?.rb'
-require './helpers/markdown.rb'
-require './helpers/current_user.rb'
-require './helpers/login_required.rb'
+# helperを全て読み込み
+Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
@@ -56,11 +53,6 @@ get '/category/:cate_name' do
   end
 end
 
-get '/create_article' do
-  login_required
-  @category = Category.all
-  slim :create_article, layout: nil
-end
 
 # ---- 記事関連 ----
 
@@ -76,13 +68,20 @@ get '/articles/:id' do
   end
 end
 
+get '/create_article' do
+  login_required
+  csrf_token_generate
+  @category = Category.all
+  slim :create_article, layout: nil
+end
+
 post '/article_post' do
   login_required
   @page_name = 'article'
   # 画像ファイル自体はモデルを持っていないため、存在チェックをコントローラで行う
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
-  if params[:file] || params[:pic_name]
+  if params[:file] || params[:pic_name] && params[:csrf_token] == session[:csrf_token]
     pic_name = params[:pic_name] || params[:file][:filename]
     @post = Post.new(
       category_id: params[:category_id],
@@ -113,7 +112,7 @@ post '/article_post' do
         end
       end
       @category = Category.all
-      # エラーメッセージを表示させたいのでレンダーする
+      # エラーメッセージを表示させたいのでレンダー
       slim :create_article, layout: nil
     end
   else
@@ -124,7 +123,8 @@ end
 post '/article_prev' do
   login_required
   @page_name = 'article'
-  if params[:file]
+  if params[:file] && params[:csrf_token] == session[:csrf_token]
+    csrf_token_generate
     @post = Post.new(
       id:      Post.count + 1, # ダミー
       category_id: params[:category_id],
@@ -153,6 +153,7 @@ post '/article_prev' do
       @category = Category.all
       slim :create_article, layout: nil
     end
+
   else
     redirect '/create_article'
   end
@@ -167,7 +168,7 @@ end
 post '/login' do
   user = User.find_by(user_id: params[:user_id])
 
-  # ユーザーが存在すればパスワードを比較
+  # ユーザーが存在すればパスワードを比較する
   if user&.authenticate(params[:password])
     session[:user_id] = user.user_id
     redirect '/create_article'

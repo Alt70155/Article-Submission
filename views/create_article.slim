@@ -15,6 +15,7 @@ html
             li= error_message
 
       form method="post" action="/article_post" enctype="multipart/form-data"
+        input type="hidden" name="csrf_token" value="#{@csrf_token}"
         / nameの値をparamsで取得する
         / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
         / p タイトル

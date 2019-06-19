@@ -5,6 +5,7 @@ require 'slim'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'redcarpet'
+require 'bcrypt'
 require './models/posts.rb'
 require './models/categories.rb'
 require './models/users.rb'
@@ -179,6 +180,10 @@ delete '/logout' do
 end
 
 # ---- その他ルーティング ----
+
+not_found do
+  slim :not_found
+end
 
 get '/profile' do
   slim :profile, layout: nil

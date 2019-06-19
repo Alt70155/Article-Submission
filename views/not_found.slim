@@ -1,2 +1,28 @@
+css:
+  .not-found-content {
+    text-align: center;
+    max-width: 1000px;
+    height: auto;
+  }
+  .not-found-title {
+    color: grey;
+  }
+  .face {
+    margin-top: -20px;
+    margin-bottom: -40px;
+    font-size: 110px;
+    color: grey;
+  }
+
 .container
-  h1.black 404 Not Found
+  .not-found-content
+    h1.black.face
+    br
+    p.black.not-found-title Not Found...
+
+javascript:
+  const face = document.querySelector('.face')
+  const faceList = ["(˚Δ˚)b", "(｀・∀・´)", "(´・ω・｀)", "( ´ ▽ ` )", "ヽ( ﾟ∀ﾟ)人(ﾟ∀ﾟ )ﾒ",
+  "(゜_゜)", "(ﾉ´Д`)"]
+  const getRandomInt = max => Math.floor(Math.random() * Math.floor(max))
+  face.textContent = faceList[getRandomInt(faceList.length)]

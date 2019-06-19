@@ -1,9 +1,11 @@
-h1.black ログイン
+h1 ログイン
 
 form method="post" action="/login"
   p ユーザーID
-  input.title type="text" name="user_id"
+  input type="text" name="user_id"
   p パスワード
-  input.title type="password" name="password"
+  input type="password" name="password"
   br
   input type="submit" value="ログイン" name="submit"
+
+h1= @x

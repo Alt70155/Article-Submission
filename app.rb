@@ -47,12 +47,12 @@ get '/category/:cate_name' do
   # URLに指定されたカテゴリー名を数字に置き換える
   category_name_to_id = { 'html-css': 1, 'js': 2, 'site': 3, 'etc': 4 }
   cate_id = category_name_to_id[params[:cate_name].to_sym]
-  if cate_id.nil?
-    slim :not_found
-  else
+  if cate_id
     @cate_name = Category.find(cate_id).cate_name
     @post_by_category = Post.where(category_id: cate_id).order('id DESC')
     slim :category
+  else
+    slim :not_found
   end
 end
 
@@ -66,11 +66,14 @@ end
 
 get '/articles/:id' do
   @page_name = 'article'
-  @post = Post.find(params[:id])
-  # その他記事を降順で6個取得
-  @other_articles = Post.order('id DESC').first(6)
-  @category = Category.where(category_id: @post.category_id)
-  slim :articles
+  @post = Post.find_by(id: params[:id])
+  if @post
+    # その他記事を降順で6個取得
+    @other_articles = Post.order('id DESC').first(6)
+    slim :articles
+  else
+    slim :not_found
+  end
 end
 
 post '/article_post' do
@@ -83,8 +86,8 @@ post '/article_post' do
     pic_name = params[:pic_name] || params[:file][:filename]
     @post = Post.new(
       category_id: params[:category_id],
-      title: params[:title],
-      body: params[:body],
+      title:       params[:title],
+      body:        params[:body],
       top_picture: pic_name
     )
 
@@ -125,8 +128,8 @@ post '/article_prev' do
     @post = Post.new(
       id:      Post.count + 1, # ダミー
       category_id: params[:category_id],
-      title:   params[:title],
-      body:    params[:body],
+      title:       params[:title],
+      body:        params[:body],
       top_picture: params[:file][:filename]
     )
 

@@ -142,7 +142,7 @@ post '/article_prev' do
     if img_valid?(@post.body, img_files) && @post.valid?
       File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
       if img_files
-        # 修正に戻った場合、記事内画像ファイルの名前をセッションで保持し、削除する
+        # 修正に戻った場合、記事内画像を削除するためにセッションでファイル名を保持する
         session[:img_files] = []
         img_files.each do |img|
           File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }

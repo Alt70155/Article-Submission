@@ -1,9 +1,44 @@
-h1 ログイン
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title Sample Sinatra
+    meta http-equiv="x-ua-compatible" content="ie=edge"
+    css:
+      .wrap {
+        max-width: 600px;
+        height: auto;
+        margin: auto;
+      }
 
-form method="post" action="/login"
-  p ユーザーID
-  input type="text" name="user_id"
-  p パスワード
-  input type="password" name="password"
-  br
-  input type="submit" value="ログイン" name="submit"
+      input[type='text'], input[type='password'] {
+        font-size: 18px;
+        box-sizing: border-box;
+        width: 100%;
+        height: 35px;
+        margin-bottom: 20px;
+      }
+
+      .submit-button {
+        padding: 10px 20px;
+        background-color: white;
+        border-style: none;
+        border: 1px solid grey;
+        border-radius: 4px 4px;
+        margin-top: 40px;
+      }
+
+      .submit-button:hover {
+        background-color: #d3d3d3;
+      }
+
+  body
+    .wrap
+      h1 ログイン
+      form method="post" action="/login"
+        p ユーザーID
+        input type="text" name="user_id"
+        p パスワード
+        input type="password" name="password"
+        br
+        input.submit-button type="submit" value="ログイン" name="submit"

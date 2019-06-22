@@ -116,7 +116,10 @@ post '/article_post' do
       slim :create_article, layout: nil
     end
   else
-    redirect '/create_article'
+    # redirect '/create_article'
+    @category = Category.all
+    # エラーメッセージを表示させたいのでレンダー
+    slim :create_article, layout: nil
   end
 end
 

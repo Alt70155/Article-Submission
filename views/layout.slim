@@ -8,7 +8,7 @@ html
     link rel="stylesheet" href="../css/code-highlight.css"
     link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata|Kaushan+Script|Ropa+Sans"
     link rel="shortcut icon" href="../img/favicon.png"
-    - if @page_name == "article"
+    - if @page_name == "article" && @post
       script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
       script (src="../js/sidebar-fixed.js" defer)
       script (src="../js/code-block-width-value-change.js" defer)

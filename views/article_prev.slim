@@ -11,10 +11,10 @@
 
     form method="post" action="/article_post"
       input    type="hidden" name="csrf_token"  value="#{@csrf_token}"
-      input    type="text"   name="title"       style="display: none;" value="#{@post.title}"
-      textarea type="text"   name="body"        style="display: none;" #{@post.body}
+      input    type="hidden" name="title"       value="#{@post.title}"
+      textarea type="hidden" name="body"        style="display: none;" #{@post.body}
       input    type="radio"  name="category_id" style="display: none;" value="#{@post.category_id}" checked="checked"
-      input    type="text"   name="pic_name"    style="display: none;" value="#{@post.top_picture}"
+      input    type="hidden" name="pic_name"    value="#{@post.top_picture}"
       input    type="submit" id="input_submit"  value="投稿"
       br
       input    type="submit" name="back" id="input_submit" value="修正"

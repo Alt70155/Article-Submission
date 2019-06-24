@@ -77,8 +77,6 @@ end
 post '/article_post' do
   login_required
   @page_name = 'article'
-  @x = params[:csrf_token]
-  @y = session[:csrf_token]
   # csrf対策
   redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
 

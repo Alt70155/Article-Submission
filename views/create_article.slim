@@ -5,8 +5,6 @@ html
     title Create Articles
     link rel="stylesheet" href="../css/create-article-style.css"
   body
-    h2.black= "params#{@x} session#{@y}"
-    h2.black= @x == @y
     h2.form-title Article Post
     .border
     .form-wrap
@@ -44,7 +42,7 @@ html
         br
         .article-imgs-input
           p ・記事内画像
-          input#article_img_files type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
+          input#article_img_files type="file" name="article_img_files[]" multiple="multiple" accept="image/*" disabled="disabled"
         br
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
         .submit-wrap
@@ -60,5 +58,16 @@ html
         input.submit-button.logout  type="submit" value="ログアウト"
 
     javascript:
+      const articleImg = document.querySelector('#article_img_files')
+      const textArea   = document.querySelector('textarea')
+      const form       = document.querySelector('form')
+
       // 投稿か修正かでサブミット先を変更する
-      const submitAction = url => document.querySelector('form').setAttribute('action', url)
+      const submitAction = url => form.setAttribute('action', url)
+
+      // 記事内画像![]()を検索してsubmitの表示を切り替える 画像タグのカッコの間に空白が入るとNG
+      const inArticleImgJudge = () => articleImg.disabled = !(textArea.value.match(/!\[\S*\]\(\S*\)/g))
+
+      textArea.addEventListener('keyup', inArticleImgJudge)
+      articleImg.addEventListener('change', inArticleImgJudge)
+      inArticleImgJudge()

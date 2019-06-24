@@ -5,6 +5,8 @@ html
     title Create Articles
     link rel="stylesheet" href="../css/create-article-style.css"
   body
+    h2.black= "params#{@x} session#{@y}"
+    h2.black= @x == @y
     h2.form-title Article Post
     .border
     .form-wrap

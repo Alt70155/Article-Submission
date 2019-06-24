@@ -53,8 +53,7 @@ get '/category/:cate_name' do
   end
 end
 
-
-# ---- 記事関連 ----
+# ---- 記事投稿関連 ----
 
 get '/articles/:id' do
   @page_name = 'article'
@@ -78,88 +77,82 @@ end
 post '/article_post' do
   login_required
   @page_name = 'article'
-  # 画像ファイル自体はモデルを持っていないため、存在チェックをコントローラで行う
+  @x = params[:csrf_token]
+  @y = session[:csrf_token]
+  # csrf対策
+  redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
+
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
-  if params[:file] || params[:pic_name] && params[:csrf_token] == session[:csrf_token]
-    pic_name = params[:pic_name] || params[:file][:filename]
-    @post = Post.new(
-      category_id: params[:category_id],
-      title:       params[:title],
-      body:        params[:body],
-      top_picture: pic_name
-    )
+  file = params[:file]
+  top_pic_name = params[:pic_name] || (file ? file[:filename] : nil)
+  @post = Post.new(
+    category_id: params[:category_id],
+    title:       params[:title],
+    body:        params[:body],
+    top_picture: top_pic_name
+  )
 
-    img_files = params[:article_img_files]
-    if params[:back].nil? && img_valid?(@post.body, img_files) && @post.save
-      # top画像ファイル保存
-      if params[:file]
-        File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
-      end
-      # 記事内画像があればそれも保存
-      img_files&.each do |img|
-        File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-      end
-      flash[:notice] = '投稿完了'
-      redirect "/articles/#{@post.id}"
-    else
-      # プレビュー画面から修正に戻った場合
-      if params[:back]
-        File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
-        # 記事内画像名をセッションで受け取って削除
-        session[:img_files]&.each do |img_name|
-          File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
-        end
-      end
-      @category = Category.all
-      # エラーメッセージを表示させたいのでレンダー
-      slim :create_article, layout: nil
+  if params[:back].nil? && img_valid?(@post.body, params[:article_img_files]) && @post.save
+    # top画像ファイル保存
+    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(file[:tempfile].read) } if file
+    # 記事内画像があればそれも保存
+    params[:article_img_files]&.each do |img|
+      File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
     end
+    # flash[:notice] = '投稿完了'
+    redirect "/articles/#{@post.id}"
   else
-    # top_pictureがない場合のエラーを生成
-    @post = Post.create(category_id: 1, title: params[:title], body: params[:body])
+    # プレビュー画面から修正に戻った場合
+    if params[:back]
+      File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
+      # 記事内画像名をセッションで受け取って削除
+      session[:img_files]&.each do |img_name|
+        File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
+      end
+      # プレビューから戻った場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られない。
+      # そのためもう一度作成する
+      csrf_token_generate
+    end
+
     @category = Category.all
+    # エラーメッセージを表示させたいのでレンダー
     slim :create_article, layout: nil
   end
 end
 
 post '/article_prev' do
   login_required
+  redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
+  csrf_token_generate
   @page_name = 'article'
-  if params[:file] && params[:csrf_token] == session[:csrf_token]
-    csrf_token_generate
-    @post = Post.new(
-      id:          Post.count + 1, # ダミー
-      category_id: params[:category_id],
-      title:       params[:title],
-      body:        params[:body],
-      top_picture: params[:file][:filename]
-    )
 
-    img_files = params[:article_img_files]
-    # プレビューなので保存しないでvalid?だけチェックし、画像は保存する
-    # 画像タグがない かつ 画像がなければ画像の検査はしない　それ以外の場合は全て画像を検査する
-    if img_valid?(@post.body, img_files) && @post.valid?
-      File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
-      if img_files
-        # 修正に戻った場合、記事内画像を削除するためにセッションでファイル名を保持する
-        session[:img_files] = []
-        img_files.each do |img|
-          File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-          session[:img_files] << img[:filename]
-        end
+  file = params[:file]
+  top_pic_name = file ? file[:filename] : nil
+  @post = Post.new(
+    id:          Post.count + 1, # ダミー
+    category_id: params[:category_id],
+    title:       params[:title],
+    body:        params[:body],
+    top_picture: top_pic_name
+  )
+
+  img_files = params[:article_img_files]
+  # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
+  if img_valid?(@post.body, img_files) && @post.valid?
+    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(file[:tempfile].read) }
+    if img_files
+      # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
+      session[:img_files] = []
+      img_files.each do |img|
+        File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
+        session[:img_files] << img[:filename]
       end
-      @category = Category.where(category_id: @post.category_id)
-      slim :article_prev
-    else
-      # エラーメッセージを表示させたいのでレンダリング
-      @category = Category.all
-      slim :create_article, layout: nil
     end
-
+    @category = Category.where(category_id: @post.category_id)
+    slim :article_prev
   else
-    # top_pictureがない場合のエラーを生成
-    @post = Post.create(category_id: 1, title: params[:title], body: params[:body])
+    # エラーメッセージを表示させたいのでレンダリング
     @category = Category.all
     slim :create_article, layout: nil
   end

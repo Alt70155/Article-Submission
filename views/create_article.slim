@@ -43,18 +43,20 @@ html
         .article-imgs-input
           p ・記事内画像
           input#article_img_files type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
-          br
-          span#article_img_files_span.error-messages-area
         br
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
         .submit-wrap
-          input.submit-button type="submit" value="投稿"      name="submit" onclick="submitAction('/article_post')"
+          input#submit.submit-button type="submit" value="投稿"      name="submit" onclick="submitAction('/article_post')"
           br
-          input.submit-button type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')"
+          input#submit.submit-button type="submit" value="プレビュー" name="submit" onclick="submitAction('/article_prev')"
           br
 
       form method="post" action="/logout"
         / deleteメソッドを使う場合はコントローラでenable :method_overrideを記述する必要がある
         input name="_method" type="hidden" value="DELETE"
         br
-        input.submit-button  type="submit" value="ログアウト"
+        input.submit-button.logout  type="submit" value="ログアウト"
+
+    javascript:
+      // 投稿か修正かでサブミット先を変更する
+      const submitAction = url => document.querySelector('form').setAttribute('action', url)

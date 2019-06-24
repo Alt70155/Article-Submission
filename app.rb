@@ -116,9 +116,9 @@ post '/article_post' do
       slim :create_article, layout: nil
     end
   else
-    # redirect '/create_article'
+    # top_pictureがない場合のエラーを生成
+    @post = Post.create(category_id: 1, title: params[:title], body: params[:body])
     @category = Category.all
-    # エラーメッセージを表示させたいのでレンダー
     slim :create_article, layout: nil
   end
 end
@@ -129,7 +129,7 @@ post '/article_prev' do
   if params[:file] && params[:csrf_token] == session[:csrf_token]
     csrf_token_generate
     @post = Post.new(
-      id:      Post.count + 1, # ダミー
+      id:          Post.count + 1, # ダミー
       category_id: params[:category_id],
       title:       params[:title],
       body:        params[:body],
@@ -158,7 +158,10 @@ post '/article_prev' do
     end
 
   else
-    redirect '/create_article'
+    # top_pictureがない場合のエラーを生成
+    @post = Post.create(category_id: 1, title: params[:title], body: params[:body])
+    @category = Category.all
+    slim :create_article, layout: nil
   end
 end
 

@@ -1,23 +1,18 @@
-require 'rubygems'
-require 'bundler'
 require 'sinatra'
 require 'slim'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'redcarpet'
 require 'bcrypt'
-require './models/posts.rb'
-require './models/categories.rb'
-require './models/users.rb'
 require 'rack-flash'
 # helperを全て読み込み
 Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 # developmentを設定
 ActiveRecord::Base.establish_connection(:development)
-# タイムゾーン指定
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local
 
@@ -124,7 +119,6 @@ post '/article_prev' do
   redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
   csrf_token_generate
   @page_name = 'article'
-
   file = params[:file]
   top_pic_name = file ? file[:filename] : nil
   @post = Post.new(

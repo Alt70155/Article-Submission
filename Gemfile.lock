@@ -29,6 +29,9 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    racksh (1.0.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5)
     rake (12.3.2)
     redcarpet (3.4.0)
     sinatra (2.0.5)
@@ -65,6 +68,7 @@ DEPENDENCIES
   mysql2
   rack-flash3
   rack-test
+  racksh
   rake
   redcarpet
   sinatra

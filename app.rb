@@ -1,26 +1,8 @@
-require 'sinatra'
-require 'slim'
-require 'sinatra/reloader'
-require 'sinatra/activerecord'
-require 'redcarpet'
-require 'bcrypt'
-require 'rack-flash'
-# helperを全て読み込み
-Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each { |f| require f }
-Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
-
-# database.ymlを読み込み
-ActiveRecord::Base.configurations = YAML.load_file('database.yml')
-# developmentを設定
-ActiveRecord::Base.establish_connection(:development)
-Time.zone = 'Tokyo'
-ActiveRecord::Base.default_timezone = :local
-
 enable :sessions
 # put/deleteフォームをサポートしないブラウザで_methodのおまじないを使えるようにする
 enable :method_override
-use Rack::Flash # flashはセッションを使うためenable :sessionsの下に書く
-# use Rack::Session::Cookie
+# use Rack::Flash # flashはセッションを使うためenable :sessionsの下に書く
+use Rack::Session::Cookie
 # クッキー内のセッションデータはセッション秘密鍵(session secret)で署名されます。
 # Sinatraによりランダムな秘密鍵が個別に生成されるらしい
 # 個別で設定する場合は↓
@@ -109,7 +91,7 @@ post '/article_post' do
     end
 
     @category = Category.all
-    # エラーメッセージを表示させたいのでレンダー
+    # エラーメッセージor履歴を表示させたいのでレンダー
     slim :create_article, layout: nil
   end
 end

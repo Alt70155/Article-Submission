@@ -8,8 +8,9 @@ class UsersControllerTests < MiniTest::Test
   end
 
   def test_should_redirect_login_when_not_logged_in
-    # get '/create_article'
-    # assert last_response.body
+    get '/create_article'
+    follow_redirect!
+    assert last_response.body.include?('ログイン')
   end
 
   def test_should_login_create_article_page_when_correct_user
@@ -19,7 +20,7 @@ class UsersControllerTests < MiniTest::Test
       user_id:  'test',
       password: 'password'
     }
-    p last_response.body #=> 空文字""が返る
-    assert last_response.body.include?('Article Post') #=> false
+    follow_redirect!
+    assert last_response.body.include?('Article Post')
   end
 end

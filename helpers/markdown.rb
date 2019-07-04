@@ -2,7 +2,7 @@ helpers do
   def markdown(text)
     render_options = {
       filter_html: true, # htmlタグの入力を無効化(サニタイズ)
-      hard_wrap:   true # 空行を改行ではなく、改行を改行に変換
+      hard_wrap:   true  # 空行を改行ではなく、改行を改行に変換
     }
     renderer = Redcarpet::Render::HTML.new(render_options)
 

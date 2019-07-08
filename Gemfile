@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gem 'activerecord'
 gem 'bcrypt'
 gem 'minitest'
+gem 'minitest-reporters'
 gem 'mysql2'
 gem 'rack-flash3'
 gem 'rack-test'

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   ENABLE_EXTENSION_REGEXP = /.*\.(jpg|png|jpeg)\z/
+  CATEGORY_COUNT = Category
   validates :category_id, presence: true, numericality: { only_integer: true }
   validates :title, length: { in: 1..75 }
   validates :body,  length: { in: 1..20000 }

@@ -1,12 +1,6 @@
 require './test/test_helper.rb'
 
 class UsersControllerTests < MiniTest::Test
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
-  end
-
   def test_should_redirect_login_when_not_logged_in
     get '/create_article'
     follow_redirect!

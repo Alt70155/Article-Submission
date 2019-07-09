@@ -1,12 +1,6 @@
 require './test/test_helper.rb'
 
 class StaticPagesControllerTests < MiniTest::Test
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
-  end
-
   def test_should_get_index
     get '/'
     assert last_response.ok?

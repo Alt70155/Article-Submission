@@ -1,12 +1,6 @@
 require './test/test_helper.rb'
 
-class StaticPagesControllerTests < MiniTest::Test
-  include Rack::Test::Methods
-
-  def app
-    Sinatra::Application
-  end
-
+class PostTest < MiniTest::Test
   def setup
     @post = Post.new(
       category_id: 1,
@@ -50,7 +44,12 @@ class StaticPagesControllerTests < MiniTest::Test
     assert_equal false, @post.valid?
   end
 
-# todo category_idを1~4以下の数字のみにする
-# top_pictureのテストを書く
+  def test_top_picture_should_be_a_fixed_extension
+    @post.top_picture = 'aaaaa'
+    assert_equal false, @post.valid?
+    @post.top_picture = 'aaa.jpg.mov'
+    assert_equal false, @post.valid?
+  end
 
+# todo category_idを1~4以下の数字のみにする
 end

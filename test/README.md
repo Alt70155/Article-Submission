@@ -18,4 +18,10 @@ end
 bundle exec ruby test/static_pages_controller_test.rb
 ```
 
+rakeタスクでテストの一括実行
+
+```bash
+bundle exec rake test
+```
+
 http://sinatrab.com/testing.html

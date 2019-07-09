@@ -12,4 +12,20 @@ class MiniTest::Test
   def app
     Sinatra::Application
   end
+
+  def log_in_as_test_user
+    post '/login', params = {
+      user_id:  'test',
+      password: 'password'
+    }
+  end
+
+  def post_a_test_article
+    post '/article_post', params = {
+      category_id: 1,
+      title:       'Example Title',
+      body:        'Lorem ipsum...',
+      top_picture: 'example_picture.jpg'
+    }
+  end
 end

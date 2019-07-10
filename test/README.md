@@ -15,7 +15,7 @@ end
 ```
 
 ```bash
-bundle exec ruby test/static_pages_controller_test.rb
+bundle exec ruby test/
 ```
 
 rakeタスクでテストの一括実行

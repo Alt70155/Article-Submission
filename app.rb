@@ -60,7 +60,7 @@ post '/article_post' do
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
   file = params[:file]
-  top_pic_name = params[:pic_name] || (file ? file[:filename] : nil)
+  top_pic_name = params[:pic_name] || (file && file[:filename])
   @post = Post.new(
     category_id: params[:category_id],
     title:       params[:title],

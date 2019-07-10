@@ -24,7 +24,8 @@ class MiniTest::Test
     post '/article_post', params = {
       category_id: 1,
       title:       'Example Title',
-      body:        'Lorem ipsum...'
-    }, 'file': Rack::Test::UploadedFile.new('test/sample.jpg', 'image/jpeg')
+      body:        'Lorem ipsum...',
+      file:        Rack::Test::UploadedFile.new('test/sample.jpg', 'image/jpeg')
+    }
   end
 end

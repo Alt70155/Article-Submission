@@ -6,6 +6,8 @@ class PostsControllerTest < MiniTest::Test
     post_count = Post.count
     post_a_test_article
     assert_equal post_count + 1, Post.count
+    follow_redirect!
+    assert_equal "/articles/#{Post.count+1}", last_request.path_info
   end
 
   def test_should_redirect_post_when_not_logged_in

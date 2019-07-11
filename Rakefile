@@ -4,8 +4,8 @@ require 'rake/testtask'
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
-# developmentを設定
-ActiveRecord::Base.establish_connection(:development)
+# development/testなどを設定
+ActiveRecord::Base.establish_connection(:test)
 # タイムゾーン指定
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

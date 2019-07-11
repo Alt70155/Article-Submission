@@ -16,6 +16,6 @@ Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 # developmentを設定
-ActiveRecord::Base.establish_connection(:development)
+ActiveRecord::Base.establish_connection(:test)
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

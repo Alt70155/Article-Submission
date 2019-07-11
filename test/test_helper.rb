@@ -28,4 +28,9 @@ class MiniTest::Test
       file:        Rack::Test::UploadedFile.new('test/sample.jpg', 'image/jpeg')
     }
   end
+
+  Minitest.after_run do
+    system('DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset')
+    system('DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:seed')
+  end
 end

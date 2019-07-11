@@ -1,6 +1,7 @@
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
 require 'rake/testtask'
+Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')
@@ -12,6 +13,7 @@ ActiveRecord::Base.default_timezone = :local
 
 # テストを全て実行するrakeタスク
 # bundle exec rake testで実行
+# 参考　https://www.xmisao.com/2014/06/06/minitest-rakefile.html
 task :default => [:test]
 
 Rake::TestTask.new do |test|

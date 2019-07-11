@@ -55,7 +55,7 @@ post '/article_post' do
   login_required
   @page_name = 'article'
   # csrf対策
-  redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
+  redirect '/login' unless params[:csrf_token] == session[:csrf_token]
 
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
@@ -98,7 +98,7 @@ end
 
 post '/article_prev' do
   login_required
-  redirect '/create_article' unless params[:csrf_token] == session[:csrf_token]
+  redirect '/login' unless params[:csrf_token] == session[:csrf_token]
   csrf_token_generate
   @page_name = 'article'
   file = params[:file]

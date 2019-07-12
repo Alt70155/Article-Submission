@@ -20,16 +20,20 @@ class MiniTest::Test
     }
   end
 
-  def post_a_test_article
-    post '/article_post', params = {
-      category_id: 1,
-      title:       'Example Title',
-      body:        'Lorem ipsum...',
+  def post_a_test_article(cate: 1, title: 'Example', body: 'Lorem...', ex: nil)
+    params = {
+      category_id: cate,
+      title:       title,
+      body:        body,
       file:        Rack::Test::UploadedFile.new('test/sample.jpg', 'image/jpeg')
     }
+    params.merge!(ex) if ex
+
+    post '/article_post', params
   end
 
   Minitest.after_run do
+    # 全てのテストが終わったあと、dbをリセットする
     system('DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset')
     system('DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:seed')
   end

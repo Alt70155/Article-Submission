@@ -85,10 +85,10 @@ post '/article_post' do
       session[:img_files]&.each do |img_name|
         File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
       end
-      # プレビューから戻った場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られない。
-      # そのためもう一度作成する
-      csrf_token_generate
     end
+    # プレビューから戻った場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られない。
+    # そのためもう一度作成する
+    csrf_token_generate
 
     @category = Category.all
     # エラーメッセージor履歴を表示させたいのでレンダー

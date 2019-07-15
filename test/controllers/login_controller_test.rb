@@ -14,4 +14,12 @@ class UsersControllerTests < MiniTest::Test
     follow_redirect!
     assert_equal '/create_article', last_request.path_info
   end
+
+  def test_unregistered_users_can_not_log_in
+    post '/login', params = {
+      user_id:  'aaaa',
+      password: 'bbbb'
+    }
+    assert_equal '/login', last_request.path_info
+  end
 end

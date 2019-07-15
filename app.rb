@@ -2,7 +2,7 @@ enable :sessions
 # put/deleteフォームをサポートしないブラウザで_methodのおまじないを使えるようにする
 enable :method_override
 # use Rack::Flash # flashはセッションを使うためenable :sessionsの下に書く
-use Rack::Session::Cookie
+# use Rack::Session::Cookie
 # クッキー内のセッションデータはセッション秘密鍵(session secret)で署名されます。
 # Sinatraによりランダムな秘密鍵が個別に生成されるらしい
 # 個別で設定する場合は↓
@@ -54,23 +54,24 @@ end
 post '/article_post' do
   login_required
   @page_name = 'article'
-  # csrf対策
+
   redirect '/login' unless params[:csrf_token] == session[:csrf_token]
 
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
-  file = params[:file]
-  top_pic_name = params[:pic_name] || (file && file[:filename])
+  thumbnail_file = params[:file]
+  thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename])
+
   @post = Post.new(
     category_id: params[:category_id],
     title:       params[:title],
     body:        params[:body],
-    top_picture: top_pic_name
+    top_picture: thumbnail_name
   )
 
   if params[:back].nil? && img_valid?(@post.body, params[:article_img_files]) && @post.save
     # top画像ファイル保存
-    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(file[:tempfile].read) } if file
+    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) } if thumbnail_file
     # 記事内画像があればそれも保存
     params[:article_img_files]&.each do |img|
       File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
@@ -82,47 +83,51 @@ post '/article_post' do
     if params[:back]
       File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
       # 記事内画像名をセッションで受け取って削除
-      session[:img_files]&.each do |img_name|
+      session[:img_in_article]&.each do |img_name|
         File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
       end
     end
-    # プレビューから戻った場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られない。
-    # そのためもう一度作成する
+    # 投稿に失敗した場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られないのでもう一度作成する
     csrf_token_generate
 
     @category = Category.all
     # エラーメッセージor履歴を表示させたいのでレンダー
     slim :create_article, layout: nil
   end
+
 end
 
 post '/article_prev' do
   login_required
+
   redirect '/login' unless params[:csrf_token] == session[:csrf_token]
-  csrf_token_generate
+
   @page_name = 'article'
-  file = params[:file]
-  top_pic_name = file ? file[:filename] : nil
+  csrf_token_generate
+  thumbnail_file = params[:file]
+  thumbnail_name = thumbnail_file ? thumbnail_file[:filename] : nil
+
   @post = Post.new(
     id:          Post.count + 1, # ダミー
     category_id: params[:category_id],
     title:       params[:title],
     body:        params[:body],
-    top_picture: top_pic_name
+    top_picture: thumbnail_name
   )
 
-  img_files = params[:article_img_files]
+  img_files_in_article = params[:article_img_files]
   # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
-  if img_valid?(@post.body, img_files) && @post.valid?
-    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(file[:tempfile].read) }
-    if img_files
+  if img_valid?(@post.body, img_files_in_article) && @post.valid?
+    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
+
+    if img_files_in_article
       # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
-      session[:img_files] = []
-      img_files.each do |img|
+      session[:img_in_article] = img_files_in_article.map do |img|
         File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-        session[:img_files] << img[:filename]
+        img[:filename] # 上で作成した画像名を返す
       end
     end
+
     @category = Category.where(category_id: @post.category_id)
     slim :article_prev
   else
@@ -130,6 +135,7 @@ post '/article_prev' do
     @category = Category.all
     slim :create_article, layout: nil
   end
+
 end
 
 # ---- ログイン機能 ----
@@ -144,15 +150,18 @@ post '/login' do
   # ユーザーが存在すればパスワードを比較する
   if user&.authenticate(params[:password])
     session[:user_id] = user.user_id
+
     redirect '/create_article'
   else
     slim :login, layout: nil
   end
+
 end
 
 delete '/logout' do
   login_required
   session.clear
+
   redirect 'login'
 end
 

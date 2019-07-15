@@ -1,7 +1,7 @@
 # bundle exec rake db:migrate:reset
 # bundle exec rake db:seed
 
-User.create!(user_id: 'test', password: 'password')
+User.create!(user_id: 'test', password: 'password', password_confirmation: 'password')
 
 4.times do |i|
   Post.create!(
@@ -12,7 +12,7 @@ User.create!(user_id: 'test', password: 'password')
   )
 end
 
-categories = ['HTML/CSS', 'JavaScript', 'サイト運営', '他記事']
+categories = %w(HTML/CSS JavaScript サイト運営 他記事)
 categories.each_with_index do |n, i|
   Category.create!(
     category_id: i + 1,

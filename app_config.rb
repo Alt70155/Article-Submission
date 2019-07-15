@@ -12,6 +12,7 @@ require './app.rb'
 # helperを全て読み込み
 Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/validators/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み
 ActiveRecord::Base.configurations = YAML.load_file('database.yml')

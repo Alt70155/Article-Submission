@@ -50,6 +50,4 @@ class PostTest < MiniTest::Test
     @post.top_picture = 'aaa.jpg.mov'
     assert_equal false, @post.valid?
   end
-
-# todo category_idを1~4以下の数字のみにする
 end

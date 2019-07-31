@@ -62,28 +62,32 @@ post '/article_post' do
   thumbnail_file = params[:file]
   thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename])
 
+  # 投稿の場合は画像ファイルを、プレビューから投稿する場合は画像名のみをimg_files_in_articleプロパティに代入する
+  article_img_files = session[:img_files_name_in_article] || params[:article_img_files]
+
   @post = Post.new(
     category_id: params[:category_id],
     title:       params[:title],
     body:        params[:body],
-    top_picture: thumbnail_name
+    top_picture: thumbnail_name,
+    img_files_in_article: article_img_files
   )
 
-  if params[:back].nil? && img_valid?(@post.body, params[:article_img_files]) && @post.save
+  if params[:back].nil? && @post.save
     # top画像ファイル保存
     File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) } if thumbnail_file
     # 記事内画像があればそれも保存
-    params[:article_img_files]&.each do |img|
+    @post.img_files_in_article&.each do |img|
       File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
     end
-    # flash[:notice] = '投稿完了'
+
     redirect "/articles/#{@post.id}"
   else
     # プレビュー画面から修正に戻った場合
     if params[:back]
       File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
       # 記事内画像名をセッションで受け取って削除
-      session[:img_in_article]&.each do |img_name|
+      session[:img_files_name_in_article]&.each do |img_name|
         File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
       end
     end
@@ -95,6 +99,7 @@ post '/article_post' do
     slim :create_article, layout: nil
   end
 
+  session[:img_files_name_in_article] = nil
 end
 
 post '/article_prev' do
@@ -112,19 +117,19 @@ post '/article_prev' do
     category_id: params[:category_id],
     title:       params[:title],
     body:        params[:body],
-    top_picture: thumbnail_name
+    top_picture: thumbnail_name,
+    img_files_in_article: params[:article_img_files]
   )
 
-  img_files_in_article = params[:article_img_files]
   # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
-  if img_valid?(@post.body, img_files_in_article) && @post.valid?
+  if @post.valid?
     File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
 
-    if img_files_in_article
+    if @post.img_files_in_article
       # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
-      session[:img_in_article] = img_files_in_article.map do |img|
+      session[:img_files_name_in_article] = @post.img_files_in_article.map do |img|
         File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-        img[:filename] # 上で作成した画像名を返す
+        img[:filename]
       end
     end
 

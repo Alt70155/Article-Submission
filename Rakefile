@@ -1,6 +1,7 @@
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
 require 'rake/testtask'
+Dir[File.dirname(__FILE__) + '/validators/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み

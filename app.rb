@@ -21,6 +21,7 @@ get '/category/:cate_name' do
   # URLに指定されたカテゴリー名を数字に置き換える
   category_name_to_id = { 'html-css': 1, 'js': 2, 'site': 3, 'etc': 4 }
   cate_id = category_name_to_id[params[:cate_name].to_sym]
+
   if cate_id
     @cate_name = Category.find(cate_id).cate_name
     @post_by_category = Post.where(category_id: cate_id).order('id DESC')
@@ -28,6 +29,7 @@ get '/category/:cate_name' do
   else
     slim :not_found
   end
+
 end
 
 # ---- 記事投稿関連 ----
@@ -35,6 +37,7 @@ end
 get '/articles/:id' do
   @page_name = 'article'
   @post = Post.find_by(id: params[:id])
+
   if @post
     # その他記事を降順で6個取得
     @other_articles = Post.order('id DESC').first(6)
@@ -42,6 +45,7 @@ get '/articles/:id' do
   else
     slim :not_found
   end
+
 end
 
 get '/create_article' do
@@ -53,6 +57,7 @@ end
 
 post '/article_post' do
   login_required
+
   @page_name = 'article'
 
   redirect '/login' unless params[:csrf_token] == session[:csrf_token]
@@ -62,24 +67,27 @@ post '/article_post' do
   thumbnail_file = params[:file]
   thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename])
 
-  # 投稿の場合は画像ファイルを、プレビューから投稿する場合は画像名のみをimg_files_in_articleプロパティに代入する
-  article_img_files = session[:img_files_name_in_article] || params[:article_img_files]
+  # img_files_in_articleに格納するのは画像名の入った配列かnilにして、ファイルの保存はparamsを直接用いる
+  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename] }
+  image_name_in_article = session[:img_files_name_in_article] if image_name_in_article.nil?
 
   @post = Post.new(
-    category_id: params[:category_id],
-    title:       params[:title],
-    body:        params[:body],
-    top_picture: thumbnail_name,
-    img_files_in_article: article_img_files
+    category_id:          params[:category_id],
+    title:                params[:title],
+    body:                 params[:body],
+    top_picture:          thumbnail_name,
+    img_files_in_article: image_name_in_article
   )
 
   if params[:back].nil? && @post.save
     # top画像ファイル保存
     File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) } if thumbnail_file
     # 記事内画像があればそれも保存
-    @post.img_files_in_article&.each do |img|
+    params[:article_img_files]&.each do |img|
       File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
     end
+
+    session[:img_files_name_in_article] = nil
 
     redirect "/articles/#{@post.id}"
   else
@@ -91,15 +99,16 @@ post '/article_post' do
         File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
       end
     end
+
+    session[:img_files_name_in_article] = nil
     # 投稿に失敗した場合、create_articleをリダイレクトではなくレンダリングするため、csrf_tokenが作られないのでもう一度作成する
     csrf_token_generate
 
     @category = Category.all
-    # エラーメッセージor履歴を表示させたいのでレンダー
     slim :create_article, layout: nil
   end
 
-  session[:img_files_name_in_article] = nil
+  # session[:img_files_name_in_article] = nil
 end
 
 post '/article_prev' do
@@ -108,16 +117,18 @@ post '/article_prev' do
   redirect '/login' unless params[:csrf_token] == session[:csrf_token]
 
   @page_name = 'article'
+  # 修正・投稿の両方にトークンが必要な為、最初に記述
   csrf_token_generate
+
   thumbnail_file = params[:file]
   thumbnail_name = thumbnail_file ? thumbnail_file[:filename] : nil
 
   @post = Post.new(
-    id:          Post.count + 1, # ダミー
-    category_id: params[:category_id],
-    title:       params[:title],
-    body:        params[:body],
-    top_picture: thumbnail_name,
+    id:                   Post.count + 1, # ダミー
+    category_id:          params[:category_id],
+    title:                params[:title],
+    body:                 params[:body],
+    top_picture:          thumbnail_name,
     img_files_in_article: params[:article_img_files]
   )
 
@@ -140,7 +151,6 @@ post '/article_prev' do
     @category = Category.all
     slim :create_article, layout: nil
   end
-
 end
 
 # ---- ログイン機能 ----

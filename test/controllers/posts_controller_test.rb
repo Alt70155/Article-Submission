@@ -54,4 +54,12 @@ class PostsControllerTest < MiniTest::Test
     post '/article_prev'
     assert last_response.body.include?('Article Post')
   end
+
+  def test_xxx
+    log_in_as_test_user
+    post '/article_prev'
+    assert last_response.body.include?('Article Post')
+    post '/article_post'
+    assert last_response.body.include?('Article Post')
+  end
 end

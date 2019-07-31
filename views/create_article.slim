@@ -19,10 +19,12 @@ html
         / nameの値をparamsで取得する
         / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
         / p タイトル
-        input.title   type="text" name="title" value="#{@post&.title}" placeholder="タイトル"
+        / input.title   type="text" name="title" value="#{@post&.title}" placeholder="タイトル"
+        input.title   type="text" name="title" value="ok" placeholder="タイトル"
         br
         / p 本文
-        textarea.body type="text" name="body" placeholder="記事を入力" #{@post&.body}
+        / textarea.body type="text" name="body" placeholder="記事を入力" #{@post&.body}
+        textarea.body type="text" name="body" placeholder="記事を入力" ![]()
         br
 
         p ・カテゴリーを選択

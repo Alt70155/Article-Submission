@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+
+      /* 一番外側の枠の設定 */
+      .content {
+        margin: 0 auto;
+        max-width: 1160px;
+        border: 1px solid black;
+        height: auto;
+      }
+
+      /* 記事全ての枠の設定 */
+      .container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap; /* 記事折り返し設定 */
+        margin: 100px auto 0 auto;
+        border: 1px solid black;
+      }
+
+      .article-item {
+        position: relative;
+        width: 30%;
+        height: auto;
+        margin: 15px;
+      }
+
+      .box::before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+      }
+
+      .article-inside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 45%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .article-item p {
+        margin-left: 8px;
+        margin-right: 7px;
+        line-height: 1.5em;
+        font-size: 100%;
+      }
+
+      @media screen and (max-width: 920px) {
+        .article-item {
+          width: 45%;
+          margin-bottom: -40px;
+        }
+      }
+
+      @media screen and (max-width: 620px) {
+        .article-item {
+          width: 85%;
+          margin-bottom: -100px;
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+
+<div class="content">
+  <div class="container">
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <p>hello world hello world hello world hello </p>
+      </div>
+    </article>
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <div class="center">
+          <p>hello world hello world hello world hello </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <div class="center">
+          <p>hello world hello world hello world hello </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <div class="center">
+          <p>hello world hello world hello world hello </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <div class="center">
+          <p>hello world hello world hello world hello </p>
+        </div>
+      </div>
+    </article>
+
+    <article class="article-item box">
+      <div class="article-inside">
+        <img src="../images/page8.jpg" alt="">
+        <div class="center">
+          <p>hello world hello world hello world hello </p>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+</body>
+</html>

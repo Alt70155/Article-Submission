@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    header {
+      max-width: 980px;
+      height: 300px;
+      margin: auto;
+      border: 1px solid black;
+      text-align: center;
+    }
+
+    #wrap {
+      display: flex;
+      /* 全体を横並びに */
+      flex-wrap: wrap;
+      /* 下に回り込む設定 */
+      justify-content: center;
+      /* flexboxの要素をセンターに寄せる */
+      margin: auto;
+      max-width: 980px;
+      height: auto;
+      border: 1px solid black;
+    }
+
+    main {
+      width: 75%;
+      /* mainとside-barで3:1に設定 */
+      height: 1000px;
+      text-align: center;
+      background-color: #BAD3FF;
+    }
+
+    .left-bar {
+      width: 25%;
+      text-align: center;
+      background-color: #75A9FF;
+    }
+
+    footer {
+      max-width: 980px;
+      height: 250px;
+      margin: auto;
+      border: 1px solid black;
+      text-align: center;
+    }
+
+
+    @media screen and (max-width: 997px) {
+      main {
+        width: 100%;
+      }
+
+      .left-bar {
+        width: 100%;
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header">
+    <h1>ヘッダー</h1>
+  </header>
+
+  <div id="wrap">
+    <main>
+      <h1>メインコンテンツ</h1>
+      <p>article...</p>
+    </main>
+
+    <aside class="left-bar">
+      <h2>サイドバー</h2>
+    </aside>
+  </div>
+
+  <footer>
+    <h1>フッター</h1>
+  </footer>
+</body>
+
+</html>

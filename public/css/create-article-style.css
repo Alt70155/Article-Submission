@@ -1,0 +1,110 @@
+.form-wrap, .form-title {
+  max-width: 1080px;
+  padding: 0px 20px;
+}
+
+.form-wrap {
+  height: auto;
+  margin: auto;
+}
+
+.form-title {
+  margin: 5px auto;
+}
+
+.border {
+  width: auto;
+  margin: 0 20px 5px 20px;
+  border-bottom: 1px solid grey;
+}
+
+input[type='text'], textarea {
+  /* inputやtextareaはこれを指定しないとはみ出る */
+  box-sizing: border-box;
+}
+
+.title, .body {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.title {
+  height: 45px;
+  font-size: 26px;
+}
+
+.body {
+  height: 400px;
+  font-size: 18px;
+}
+
+.radio-input{
+  display: none;
+}
+
+/* 隣接セレクタ指定 */
+.radio-input + label{
+  padding-left: 20px;
+  position:relative;
+  margin-right: 20px;
+}
+
+.radio-input + label::before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+
+.radio-input:checked + label{
+  color: #009a9a;
+}
+
+.radio-input:checked + label::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 11px;
+  height: 11px;
+  background: #009a9a;
+  border-radius: 50%;
+}
+
+.submit-wrap {
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 30px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: white;
+  border-style: none;
+  border: 1px solid grey;
+  border-radius: 4px 4px;
+}
+
+.logout {
+  position: absolute;
+  margin-left: 0;
+  margin-top: -75px;
+  padding: 15px 20px 16px 20px;
+}
+
+.submit-button:hover {
+  background-color: #d3d3d3;
+}
+
+.error-messages-area {
+  color: red;
+}

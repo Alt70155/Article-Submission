@@ -3,6 +3,5 @@
 .DS_Store
 .sass-cache
 vendor/
-public/
 env_var.rb
 helpers/env_var.rb

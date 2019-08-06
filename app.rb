@@ -11,6 +11,7 @@ enable :method_override
 get '/' do
   @post = Post.order('id DESC')
   @page_name = 'index'
+  @title = 'Blog'
   slim :index
 end
 
@@ -24,12 +25,12 @@ get '/category/:cate_name' do
 
   if cate_id
     @cate_name = Category.find(cate_id).cate_name
+    @title = @cate_name
     @post_by_category = Post.where(category_id: cate_id).order('id DESC')
     slim :category
   else
     slim :not_found
   end
-
 end
 
 # ---- 記事投稿関連 ----
@@ -37,6 +38,7 @@ end
 get '/articles/:id' do
   @page_name = 'article'
   @post = Post.find_by(id: params[:id])
+  @title = @post.title
 
   if @post
     # その他記事を降順で6個取得
@@ -45,13 +47,14 @@ get '/articles/:id' do
   else
     slim :not_found
   end
-
 end
 
-get '/create_article' do
+# create_article
+get @create_article_path do
   login_required
   csrf_token_generate
   @category = Category.all
+
   slim :create_article, layout: nil
 end
 
@@ -60,7 +63,7 @@ post '/article_post' do
 
   @page_name = 'article'
 
-  redirect '/login' unless params[:csrf_token] == session[:csrf_token]
+  redirect env_var('create_article_path') unless params[:csrf_token] == session[:csrf_token]
 
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
@@ -107,14 +110,12 @@ post '/article_post' do
     @category = Category.all
     slim :create_article, layout: nil
   end
-
-  # session[:img_files_name_in_article] = nil
 end
 
 post '/article_prev' do
   login_required
 
-  redirect '/login' unless params[:csrf_token] == session[:csrf_token]
+  redirect env_var('create_article_path') unless params[:csrf_token] == session[:csrf_token]
 
   @page_name = 'article'
   # 修正・投稿の両方にトークンが必要な為、最初に記述
@@ -155,7 +156,8 @@ end
 
 # ---- ログイン機能 ----
 
-get '/login' do
+# login
+get @login_path do
   slim :login, layout: nil
 end
 
@@ -165,19 +167,17 @@ post '/login' do
   # ユーザーが存在すればパスワードを比較する
   if user&.authenticate(params[:password])
     session[:user_id] = user.user_id
-
-    redirect '/create_article'
+    redirect env_var('create_article_path')
   else
     slim :login, layout: nil
   end
-
 end
 
 delete '/logout' do
   login_required
   session.clear
 
-  redirect 'login'
+  redirect env_var('login_path')
 end
 
 # ---- その他ルーティング ----

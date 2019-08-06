@@ -2,7 +2,8 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title Sample Sinatra
+    / - @full_title = @title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
+    title =@title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
     meta http-equiv="x-ua-compatible" content="ie=edge"
     link rel="stylesheet" href="../css/style.css"
     link rel="stylesheet" href="../css/code-highlight.css"
@@ -14,9 +15,9 @@ html
       script (src="../js/code-block-width-value-change.js" defer)
       meta name="twitter:card" content="summary"
       meta name="twitter:site" content="@70155"
-      meta property="og:url"   content="http://Knowledge-blog.net/articles/#{@post.id}"
+      meta property="og:url"   content="https://Knowledge-blog.net/articles/#{@post.id}"
       meta property="og:title" content="#{@post.title}"
-      meta property="og:image" content="http://Knowledge-blog.net/img/#{@post.top_picture}"
+      meta property="og:image" content="https://Knowledge-blog.net/img/twitter_card.png"
       meta property="og:description" content=""
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる

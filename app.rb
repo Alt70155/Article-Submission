@@ -7,7 +7,7 @@ enable :method_override
 # Sinatraによりランダムな秘密鍵が個別に生成されるらしい
 # 個別で設定する場合は↓
 # set :session_secret, 'super secret'
-
+p 'hello'
 get '/' do
   @post = Post.order('id DESC')
   @page_name = 'index'

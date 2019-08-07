@@ -19,6 +19,5 @@ production:
   database: articles-prod
   host: localhost
   username: root
-  password: <%= @mysql_pass  %>
+  password: <%= @mysql_pass %>
   encoding: utf8
-

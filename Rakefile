@@ -5,9 +5,12 @@ Dir[File.dirname(__FILE__) + '/validators/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
 # database.ymlを読み込み
-ActiveRecord::Base.configurations = YAML.load_file('database.yml')
+#ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 # development/testなどを設定
-ActiveRecord::Base.establish_connection(:test)
+#ActiveRecord::Base.establish_connection(:test)
+ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read("database.yml")).result)
+# developmentを設定
+ActiveRecord::Base.establish_connection(:production)
 # タイムゾーン指定
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

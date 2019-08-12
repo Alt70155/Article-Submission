@@ -115,14 +115,18 @@ end
 post '/article_prev' do
   login_required
 
+  @page_name = 'article'
+
   redirect env_var('create_article_path') unless params[:csrf_token] == session[:csrf_token]
 
-  @page_name = 'article'
   # 修正・投稿の両方にトークンが必要な為、最初に記述
   csrf_token_generate
 
   thumbnail_file = params[:file]
   thumbnail_name = thumbnail_file ? thumbnail_file[:filename] : nil
+
+  # 記事内画像があれば画像名を、なければnilを格納する
+  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename] }
 
   @post = Post.new(
     id:                   Post.count + 1, # ダミー
@@ -130,7 +134,7 @@ post '/article_prev' do
     title:                params[:title],
     body:                 params[:body],
     top_picture:          thumbnail_name,
-    img_files_in_article: params[:article_img_files]
+    img_files_in_article: image_name_in_article
   )
 
   # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
@@ -139,7 +143,7 @@ post '/article_prev' do
 
     if @post.img_files_in_article
       # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
-      session[:img_files_name_in_article] = @post.img_files_in_article.map do |img|
+      session[:img_files_name_in_article] = params[:article_img_files].map do |img|
         File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
         img[:filename]
       end

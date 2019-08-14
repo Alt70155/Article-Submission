@@ -27,7 +27,7 @@ helpers do
     str_len = 'code class="'.length
     program_language_list = html.scan(/code class=".*"/).map { |m| m[str_len..-2] }
     program_language_list.each do |p|
-      html.sub!(/<pre><code .*>/, %(<div class="language-tag"><B>▼#{p}</B></div><pre class="prettyprint linenums"><code>))
+      html.sub!(/<pre><code .*>/, %(<div class="language-tag"><B>▼ #{p}</B></div><pre class="prettyprint linenums"><code>))
     end
     html
   end

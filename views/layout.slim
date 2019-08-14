@@ -2,7 +2,8 @@ doctype html
 html
   head
     meta charset="utf-8"
-    / - @full_title = @title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
+    / ここのwidth値を変えたらheaderとcode-highlightのメディアクエリも変える
+    meta name="viewport" content="width=700px"
     title =@title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
     meta http-equiv="x-ua-compatible" content="ie=edge"
     link rel="stylesheet" href="../css/style.css"

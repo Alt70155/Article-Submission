@@ -2,7 +2,8 @@ helpers do
   def markdown(text)
     render_options = {
       filter_html: false, # htmlタグの入力を無効化(サニタイズ)
-      hard_wrap:   true  # 空行を改行ではなく、改行を改行に変換
+      hard_wrap:   true,  # 空行を改行ではなく、改行を改行に変換
+      link_attributes: { rel: 'noopener', target: "_blank" }
     }
     renderer = Redcarpet::Render::HTML.new(render_options)
 
@@ -27,7 +28,7 @@ helpers do
     str_len = 'code class="'.length
     program_language_list = html.scan(/code class=".*"/).map { |m| m[str_len..-2] }
     program_language_list.each do |p|
-      html.sub!(/<pre><code .*>/, %(<div class="language-tag"><B>▼#{p}</B></div><pre class="prettyprint linenums"><code>))
+      html.sub!(/<pre><code .*>/, %(<div class="language-tag"><B>▼ #{p}</B></div><pre class="prettyprint linenums"><code>))
     end
     html
   end

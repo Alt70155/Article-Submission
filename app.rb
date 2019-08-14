@@ -20,8 +20,8 @@ end
 get '/category/:cate_name' do
   @page_name = 'index'
   # URLに指定されたカテゴリー名を数字に置き換える
-  category_name_to_id = { 'html-css': 1, 'js': 2, 'site': 3, 'etc': 4 }
-  cate_id = category_name_to_id[params[:cate_name].to_sym]
+  category_name_to_id = { 'html-css' => 1, 'js' => 2, 'site' => 3, 'etc' => 4 }
+  cate_id = category_name_to_id[params[:cate_name]]
 
   if cate_id
     @cate_name = Category.find(cate_id).cate_name

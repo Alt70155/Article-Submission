@@ -108,8 +108,12 @@ footer {
   padding-bottom: 65px;
 }
 
-footer small {
+footer p {
   font-size: 12px;
+}
+
+.footer-link {
+  color: white;
 }
 
 .logo a {

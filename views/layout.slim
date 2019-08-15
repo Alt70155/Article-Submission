@@ -31,10 +31,4 @@ html
         == yield
 
     /! --footer--
-    footer
-      p
-        | (C)2018-2019 Knowledge-Blog.
-        br
-        | Powered by
-        a.footer-link href="http://sinatrarb.com/" rel="noopener" target="_blank"  Sinatra
-        | .
+    == slim :"partial/_footer"

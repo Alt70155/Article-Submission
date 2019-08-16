@@ -1,0 +1,153 @@
+@charset "utf-8";
+body {
+  min-height: 950px;
+  max-height: auto;
+  margin: auto;
+}
+
+.background-style {
+  background-image: url(images/pubg-pic.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-width: 460px;
+  min-height: 950px;
+  overflow-x: scroll;
+}
+
+.container {
+  width: 800px;
+  margin: auto;
+  max-height: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid #d2691e;
+  border-top: none;
+}
+
+.wrap {
+  margin: auto;
+  width: 700px;
+}
+
+.pic-cross {
+  position: relative;
+  width: 700px;
+  margin: auto;
+}
+
+.map {
+  width: 700px;
+  height: 700px;
+}
+
+.btn-area {
+  width: 700px;
+  margin: 20px 0 20px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.btn-area2 {
+  width: 700px;
+  margin: 20px 0 20px 0;
+}
+
+.btn {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 10px 30px;
+  background-color: #d2691e;
+  color: black;
+  border: 1px solid black;
+
+}
+
+.btn-er {
+  margin-left: 80px;
+}
+
+.btn:hover {
+  background-color: rgba(210, 105, 30, 0.4);
+}
+
+
+.title-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 90px;
+}
+
+.title {
+  width: 300px;
+  height: 40px;
+  font-family: 'Teko', sans-serif;
+  font-size: 60px;
+  margin: 0;
+  padding: 5px 0 10px 0;
+  color: #ff8c00;
+  text-shadow: 1px 1px 0 #000,
+  -1px 1px 0 #000,
+  1px -1px 0 #000,
+  -1px -1px 0 #000;
+}
+
+ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  width: 90px;
+  height: 40px;
+  text-align: center;
+  margin-left: 10px;
+  padding-top: 30px;
+  font-size: 28px;
+  font-family: 'Teko', sans-serif;
+  text-shadow: 1px 1px 0 #000,
+  -1px 1px 0 #000,
+  1px -1px 0 #000,
+  -1px -1px 0 #000;
+}
+
+li:hover {
+  border-bottom: 3px solid #ff8c00;
+}
+
+a {
+  text-decoration: none;
+  color: #ff8c00;
+}
+
+.pin {
+  position: absolute;
+  width: 50px;
+  top: 0px;
+  /*y座標*/
+  left: 0px;
+  /*x座標*/
+  visibility: hidden;
+}
+
+.sub-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.description-area {
+  color: white;
+  padding-bottom: 7px;
+}

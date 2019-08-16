@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style media="screen">
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    tr {
+      text-align: center;
+    }
+
+    td {
+      width: 13px;
+      height: 15px;
+      background-color: white;
+    }
+
+    .black {
+      background-color: black;
+    }
+  </style>
+</head>
+
+<body onload="init()">
+  <button onclick="start()">start</button>
+  <button onclick="stop()">stop</button>
+  <button onclick="clearCell()">clear</button>
+  <button onclick="glider()">glider</button>
+  <button onclick="theQueenBee()">the queen bee</button>
+  <table border="1" id="table"></table>
+  <script src="lifegame.js" charset="utf-8"></script>
+</body>
+
+</html>

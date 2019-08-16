@@ -19,7 +19,7 @@ html
       meta property="og:url"   content="https://Knowledge-blog.net/articles/#{@post.id}"
       meta property="og:title" content="#{@post.title}"
       meta property="og:image" content="https://Knowledge-blog.net/img/twitter_card.png"
-      meta property="og:description" content=""
+      meta property="og:description" content="#{@description}"
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる
     /! --header--
@@ -28,6 +28,7 @@ html
     /! --wrapper--
     #wrap class="#{'wrap-index-color' if @page_name == 'index'}"
       .content
+        == @description
         == yield
 
     /! --footer--

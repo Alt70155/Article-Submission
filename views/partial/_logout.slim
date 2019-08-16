@@ -1,0 +1,5 @@
+form method="post" action="/logout"
+  / deleteメソッドを使う場合はコントローラでenable :method_overrideを記述する必要がある
+  input name="_method" type="hidden" value="DELETE"
+  br
+  input.submit-button.logout  type="submit" value="ログアウト"

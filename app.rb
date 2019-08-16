@@ -48,10 +48,17 @@ get '/articles/:id' do
   @post = Post.find_by(id: params[:id])
 
   if @post
+    @is_login = !current_user.nil?
     # その他記事を降順で6個取得
     @title = @post.title
     @other_articles = Post.order('id DESC').first(6)
     @description = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
+
+    if @is_login
+      session[:page_number] = @post.id
+      @edit_path = env_var('edit_path')
+    end
+
     slim :articles
   else
     slim :not_found
@@ -166,6 +173,27 @@ post '/article_prev' do
     @category = Category.all
     slim :create_article, layout: nil
   end
+end
+
+# ---- 編集機能 ----
+
+get @edit_path do
+  login_required
+  csrf_token_generate
+  @post = Post.find(session[:page_number])
+  @category = Category.all
+
+  slim :edit, layout: nil
+end
+
+post '/article_update' do
+  login_required
+  redirect '/' unless params[:csrf_token] == session[:csrf_token]
+
+  @post = Post.find(params[:id])
+  @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
+
+  redirect "articles/#{@post.id}"
 end
 
 # ---- ログイン機能 ----

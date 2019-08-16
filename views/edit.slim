@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta name="robots" content="noindex"
+    title Create Articles
+    link rel="stylesheet" href="../css/create-article-style.css"
+  body
+    h2.form-title Article Edit
+    .border
+    .form-wrap
+      form method="post" action="/article_update" enctype="multipart/form-data"
+        input type="hidden" name="csrf_token" value="#{@csrf_token}"
+        input type="hidden" name="id" value="#{@post.id}"
+        input.title   type="text" name="title" value="#{@post.title}"
+        br
+        textarea.body type="text" name="body" #{@post.body}
+        br
+
+        p ・カテゴリーを選択
+        .radio
+          - @category.each_with_index do |cate, i|
+            - i += 1
+            / 修正から戻った場合はそのカテゴリーを、無ければ1を選択する
+            - radio_val = @post.nil? ? 1 : @post.category_id
+            - if i == radio_val
+              input.radio-input type="radio" name="category_id" value="#{i}" id="radio_#{i}" checked="checked"
+            - else
+              input.radio-input type="radio" name="category_id" value="#{i}" id="radio_#{i}"
+            label for="radio_#{i}" = cate.cate_name
+
+        / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
+        .submit-wrap
+          input#submit.submit-button type="submit" value="投稿" name="submit"
+          br
+
+
+      ==slim :"partial/_logout"

@@ -1,5 +1,10 @@
 .main-aside-wrap
   .text-content
+    - if @is_login
+      div
+        a.submit-button href="..#{@edit_path}" edit
+        ==slim :"partial/_logout"
+
     .article-title
       h1= @post.title
 

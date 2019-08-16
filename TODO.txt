@@ -1,4 +1,4 @@
-・twitter_cardのdescriptionを設定する
+ok・twitter_cardのdescriptionを設定する
 
 ok・loginとcreate_articleはgooglebotをオフにする
 
@@ -6,7 +6,7 @@ ok・.htmlにアクセスされたときリダイレクトする
 
 ・広告を貼る
 
-・ライフゲームなどをpublicに置く
+ok・ライフゲームなどをpublicに置く
 
 ・ボタンでmarkdownのショートカットを出す実装
 

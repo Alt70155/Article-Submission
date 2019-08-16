@@ -15,6 +15,14 @@ get '/' do
   slim :index
 end
 
+# 過去のURL(page1やpage1.html)を今のURLに置き換えてリダイレクトする処理
+['/articles/page*.html', '/articles/page*'].each do |route|
+  get route do
+    page_num = params['splat'][0].delete("^0-9").to_i
+    redirect "/articles/#{page_num}"
+  end
+end
+
 # ---- カテゴリー ----
 
 get '/category/:cate_name' do
@@ -38,10 +46,10 @@ end
 get '/articles/:id' do
   @page_name = 'article'
   @post = Post.find_by(id: params[:id])
-  @title = @post.title
 
   if @post
     # その他記事を降順で6個取得
+    @title = @post.title
     @other_articles = Post.order('id DESC').first(6)
     slim :articles
   else

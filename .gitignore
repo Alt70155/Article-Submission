@@ -5,3 +5,4 @@
 vendor/
 env_var.rb
 helpers/env_var.rb
+public/character_compatibility.html

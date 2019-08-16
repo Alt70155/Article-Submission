@@ -1,9 +1,8 @@
-・管理画面のアクセス管理(ローカルからのアクセスのみにするなど)
+・twitter_cardのdescriptionを設定する
 
+・loginとcreate_articleはgooglebotをオフにする
 
-・テストユーザの削除
-
-・本番用のIDとパスを作成する
+・.htmlにアクセスされたときリダイレクトする
 
 ・ボタンでmarkdownのショートカットを出す実装
 
@@ -11,15 +10,15 @@
 
 ・N+1に気をつける
 
-・titleを追加
-
 ・ログアウト/プレビュー/投稿ボタンの位置が高いので下げる
 
 ・下書き機能・記事更新機能欲しい
 
-・loginとcreate_articleはgooglebotをオフにする
+ok・titleを追加
 
-・.htmlにアクセスされたときリダイレクトする
+ok・本番用のIDとパスを作成する
+
+ok・テストユーザの削除
 
 ok・loginのURLをランダム生成する
 

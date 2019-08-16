@@ -22,6 +22,6 @@ env = ARGV[0] == 'config.ru' ? :production : ARGV[0].to_sym
 # database.ymlにERBを書くためERB.newをかませる
 ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read("database.yml")).result)
 # developmentを設定
-ActiveRecord::Base.establish_connection(env)
+ActiveRecord::Base.establish_connection(:test)
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

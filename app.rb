@@ -62,6 +62,7 @@ end
 get @create_article_path do
   login_required
   csrf_token_generate
+
   @category = Category.all
 
   slim :create_article, layout: nil

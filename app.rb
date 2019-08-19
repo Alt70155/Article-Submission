@@ -61,6 +61,7 @@ get '/articles/:id' do
 
     slim :articles
   else
+    @x = "ok"
     slim :not_found
   end
 end
@@ -227,10 +228,6 @@ end
 
 # ---- その他ルーティング ----
 
-not_found do
-  slim :not_found
-end
-
 get '/profile' do
   slim :profile, layout: nil
 end
@@ -239,4 +236,8 @@ get '/portfolio' do
   @page_name = 'portfolio'
   @title     = 'My Portfolio'
   slim :portfolio
+end
+
+not_found do
+  slim :not_found
 end

@@ -193,7 +193,8 @@ post '/article_update' do
   @post = Post.find(params[:id])
   # @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
   # 今回はvalidationを回避したい為、update_columnsを使う
-  @post.update_columns(title: params[:title], body: params[:body], category_id: params[:category_id])
+  # update_columnsはupdated_atを更新しないので自力で更新
+  @post.update_columns(title: params[:title], body: params[:body], category_id: params[:category_id], updated_at: Time.now)
 
   redirect "articles/#{@post.id}"
 end

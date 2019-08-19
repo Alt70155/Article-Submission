@@ -191,7 +191,9 @@ post '/article_update' do
   redirect '/' unless params[:csrf_token] == session[:csrf_token]
 
   @post = Post.find(params[:id])
-  @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
+  # @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
+  # 今回はvalidationを回避したい為、update_columnsを使う
+  @post.update_columns(title: params[:title], body: params[:body], category_id: params[:category_id])
 
   redirect "articles/#{@post.id}"
 end

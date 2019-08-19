@@ -61,7 +61,6 @@ get '/articles/:id' do
 
     slim :articles
   else
-    @x = "ok"
     slim :not_found
   end
 end

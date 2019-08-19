@@ -9,7 +9,10 @@
       h1= @post.title
 
     .posted-date-area
-      p= "投稿日：#{@post.created_at.strftime('%Y/%m/%d')}"
+      - if @post.created_at == @post.updated_at
+        p= "投稿日：#{@post.created_at.strftime('%Y/%-m/%-d')}"
+      - else
+        p= "更新日：#{@post.updated_at.strftime('%Y/%-m/%-d')}  投稿日：#{@post.created_at.strftime('%Y/%-m/%-d')}"
 
     script (async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
     /! article-page-top

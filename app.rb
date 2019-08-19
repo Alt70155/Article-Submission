@@ -50,9 +50,9 @@ get '/articles/:id' do
   if @post
     @is_login = !current_user.nil?
     # その他記事を降順で6個取得
-    @title = @post.title
+    @title          = @post.title
     @other_articles = Post.order('id DESC').first(6)
-    @description = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
+    @description    = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
     if @is_login
       session[:page_number] = @post.id

@@ -11,8 +11,21 @@
     .posted-date-area
       p= "投稿日：#{@post.created_at.strftime('%Y/%m/%d')}"
 
+    script (async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    /! article-page-top
+    ins class="adsbygoogle example_responsive_1 ads_top" style="display:block" data-ad-client="ca-pub-7031203229342761" data-ad-slot="2292623677" data-ad-format="auto" data-full-width-responsive="true"
+    javascript:
+      (adsbygoogle = window.adsbygoogle || []).push({});
+
     .article-main-contents
+      /! 記事
       == markdown(@post.body)
+
+    script (async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    /! article-page-bottom
+    ins class="adsbygoogle example_responsive_1 ads_bottom" style="display:block" data-ad-client="ca-pub-7031203229342761" data-ad-slot="5021076408" data-ad-format="auto" data-full-width-responsive="true"
+    javascript:
+      (adsbygoogle = window.adsbygoogle || []).push({});
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"

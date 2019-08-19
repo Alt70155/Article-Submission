@@ -4,9 +4,11 @@ ok・loginとcreate_articleはgooglebotをオフにする
 
 ok・.htmlにアクセスされたときリダイレクトする
 
-・広告を貼る
+ok・広告を貼る
 
-・記事の投稿日時を変更
+ok・記事の投稿日時を変更
+
+・paginateの設定
 
 ok・ライフゲームなどをpublicに置く
 

@@ -12,13 +12,17 @@ get '/' do
   @post = Post.order('id DESC')
   @page_name = 'index'
   @title = 'Blog'
+  @pager = Post.paginate(page: params[:page], per_page: 2).order('id DESC')
+
   slim :index
 end
 
 # 過去のURL(page1やpage1.html)を今のURLに置き換えてリダイレクトする処理
 ['/articles/page*.html', '/articles/page*'].each do |route|
   get route do
-    page_num = params['splat'][0].delete("^0-9").to_i
+    # アスタリスク(ワイルドカード)で指定したパラメータはparams['splat']で取得
+    # 取得したパラメータからdeleteで数字のみにしてページ番号を取得
+    page_num = params['splat'][0].delete('^0-9').to_i
     redirect "/articles/#{page_num}"
   end
 end

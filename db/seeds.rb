@@ -3,12 +3,12 @@
 
 User.create!(user_id: 'test', password: 'password', password_confirmation: 'password')
 
-4.times do |i|
+24.times do |i|
   Post.create!(
     category_id: i + 1,
-    title:       'test',
+    title:       'テストタイトル',
     body:        'test data',
-    top_picture: 'sample.jpg'
+    top_picture: 'page2.jpg'
   )
 end
 

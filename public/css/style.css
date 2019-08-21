@@ -267,54 +267,6 @@ footer p {
   box-shadow: 0px 10px 10px 4px rgba(0,0,0,.3);
 }
 
-
-/*  pager  */
-
-.pager  ul.pagination {
-  text-align: center;
-  /* margin: -50px 0 0 0; */
-  margin: 0;
-  padding: 0 0 30px 0;
-}
-
-.pager .pagination li {
-  display: inline;
-  margin: 0 5px;
-  padding: 0;
-  display: inline-block;
-  background: grey;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  position: relative;
-  border-radius: 50%;
-}
-
-.pager .pagination li a{
-  vertical-align: middle;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  display:table;
-  color: #fff;
-  text-decoration: none;
-}
-
-.pager .pagination li a span{
-  display:table-cell;
-  vertical-align:middle;
-}
-
-.pager .pagination li a:hover,
-.pager .pagination li a.active{
-  color: #000;
-  background: #ccf;
-  border-radius: 50%;
-}
-
 /* 記事一覧のレスポンシブ */
 @media screen and (max-width: 925px) {
   #index .article-item {
@@ -479,6 +431,7 @@ footer p {
 }
 
 /*--- サイドバー ---*/
+
 .right-bar {
   position: absolute;
   width: 250px;
@@ -689,6 +642,46 @@ footer p {
 @media screen and (max-width: 515px) {
   .other-article-item { width: 60%; }
   .other-article-item .article-inside p { font-size: 2.8vw; }
+}
+
+/* ページネーションのデザイン */
+.pagination {
+  margin: auto;
+  margin-top: -10px;
+  text-align: center;
+  padding-bottom: 70px;
+}
+
+.pagination a {
+  color: white;
+  background-color: grey;
+  padding: 13px 16px;
+  border-radius: 21.5px;
+  text-decoration: none;
+}
+
+.pagination * {
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+.current {
+  font-style: normal;
+  color: white;
+  background: #93c9ff;
+  padding: 13px 16px;
+  border-radius: 21.5px;
+}
+
+.pagination a:hover {
+  background: #93c9ff;
+  border-radius: 20px;
+}
+
+.pagination .disabled {
+  padding: 13px 17px;
+  border: 1px solid grey;
+  border-radius: 21px;
 }
 
 /*-----Article end-----*/

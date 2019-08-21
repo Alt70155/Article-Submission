@@ -1,7 +1,7 @@
 p.page-title 最新記事
 
 .container
-  - @post.each do |article|
+  - @pager.each do |article|
     a.article-item.box.fly href="../articles/#{article.id}"
       article.article-inside
         img src="../img/#{article.top_picture}" alt="記事サムネイル"
@@ -17,3 +17,4 @@ p.page-title 最新記事
         img src="../img/header.jpg" alt=""
         p
           span.data
+== will_paginate @pager, previous_label: '<', next_label: '>', inner_window: 1

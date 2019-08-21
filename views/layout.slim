@@ -4,7 +4,7 @@ html
     meta charset="utf-8"
     / ここのwidth値を変えたらheaderとcode-highlightのメディアクエリも変える
     meta name="viewport" content="width=700px"
-    title =@title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
+    title= @title ? "#{@title} | Knowledge-Blog" : 'Knowledge-Blog'
     meta http-equiv="x-ua-compatible" content="ie=edge"
     link rel="stylesheet" href="../css/style.css"
     link rel="stylesheet" href="../css/code-highlight.css"
@@ -20,6 +20,8 @@ html
       meta property="og:title" content="#{@post.title}"
       meta property="og:image" content="https://Knowledge-blog.net/img/twitter_card.png"
       meta property="og:description" content="#{@description}"
+    == slim :"partial/_analytics"
+
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる
     /! --header--

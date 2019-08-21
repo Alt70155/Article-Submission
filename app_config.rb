@@ -23,8 +23,8 @@ Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 # database.ymlを読み込み
 # ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 # database.ymlにERBを書くためERB.newをかませる
-ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read("database.yml")).result)
+ActiveRecord::Base.configurations = YAML.safe_load(ERB.new(File.read('database.yml')).result)
 # developmentを設定
-ActiveRecord::Base.establish_connection(:production)
+ActiveRecord::Base.establish_connection(:test)
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

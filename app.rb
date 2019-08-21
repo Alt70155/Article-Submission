@@ -9,12 +9,22 @@ enable :method_override
 # set :session_secret, 'super secret'
 
 get '/' do
-  @post = Post.order('id DESC')
-  @page_name = 'index'
-  @title = 'Blog'
-  @pager = Post.paginate(page: params[:page], per_page: 12).order('id DESC')
+  post_ct   = Post.count
+  SPLIT_NUM = 12
+  pager_num = post_ct / SPLIT_NUM
+  # 12区切りで分割した後の残りページがあるかどうかを計算して、あれば1ページャー追加する
+  pager_num += 1 unless ((post_ct - pager_num * SPLIT_NUM) % SPLIT_NUM).zero?
 
-  slim :index
+  # パラメータがnil(パラメータ無し)か、数字の場合のみ
+  if params[:page].nil? || /\A[1-9][0-9]*\z/ =~ params[:page] && params[:page].to_i <= pager_num
+    @post = Post.order('id DESC')
+    @page_name = 'index'
+    @title = 'Blog'
+    @pager = Post.paginate(page: params[:page], per_page: SPLIT_NUM).order('id DESC')
+    slim :index
+  else
+    slim :not_found
+  end
 end
 
 # 過去のURL(page1やpage1.html)を今のURLに置き換えてリダイレクトする処理

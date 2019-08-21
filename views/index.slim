@@ -12,10 +12,9 @@ p.page-title 最新記事
 
   /! ダミー記事
   - 2.times do
-    a.article-item.hidden-item
+    article.article-item.hidden-item
       article.article-inside
         img src="../img/header.jpg" alt=""
         p
           span.data
-
-  == will_paginate @pager, previous_label: '&lsaquo; &nbsp;前&nbsp;', next_label: '&nbsp;次 &rsaquo;'
+== will_paginate @pager, previous_label: '<', next_label: '>', inner_window: 1

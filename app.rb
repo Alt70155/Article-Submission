@@ -12,7 +12,7 @@ get '/' do
   @post = Post.order('id DESC')
   @page_name = 'index'
   @title = 'Blog'
-  @pager = Post.paginate(page: params[:page], per_page: 12).order('id DESC')
+  # @pager = Post.paginate(page: params[:page], per_page: 12).order('id DESC')
 
   slim :index
 end

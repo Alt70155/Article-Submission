@@ -17,14 +17,14 @@ Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/validators/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each { |f| require f }
 
-env = ARGV[0] == 'config.ru' ? :production : ARGV[0]&.to_sym
+#env = ARGV[0] == 'config.ru' ? :production : ARGV[0]&.to_sym
 # irb起動用にenvがnilならproductionに設定
-env = :test if env.nil?
+#env = :test if env.nil?
 # database.ymlを読み込み
 # ActiveRecord::Base.configurations = YAML.load_file('database.yml')
 # database.ymlにERBを書くためERB.newをかませる
 ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read("database.yml")).result)
 # developmentを設定
-ActiveRecord::Base.establish_connection(env)
+ActiveRecord::Base.establish_connection(:production)
 Time.zone = 'Tokyo'
 ActiveRecord::Base.default_timezone = :local

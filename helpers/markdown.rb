@@ -24,6 +24,18 @@ helpers do
   def replace_html(html)
     html.gsub!(/<h2>/, '<div class="text-sub-title"><h2 class="sub-title-border">&nbsp;')
        &.gsub!(%r{</h2>}, '</h2></div>')
+    html.gsub!(/<marquee>/, %[
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <ins class="adsbygoogle"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-7031203229342761"
+           data-ad-slot="7220498796"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    ])
     # コードブロックが何言語かをcodeのclassから探して取り出す
     str_len = 'code class="'.length
     program_language_list = html.scan(/code class=".*"/).map { |m| m[str_len..-2] }

@@ -20,7 +20,9 @@ html
       meta property="og:title" content="#{@post.title}"
       meta property="og:image" content="https://Knowledge-blog.net/img/twitter_card.png"
       meta property="og:description" content="#{@description}"
-    == slim :"partial/_analytics"
+    / アナリティクスはログインしている時は表示しない
+    - if current_user.nil?
+      == slim :"partial/_analytics"
 
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる

@@ -165,3 +165,11 @@ bundle exec rackup config.ru
 # ip指定
 bundle exec rackup config.ru -o 0.0.0.0
 ```
+
+AUTO_INCREMENTの記事を削除した場合
+
+```SQL
+ActiveRecord::Base.connection.execute("alter table posts auto_increment = 25;")
+```
+
+で修正

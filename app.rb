@@ -10,17 +10,17 @@ enable :method_override
 
 get '/' do
   post_ct   = Post.count
-  SPLIT_NUM = 12
-  pager_num = post_ct / SPLIT_NUM
+  split_num = 12
+  pager_num = post_ct / split_num
   # 12区切りで分割した後の残りページがあるかどうかを計算して、あれば1ページャー追加する
-  pager_num += 1 unless ((post_ct - pager_num * SPLIT_NUM) % SPLIT_NUM).zero?
+  pager_num += 1 unless ((post_ct - pager_num * split_num) % split_num).zero?
 
   # パラメータがnil(パラメータ無し)か、数字の場合のみ
   if params[:page].nil? || /\A[1-9][0-9]*\z/ =~ params[:page] && params[:page].to_i <= pager_num
     @post = Post.order('id DESC')
     @page_name = 'index'
     @title = 'Blog'
-    @pager = Post.paginate(page: params[:page], per_page: SPLIT_NUM).order('id DESC')
+    @pager = Post.paginate(page: params[:page], per_page: split_num).order('id DESC')
     slim :index
   else
     slim :not_found

@@ -15,6 +15,8 @@ html
           - @post.errors.full_messages.each do |error_message|
             li= error_message
 
+      button type="button" name="button" class="readLocalStorage" 前回の内容を復元
+      br
       form method="post" action="/article_post" enctype="multipart/form-data"
         input type="hidden" name="csrf_token" value="#{@csrf_token}"
         / nameの値をparamsで取得する
@@ -58,12 +60,16 @@ html
         br
         input.submit-button.logout  type="submit" value="ログアウト"
 
+      br
+
       a href="/" TOPへ
 
     javascript:
+      const title      = document.querySelector('.title')
       const articleImg = document.querySelector('#article_img_files')
       const textArea   = document.querySelector('textarea')
       const form       = document.querySelector('form')
+      const readButton = document.querySelector('.readLocalStorage')
 
       // 投稿か修正かでサブミット先を変更する
       const submitAction = url => form.setAttribute('action', url)
@@ -71,6 +77,23 @@ html
       // 記事内画像![]()を検索してsubmitの表示を切り替える 画像タグのカッコの間に空白が入るとNG
       const inArticleImgJudge = () => articleImg.disabled = !(textArea.value.match(/!\[\S*\]\(\S*\)/g))
 
+      // titleとarticleをlocalstorageに保存する
+      const saveTitle = () => localStorage.setItem('title', title.value)
+
+      const saveArticle = () => localStorage.setItem('article', textArea.value)
+
+      // localStorageのデータを読み出し
+      const readLocalStorage = () => {
+        const getTitle   = localStorage.getItem('title')
+        const getArticle = localStorage.getItem('article')
+
+        title.value    = getTitle
+        textArea.value = getArticle
+      }
+
       textArea.addEventListener('keyup', inArticleImgJudge)
       articleImg.addEventListener('change', inArticleImgJudge)
+      title.addEventListener('keyup', saveTitle)
+      textArea.addEventListener('keyup', saveArticle)
+      readButton.addEventListener('click', readLocalStorage)
       inArticleImgJudge()

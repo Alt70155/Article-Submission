@@ -213,6 +213,20 @@ post '/article_update' do
   redirect "articles/#{@post.id}"
 end
 
+# ---- 削除機能
+
+post '/article_delete' do
+  login_required
+
+  @post = Post.find(params[:post_id])
+  page_num = @post.id
+  @post.destroy
+  # auto_incrementを修正
+  ActiveRecord::Base.connection.execute("alter table posts auto_increment = #{page_num};")
+
+  redirect '/'
+end
+
 # ---- ログイン機能 ----
 
 # login

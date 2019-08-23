@@ -834,3 +834,26 @@ ins {
 .display-none {
   display: none;
 }
+
+.article-control-box {
+  display: flex;
+  width: 300px;
+  justify-content: space-around;
+}
+
+.edit_button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 1px 15px;
+  text-decoration: none;
+  color: #67c5ff;
+  border: solid 2px #67c5ff;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.edit_button:hover {
+  text-decoration: none;
+  background: #67c5ff;
+  color: white;
+}

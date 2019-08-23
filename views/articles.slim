@@ -1,9 +1,12 @@
 .main-aside-wrap
   .text-content
     - if @is_login
-      div
-        a.submit-button href="..#{@edit_path}" edit
+      .article-control-box
+        a.edit_button href="..#{@edit_path}" 編集
         ==slim :"partial/_logout"
+        form method="post" action="/article_delete"
+          br
+          input.submit-button  type="submit" value="削除"
 
     .article-title
       h1= @post.title

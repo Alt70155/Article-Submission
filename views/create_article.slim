@@ -15,8 +15,11 @@ html
           - @post.errors.full_messages.each do |error_message|
             li= error_message
 
-      button type="button" name="button" class="readLocalStorage" 前回の内容を復元
+      button style="margin: 10px 0;" type="button" name="button" class="readLocalStorage" 前回の内容を復元
       br
+      button style="margin: 10px 0;" type="button" name="button" onclick="location.href='/'" TOPへ
+      br
+
       form method="post" action="/article_post" enctype="multipart/form-data"
         input type="hidden" name="csrf_token" value="#{@csrf_token}"
         / nameの値をparamsで取得する
@@ -59,10 +62,6 @@ html
         input name="_method" type="hidden" value="DELETE"
         br
         input.submit-button.logout  type="submit" value="ログアウト"
-
-      br
-
-      a href="/" TOPへ
 
     javascript:
       const title      = document.querySelector('.title')

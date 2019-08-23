@@ -94,15 +94,15 @@ input[type='text'], textarea {
   border-radius: 4px 4px;
 }
 
+.submit-button:hover {
+  background-color: #d3d3d3;
+}
+
 .logout {
   position: absolute;
   margin-left: 0;
   margin-top: -75px;
   padding: 15px 20px 16px 20px;
-}
-
-.submit-button:hover {
-  background-color: #d3d3d3;
 }
 
 .error-messages-area {

@@ -2,11 +2,11 @@
   .text-content
     - if @is_login
       .article-control-box
-        a.edit_button href="..#{@edit_path}" 編集
-        ==slim :"partial/_logout"
+        a.edit-button href="..#{@edit_path}" 編集
         form method="post" action="/article_delete"
           br
-          input.submit-button  type="submit" value="削除"
+          input.submit-button type="submit" value="削除"
+        ==slim :"partial/_logout"
 
     .article-title
       h1= @post.title

@@ -684,6 +684,39 @@ footer p {
   border-radius: 21px;
 }
 
+.submit-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: white;
+  border-style: none;
+  border: 1px solid grey;
+  border-radius: 4px 4px;
+}
+
+.submit-button:hover {
+  background-color: #d3d3d3;
+}
+
+.edit-button {
+  display: inline-block;
+  width: 30px;
+  height: 31px;
+  margin-top: 30px;
+  font-size: 12px;
+  color: grey;
+  padding: 6px 17px 0px 20px;
+  background-color: white;
+  border-style: none;
+  border: 1px solid grey;
+  border-radius: 4px 4px;
+}
+
+.edit-button:hover {
+  text-decoration: none;
+  color: grey;
+  background-color: #d3d3d3;
+}
+
 /*-----Article end-----*/
 
 /*-----portfolio start-----*/
@@ -839,21 +872,4 @@ ins {
   display: flex;
   width: 300px;
   justify-content: space-around;
-}
-
-.edit_button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 1px 15px;
-  text-decoration: none;
-  color: #67c5ff;
-  border: solid 2px #67c5ff;
-  border-radius: 3px;
-  transition: .4s;
-}
-
-.edit_button:hover {
-  text-decoration: none;
-  background: #67c5ff;
-  color: white;
 }

@@ -23,6 +23,8 @@ html
     / アナリティクスはログインしている時は表示しない
     - if current_user.nil?
       == slim :"partial/_analytics"
+    - if @page_name == "index"
+      script (src="../js/environment-judgment.js" defer)
 
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる

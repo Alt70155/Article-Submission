@@ -1,3 +1,5 @@
+・記事内のトップにサムネイルを掲載する
+
 ok・twitter_cardのdescriptionを設定する
 
 ok・loginとcreate_articleはgooglebotをオフにする
@@ -8,7 +10,7 @@ ok・広告を貼る
 
 ok・記事の投稿日時を変更
 
-・paginateの設定
+ok・paginateの設定
 
 ok・ライフゲームなどをpublicに置く
 

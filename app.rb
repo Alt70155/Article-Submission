@@ -85,7 +85,6 @@ get @create_article_path do
   csrf_token_generate
 
   @category = Category.all
-
   slim :create_article, layout: nil
 end
 

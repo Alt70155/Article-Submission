@@ -24,12 +24,11 @@ html
         input type="hidden" name="csrf_token" value="#{@csrf_token}"
         / nameの値をparamsで取得する
         / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
-        / p タイトル
         input.title   type="text" name="title" value="#{@post&.title}" placeholder="タイトル"
         br
-        / p 本文
         textarea.body type="text" name="body" placeholder="記事を入力" #{@post&.body}
         br
+        span.display-img-tag-ct-in-article
 
         p ・カテゴリーを選択
         .radio
@@ -64,22 +63,32 @@ html
         input.submit-button.logout  type="submit" value="ログアウト"
 
     javascript:
-      const title      = document.querySelector('.title')
-      const articleImg = document.querySelector('#article_img_files')
-      const textArea   = document.querySelector('textarea')
-      const form       = document.querySelector('form')
-      const readButton = document.querySelector('.readLocalStorage')
+      const title        = document.querySelector('.title')
+      const articleImg   = document.querySelector('#article_img_files')
+      const textArea     = document.querySelector('textarea')
+      const form         = document.querySelector('form')
+      const readButton   = document.querySelector('.readLocalStorage')
+      const dispImgTagCt = document.querySelector('.display-img-tag-ct-in-article')
 
       // 投稿か修正かでサブミット先を変更する
       const submitAction = url => form.setAttribute('action', url)
 
+      // 記事内画像タグ![]()を数えて個数を返す
+      const imgTagCtInArticle = () => {
+        const imgTagInArticle = textArea.value.match(/!\[\S*\]\(\S*\)/g)
+        return imgTagInArticle === null ? 0 : imgTagInArticle.length
+      }
+
       // 記事内画像![]()を検索してsubmitの表示を切り替える 画像タグのカッコの間に空白が入るとNG
-      const inArticleImgJudge = () => articleImg.disabled = !(textArea.value.match(/!\[\S*\]\(\S*\)/g))
+      const inArticleImgJudge = () => articleImg.disabled = !(imgTagCtInArticle())
 
       // titleとarticleをlocalstorageに保存する
       const saveTitle = () => localStorage.setItem('title', title.value)
 
       const saveArticle = () => localStorage.setItem('article', textArea.value)
+
+      // 記事内画像数を表示
+      const displayImgTagCtInArticle = () => dispImgTagCt.textContent = `記事内画像数：${imgTagCtInArticle()}`
 
       // localStorageのデータを読み出し
       const readLocalStorage = () => {
@@ -91,8 +100,10 @@ html
       }
 
       textArea.addEventListener('keyup', inArticleImgJudge)
+      textArea.addEventListener('keyup', displayImgTagCtInArticle)
       articleImg.addEventListener('change', inArticleImgJudge)
       title.addEventListener('keyup', saveTitle)
       textArea.addEventListener('keyup', saveArticle)
       readButton.addEventListener('click', readLocalStorage)
       inArticleImgJudge()
+      displayImgTagCtInArticle()

@@ -98,10 +98,10 @@ post '/article_post' do
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
   thumbnail_file = params[:file]
-  thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename])
+  thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename].downcase)
 
   # img_files_in_articleに格納するのは画像名の入った配列かnilにして、ファイルの保存はparamsを直接用いる
-  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename] }
+  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename].downcase }
   image_name_in_article = session[:img_files_name_in_article] if image_name_in_article.nil?
 
   @post = Post.new(
@@ -153,10 +153,10 @@ post '/article_prev' do
   csrf_token_generate
 
   thumbnail_file = params[:file]
-  thumbnail_name = thumbnail_file ? thumbnail_file[:filename] : nil
+  thumbnail_name = thumbnail_file ? thumbnail_file[:filename].downcase : nil
 
   # 記事内画像があれば画像名を、なければnilを格納する
-  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename] }
+  image_name_in_article = params[:article_img_files]&.map { |img| img[:filename].downcase }
 
   @post = Post.new(
     id:                   Post.count + 1, # ダミー

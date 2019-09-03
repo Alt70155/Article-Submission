@@ -6,6 +6,12 @@
 
 ・記事内画像タグの表示
 
+ok・profileに資格欄追加
+
+・大文字のJPGでも通るようにする
+
+・投稿・修正ボタンがわかりづらい
+
 ok・twitter_cardのdescriptionを設定する
 
 ok・loginとcreate_articleはgooglebotをオフにする

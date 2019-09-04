@@ -1,5 +1,5 @@
 class PostValidator < ActiveModel::Validator
-  DEFAULT_MAX_IMG_CNT = 10
+  DEFAULT_MAX_IMG_CNT = 15
   ENABLE_EXTENSION_REGEXP = /.*\.(jpg|png|jpeg)\z/
   MARKDOWN_IMAGE_TAG_REGEXP = /!\[\S*\]\(\S*\)/
 

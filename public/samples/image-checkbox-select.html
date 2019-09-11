@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    ul.image-list li {
+      display: inline-block;
+      margin: 10px 20px;
+    }
+    ul.image-list li .image-box {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+    .image-box img.image {
+      width: 100%;
+      height: 100%;
+    }
+    .image-box img.image.checked {
+      border: 6px solid blue;
+      box-sizing: border-box;
+    }
+    .image-box .disabled-checkbox {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: none;
+    }
+    .image-box img.image.checked + .disabled-checkbox {
+      display: block;
+    }
+    </style>
+</head>
+
+<body>
+  <div id="main">
+    <ul class="image-list">
+      <li>
+        <div class="image-box">
+          <img class="image" src="../samples/sample-img/test.png" alt="foo">
+          <input class="disabled-checkbox" type="checkbox" onclick="return false">
+        </div>
+      </li>
+      <li>
+        <div class="image-box">
+          <img class="image" src="../samples/sample-img/test.png" alt="foo">
+          <input class="disabled-checkbox" type="checkbox" onclick="return false">
+        </div>
+      </li>
+      <li>
+        <div class="image-box">
+          <img class="image" src="../samples/sample-img/test.png" alt="foo">
+          <input class="disabled-checkbox" type="checkbox" onclick="return false">
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    (() => {
+      const checkBoxList = document.querySelectorAll('.disabled-checkbox')
+      const imageList = document.querySelectorAll('.image')
+
+      imageList.forEach((image, i) => {
+        image.addEventListener('click', () => {
+          const imageClassList = image.classList
+
+          // checked属性の切り替え
+          checkBoxList[i].checked = !checkBoxList[i].checked
+
+          // CSSクラスの切り替え
+          if (Array.from(imageClassList).includes('checked')) {
+            imageClassList.remove('checked')
+          } else {
+            imageClassList.add('checked')
+          }
+        })
+      })
+    })()
+  </script>
+</body>
+
+</html>

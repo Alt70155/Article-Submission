@@ -24,7 +24,7 @@ helpers do
   def replace_html(html)
     html.gsub!(/<h2>/, '<div class="text-sub-title"><h2 class="sub-title-border">&nbsp;')
        &.gsub!(%r{</h2>}, '</h2></div>')
-    html.gsub!(/<marquee>/, %[
+    html.gsub!(/--adsense--/, %[
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <ins class="adsbygoogle"
            style="display:block; text-align:center;"

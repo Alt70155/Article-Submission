@@ -29,6 +29,11 @@ html
               input.radio-input type="radio" name="category_id" value="#{i}" id="radio_#{i}"
             label for="radio_#{i}" = cate.cate_name
 
+        .article-img-post-area
+          .article-thumbnail-input
+            p ・サムネイル画像
+            input#top_picture type="file" name="thumbnail" accept="image/*"
+
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
         .submit-wrap
           input#submit.submit-button type="submit" value="投稿" name="submit"

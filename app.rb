@@ -207,7 +207,16 @@ post '/article_update' do
   # @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
   # 今回はvalidationを回避したい為、update_columnsを使う
   # update_columnsはupdated_atを更新しないので自力で更新
-  @post.update_columns(title: params[:title], body: params[:body], category_id: params[:category_id], updated_at: Time.now)
+  unless params[:thumbnail].nil?
+    File.open("public/img/#{params[:thumbnail][:filename]}", 'wb') { |f| f.write(params[:thumbnail][:tempfile].read) }
+    unless @post.update(top_picture: params[:thumbnail][:filename])
+      redirect env_var('edit_path')
+    end
+  end
+  @post.update_columns(title: params[:title],
+                       body: params[:body],
+                       category_id: params[:category_id],
+                       updated_at: Time.now)
 
   redirect "articles/#{@post.id}"
 end

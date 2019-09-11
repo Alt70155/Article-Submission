@@ -3,7 +3,8 @@
     - if @is_login
       .article-control-box
         a.edit-button href="..#{@edit_path}" 編集
-        form method="post" action="/article_delete"
+
+        form method="post" action="/article_delete" onSubmit="return deleteCheck()"
           input type="hidden" name="post_id" value="#{@post.id}"
           br
           input.submit-button type="submit" value="削除"
@@ -40,3 +41,5 @@
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"
+javascript:
+  const deleteCheck = () => window.confirm('削除してよろしいですか？')

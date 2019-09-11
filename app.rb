@@ -212,7 +212,7 @@ post '/article_update' do
   redirect "articles/#{@post.id}"
 end
 
-# ---- 削除機能
+# ---- 削除機能 ----
 
 post '/article_delete' do
   login_required
@@ -220,8 +220,11 @@ post '/article_delete' do
   @post = Post.find(params[:post_id])
   page_num = @post.id
   @post.destroy
-  # auto_incrementを修正
-  ActiveRecord::Base.connection.execute("alter table posts auto_increment = #{page_num};")
+
+  # 最新記事を消した場合のみ、auto_incrementを修正
+  if page_num == Post.count + 1
+    ActiveRecord::Base.connection.execute("alter table posts auto_increment = #{page_num};")
+  end
 
   redirect '/'
 end

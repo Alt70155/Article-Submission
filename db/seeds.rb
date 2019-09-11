@@ -5,7 +5,7 @@ User.create!(user_id: 'test', password: 'password', password_confirmation: 'pass
 
 24.times do |i|
   Post.create!(
-    category_id: i + 1,
+    category_id: 1,
     title:       'テストタイトル',
     body:        'test data',
     top_picture: 'page2.jpg'

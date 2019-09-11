@@ -26,11 +26,8 @@ html
         / 入力必須にするrequired論理属性があるが、今回はエラーメッセージを表示させたいので鯖側で対処
         input.title   type="text" name="title" value="#{@post&.title}" placeholder="タイトル"
         br
-        textarea.body type="text" name="body" placeholder="記事を入力" #{@post&.body}
-        br
-        span.display-img-tag-ct-in-article
 
-        p ・カテゴリーを選択
+        / カテゴリー選択
         .radio
           - @category.each_with_index do |cate, i|
             - i += 1
@@ -42,12 +39,18 @@ html
               input.radio-input type="radio" name="category_id" value="#{i}" id="radio_#{i}"
             label for="radio_#{i}" = cate.cate_name
 
-        p ・トップ画像
-        input#top_picture type="file" name="file" accept="image/*"
+        textarea.body type="text" name="body" placeholder="記事を入力" #{@post&.body}
         br
-        .article-imgs-input
-          p ・記事内画像
-          input#article_img_files type="file" name="article_img_files[]" multiple="multiple" accept="image/*" disabled="disabled"
+        span.display-img-tag-ct-in-article
+
+        .article-img-post-area
+          .article-thumbnail-input
+            p ・サムネイル画像
+            input#top_picture type="file" name="file" accept="image/*"
+          .article-imgs-input
+            p ・記事内画像
+            input#article_img_files type="file" name="article_img_files[]" multiple="multiple" accept="image/*" disabled="disabled"
+
         br
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
         .submit-wrap
@@ -105,5 +108,7 @@ html
       title.addEventListener('keyup', saveTitle)
       textArea.addEventListener('keyup', saveArticle)
       readButton.addEventListener('click', readLocalStorage)
+      readButton.addEventListener('click', inArticleImgJudge)
+      readButton.addEventListener('click', displayImgTagCtInArticle)
       inArticleImgJudge()
       displayImgTagCtInArticle()

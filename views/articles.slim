@@ -3,7 +3,8 @@
     - if @is_login
       .article-control-box
         a.edit-button href="..#{@edit_path}" 編集
-        form method="post" action="/article_delete"
+
+        form method="post" action="/article_delete" onSubmit="return deleteCheck()"
           input type="hidden" name="post_id" value="#{@post.id}"
           br
           input.submit-button type="submit" value="削除"
@@ -13,13 +14,14 @@
       h1= @post.title
 
     .posted-date-area
-      - if @post.created_at.strftime('%Y/%-m/%-d') == @post.updated_at.strftime('%Y/%-m/%-d')
-        p= "投稿日：#{@post.created_at.strftime('%Y/%-m/%-d')}"
+      - DATE_FORMAT = '%Y/%-m/%-d'
+      - if @post.created_at.strftime(DATE_FORMAT) == @post.updated_at.strftime(DATE_FORMAT)
+        p= "投稿日：#{@post.created_at.strftime(DATE_FORMAT)}"
       - else
         p
-          = "更新日：#{@post.updated_at.strftime('%Y/%-m/%-d')}"
+          = "更新日：#{@post.updated_at.strftime(DATE_FORMAT)}"
           | &emsp;
-          = "投稿日：#{@post.created_at.strftime('%Y/%-m/%-d')}"
+          = "投稿日：#{@post.created_at.strftime(DATE_FORMAT)}"
 
     script (async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
     /! article-page-top
@@ -39,3 +41,5 @@
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"
+javascript:
+  const deleteCheck = () => window.confirm('削除してよろしいですか？')

@@ -39,6 +39,10 @@ input[type='text'], textarea {
   font-size: 18px;
 }
 
+.radio {
+  margin: 8px 0;
+}
+
 .radio-input{
   display: none;
 }
@@ -107,4 +111,8 @@ input[type='text'], textarea {
 
 .error-messages-area {
   color: red;
+}
+
+.article-img-post-area {
+  display: flex;
 }

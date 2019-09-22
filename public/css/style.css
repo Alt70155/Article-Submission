@@ -309,6 +309,10 @@ footer p {
   width: 100%;
 }
 
+#article a {
+  word-break: break-all;
+}
+
 .posted-date-area {
   border-bottom: 1px solid black;
   margin-bottom: 40px;

@@ -1,7 +1,7 @@
 class PostValidator < ActiveModel::Validator
   DEFAULT_MAX_IMG_CNT = 15
   ENABLE_EXTENSION_REGEXP = /.*\.(jpg|png|jpeg)\z/
-  MARKDOWN_IMAGE_TAG_REGEXP = /!\[\S*\]\(\S*\)/
+  MARKDOWN_IMAGE_TAG_REGEXP = /!\[(\S|\s)*\]\((\S|\s)*\)/
 
   # 定数の可視性をprivateにする
   private_constant(:DEFAULT_MAX_IMG_CNT, :ENABLE_EXTENSION_REGEXP, :MARKDOWN_IMAGE_TAG_REGEXP)

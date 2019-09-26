@@ -23,6 +23,10 @@ html
     / アナリティクスはログインしている時は表示しない
     - if current_user.nil?
       == slim :"partial/_analytics"
+      / LogRocketタグ
+      script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"
+      javascript:
+        window.LogRocket && window.LogRocket.init('2ad11l/my-web-site');
 
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる

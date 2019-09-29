@@ -261,3 +261,14 @@ span {
   display: -ms-flexbox;
   display: flex;
 }
+
+.button-flex {
+  display: flex;
+  margin: auto;
+  width: 400px;
+}
+
+.wrapper-flex {
+  display: flex;
+  justify-content: space-between;
+}

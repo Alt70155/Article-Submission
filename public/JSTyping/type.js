@@ -7,7 +7,7 @@ let correctTypeCnt = 0; //正しく入力した数
 let charTypingCnt = 0; //すべての入力数
 let missTypeCnt = 0;
 let timerId = NaN;
-let timerCt = 60;
+let timerCt = 2;
 let meterWidth = 0; //連打メーターの幅の値
 let isPushedShiftKey = false;
 let isPushedKey = false;
@@ -125,7 +125,7 @@ let ifCorrectFunc = () => {
   charCodeIndex += 2;
   correctTypeCnt++;
   let newElm = document.querySelector(".before");
-  newElm.className = "after";
+  if (newElm) newElm.className = "after";
 }
 
 let nodeDelete = (x) => {
@@ -192,5 +192,7 @@ let updateCorrectContinueBar = () => {
       counter.textContent = "Time: " + timerCt + "s";
       break;
   }
-  meterMain.style.width = meterWidth + "px";
+  if (meterMain !== null) {
+    meterMain.style.width = meterWidth + "px";
+  }
 }

@@ -1,0 +1,64 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Typing</title>
+  <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
+  <link rel="shortcut icon" href="JSfavicon.jpg">
+  <link rel="stylesheet" type="text/css" href="jstype-css.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131321630-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-131321630-1');
+  </script>
+  <script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"></script>
+  <script>window.LogRocket && window.LogRocket.init('2ad11l/my-web-site');</script>
+</head>
+
+<body onload="start()">
+  <div id="content">
+    <div id="main-center">
+      <div id="title_start">
+        <h1 id="first_start">スペースキーを押すとスタートします</h1>
+      </div>
+    </div>
+    <div id="Multi_panel">
+      <div id="counter"></div>
+      <div id="small_meter_panel">
+        <div id="meter1" class="mtr_common"></div>
+        <div class="mtr_common"></div>
+        <div class="mtr_common"></div>
+        <div class="mtr_common"></div>
+        <div class="mtr_common"></div>
+      </div>
+      <div id="meter_outside">
+        <div id="meter_main"></div>
+      </div>
+      <div id="nomiss_txt">連打メーター</div>
+      <div id="meter_txt_panel">
+        <div id="meter1_txt">+1s</div>
+        <div id="meter2_txt" class="mtr_txt_common">+1s</div>
+        <div id="meter3_txt" class="mtr_txt_common">+2s</div>
+        <div id="meter4_txt" class="mtr_txt_common">+2s</div>
+        <div id="meter5_txt" class="mtr_txt_common">+3s</div>
+      </div>
+    </div>
+  </div>
+  <div id="result" style="display: none;">
+    <h1 id="score1"></h1>
+    <h1 id="score2"></h1>
+    <div class="toTop_posi">
+      <a href="init.html" class="cp_btn">topへ</a>
+    </div>
+  </div>
+  <script src="problem_array.js" charset="utf-8"></script>
+  <script src="type.js" charset="utf-8"></script>
+</body>
+
+</html>

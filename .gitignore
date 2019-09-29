@@ -8,7 +8,7 @@ helpers/env_var.rb
 public/character_compatibility.html
 public/LifeGame/
 public/pubg-random/
-public/JSTyping/
+# public/JSTyping/
 app_config.rb
 public/img
 Rakefile

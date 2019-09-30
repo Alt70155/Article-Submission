@@ -40,16 +40,13 @@ end
 
 # ---- カテゴリー ----
 
-get '/category/:cate_name' do
+get '/category/:path' do
   @page_name = 'index'
-  # URLに指定されたカテゴリー名を数字に置き換える
-  category_name_to_id = { 'html-css' => 1, 'js' => 2, 'site' => 3, 'etc' => 4 }
-  cate_id = category_name_to_id[params[:cate_name]]
+  @category = Category.find_by(path: params[:path])
 
-  if cate_id
-    @cate_name = Category.find(cate_id).cate_name
-    @title = @cate_name
-    @post_by_category = Post.where(category_id: cate_id).order('id DESC')
+  if @category
+    @title = @category.cate_name
+    @post_by_category = Post.where(category_id: @category.id).order('id DESC')
     slim :category
   else
     slim :not_found

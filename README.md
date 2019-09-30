@@ -173,3 +173,19 @@ ActiveRecord::Base.connection.execute("alter table posts auto_increment = 25;")
 ```
 
 で修正
+
+## カラムの追加
+
+```terminal
+bundle exec rake db:create_migration NAME=categories_add_path
+```
+
+```ruby
+def change
+  add_column :categories, :path, :string
+end
+```
+
+```terminal
+ bundle exec rake db:migrate
+```

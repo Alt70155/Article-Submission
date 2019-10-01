@@ -9,6 +9,8 @@
           br
           input.submit-button type="submit" value="削除"
         ==slim :"partial/_logout"
+      javascript:
+        const deleteCheck = () => window.confirm('削除してよろしいですか？')
 
     .article-title
       h1= @post.title
@@ -41,5 +43,3 @@
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"
-javascript:
-  const deleteCheck = () => window.confirm('削除してよろしいですか？')

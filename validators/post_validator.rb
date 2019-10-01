@@ -1,6 +1,6 @@
 class PostValidator < ActiveModel::Validator
   DEFAULT_MAX_IMG_CNT = 15
-  ENABLE_EXTENSION_REGEXP = /.*\.(jpg|png|jpeg)\z/
+  ENABLE_EXTENSION_REGEXP = /.*\.(jpg|png|jpeg|gif)\z/
   MARKDOWN_IMAGE_TAG_REGEXP = /!\[(\S|\s)*\]\((\S|\s)*\)/
 
   # 定数の可視性をprivateにする
@@ -24,6 +24,6 @@ class PostValidator < ActiveModel::Validator
     enable_img_files_in_article = post.img_files_in_article.map { |img| img =~ ENABLE_EXTENSION_REGEXP }
 
     return post.errors[:img_files_in_article] << '添付された記事内画像ファイル数と画像タグの数が一致しません。' unless img_tag_ct == enable_img_files_in_article.length
-    return post.errors[:img_files_in_article] << '添付された記事内画像ファイルに拡張子がjpg, jpeg, pngではないものがあります。' unless enable_img_files_in_article.all?
+    return post.errors[:img_files_in_article] << '添付された記事内画像ファイルに拡張子がjpg, jpeg, png, gifではないものがあります。' unless enable_img_files_in_article.all?
   end
 end

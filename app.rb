@@ -240,6 +240,7 @@ end
 
 # login
 get @login_path do
+  return redirect env_var('create_article_path') unless session[:user_id].nil?
   slim :login, layout: nil
 end
 

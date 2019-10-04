@@ -22,9 +22,6 @@ class PostValidator < ActiveModel::Validator
 
     # 拡張子が正常なら0、一致しなければnilが入る
     enable_img_files_in_article = post.img_files_in_article.map { |img| img =~ ENABLE_EXTENSION_REGEXP }
-    p "=" * 40
-    p enable_img_files_in_article
-    p img_tag_ct
 
     return post.errors[:img_files_in_article] << '添付された記事内画像ファイル数と画像タグの数が一致しません。' unless img_tag_ct == enable_img_files_in_article.length
     return post.errors[:img_files_in_article] << '添付された記事内画像ファイルに拡張子がjpg, jpeg, png, gifではないものがあります。' unless enable_img_files_in_article.all?

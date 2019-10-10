@@ -60,13 +60,12 @@ get '/articles/:id' do
   @post = Post.find_by(id: params[:id])
 
   if @post
-    @is_login = !current_user.nil?
     # その他記事を降順で6個取得
     @title          = @post.title
     @other_articles = Post.order('id DESC').first(6)
     @description    = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
-    if @is_login
+    if login?
       session[:page_number] = @post.id
       @edit_path = env_var('edit_path')
     end

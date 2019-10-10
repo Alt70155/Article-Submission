@@ -877,3 +877,9 @@ ins {
   width: 300px;
   justify-content: space-around;
 }
+
+/* ログインしてるかどうかの表示 */
+.is-login {
+  width: 1040px;
+  margin: auto;
+}

@@ -21,7 +21,7 @@ html
       meta property="og:image" content="https://Knowledge-blog.net/img/twitter_card.png"
       meta property="og:description" content="#{@description}"
     / アナリティクスはログインしている時は表示しない
-    - if current_user.nil?
+    - unless login?
       == slim :"partial/_analytics"
       / LogRocketタグ
       script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"

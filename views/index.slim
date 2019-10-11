@@ -23,19 +23,23 @@ p.page-title 最新記事
 javascript:
   const userAgent = navigator.userAgent.toLowerCase();
 
-  if ( userAgent.indexOf('msie')    === -1 &&
-       userAgent.indexOf('trident') === -1 &&
-       userAgent.indexOf('edge')    === -1 &&
-       userAgent.indexOf('chrome')  !== -1 &&
-       userAgent.indexOf('windows') !== -1 ) {
+  const changeWindowsOsStyle = () => {
+    if ( userAgent.indexOf('msie')    === -1 &&
+         userAgent.indexOf('trident') === -1 &&
+         userAgent.indexOf('edge')    === -1 &&
+         userAgent.indexOf('chrome')  !== -1 &&
+         userAgent.indexOf('windows') !== -1 ) {
 
-    const linkTagPaddingVal  = '11px 18px'
-    const allowValPaddingVal = '10px 16px'
+      const linkTagPaddingVal  = '11px 18px'
+      const allowValPaddingVal = '10px 16px'
 
-    document.querySelectorAll('.pagination a').forEach( node => {
-      node.style.padding = node.textContent === '<' || node.textContent === '>' ? allowValPaddingVal : linkTagPaddingVal
-    })
+      document.querySelectorAll('.pagination a').forEach( node => {
+        node.style.padding = node.textContent === '<' || node.textContent === '>' ? allowValPaddingVal : linkTagPaddingVal
+      })
 
-    document.querySelector('.current').style.padding = linkTagPaddingVal
-    document.querySelector('.pagination .disabled').style.padding = allowValPaddingVal
+      document.querySelector('.current').style.padding = linkTagPaddingVal
+      document.querySelector('.pagination .disabled').style.padding = allowValPaddingVal
+    }
   }
+  changeWindowsOsStyle()
+  document.querySelectorAll('.pagination a').forEach( node => node.addEventListener('mouseover', changeWindowsOsStyle))

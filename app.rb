@@ -95,7 +95,16 @@ post '/article_post' do
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
   thumbnail_file = params[:file]
-  thumbnail_name = params[:pic_name] || (thumbnail_file && thumbnail_file[:filename].downcase)
+
+  # params[:pic_name]は修正に戻った場合でも空文字が入っているので
+  # 直接判定には使えないので注意
+  thumbnail_name =  if params[:pic_name] && params[:pic_name].length.positive?
+                      params[:pic_name]
+                    elsif thumbnail_file && thumbnail_file[:filename]
+                      thumbnail_file[:filename].downcase
+                    else
+                      nil
+                    end
 
   # img_files_in_articleに格納するのは画像名の入った配列かnilにして、ファイルの保存はparamsを直接用いる
   image_name_in_article = params[:article_img_files]&.map { |img| img[:filename].downcase }
@@ -108,6 +117,8 @@ post '/article_post' do
     top_picture:          thumbnail_name,
     img_files_in_article: image_name_in_article
   )
+  p "="*50
+  p @post.top_picture
 
   if params[:back].nil? && @post.save
     # top画像ファイル保存
@@ -123,7 +134,9 @@ post '/article_post' do
   else
     # プレビュー画面から修正に戻った場合
     if params[:back]
-      File.delete("public/img/#{@post.top_picture}") if File.exist?("public/img/#{@post.top_picture}")
+      if @post.top_picture && File.exist?("public/img/#{@post.top_picture}")
+        File.delete("public/img/#{@post.top_picture}")
+      end
       # 記事内画像名をセッションで受け取って削除
       session[:img_files_name_in_article]&.each do |img_name|
         File.delete("public/img/#{img_name}") if File.exist?("public/img/#{img_name}")
@@ -151,7 +164,6 @@ post '/article_prev' do
 
   thumbnail_file = params[:file]
   thumbnail_name = thumbnail_file ? thumbnail_file[:filename].downcase : nil
-
   # 記事内画像があれば画像名を、なければnilを格納する
   image_name_in_article = params[:article_img_files]&.map { |img| img[:filename].downcase }
 
@@ -165,8 +177,10 @@ post '/article_prev' do
   )
 
   # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
-  if @post.valid?
-    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
+  # if @post.valid?
+    if @post.top_picture
+      File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
+    end
 
     if @post.img_files_in_article
       # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
@@ -176,13 +190,13 @@ post '/article_prev' do
       end
     end
 
-    @category = Category.where(category_id: @post.category_id)
+    # @category = Category.find_by(category_id: @post.category_id)
     slim :article_prev
-  else
+  # else
     # エラーメッセージを表示させたいのでレンダリング
-    @category = Category.all
-    slim :create_article, layout: nil
-  end
+  #   @category = Category.all
+  #   slim :create_article, layout: nil
+  # end
 end
 
 # ---- 編集機能 ----

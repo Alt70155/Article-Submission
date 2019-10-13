@@ -1,4 +1,3 @@
-# ok
 enable :sessions
 # put/deleteフォームをサポートしないブラウザで_methodのおまじないを使えるようにする
 enable :method_override

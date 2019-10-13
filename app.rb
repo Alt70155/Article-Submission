@@ -116,8 +116,6 @@ post '/article_post' do
     top_picture:          thumbnail_name,
     img_files_in_article: image_name_in_article
   )
-  p "="*50
-  p @post.top_picture
 
   if params[:back].nil? && @post.save
     # top画像ファイル保存

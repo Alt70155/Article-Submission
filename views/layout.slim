@@ -13,7 +13,8 @@ html
     link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"
     link rel="shortcut icon" href="../img/favicon.png"
     - if @page_name == "article" && @post
-      script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
+      link rel="stylesheet" href="../css/rouge.css"
+      / script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
       script (src="../js/sidebar-fixed.js" defer)
       script (src="../js/code-block-width-value-change.js" defer)
       meta name="twitter:card" content="summary"

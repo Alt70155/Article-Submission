@@ -563,7 +563,7 @@ footer p {
 .language-tag {
   max-width: 800px;
   height: 16px;
-  /* padding-bottom: 5px; */
+  margin-top: 25px;
   font-family: 'Montserrat', sans-serif;
 }
 

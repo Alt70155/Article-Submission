@@ -5,7 +5,8 @@ helpers do
       hard_wrap:   true,  # 空行を改行ではなく、改行を改行に変換
       link_attributes: { rel: 'noopener', target: "_blank" }
     }
-    renderer = Redcarpet::Render::HTML.new(render_options)
+    # renderer = Redcarpet::Render::HTML.new(render_options)
+    renderer = ::CustomMarkdownRenderer.new(render_options)
 
     extensions = {
       autolink:            true,
@@ -36,12 +37,14 @@ helpers do
            (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     ])
-    # コードブロックが何言語かをcodeのclassから探して取り出す
-    str_len = 'code class="'.length
-    program_language_list = html.scan(/code class=".*"/).map { |m| m[str_len..-2] }
-    program_language_list.each do |p|
-      html.sub!(/<pre><code .*>/, %(<div class="language-tag"><B>▼ #{p}</B></div><pre class="prettyprint linenums"><code>))
+    # コードブロックが何言語かを探して置き換える
+    # フォーマット lang:ruby
+    language_list = html.scan(%r{<p>lang:.*</p>}).map { |e| e[8..-5] }
+    language_list.each do |p|
+      html.sub!(%r{<p>lang:.*</p>}, %(<div class="language-tag"><B>▼ #{p}</B></div>))
     end
+    # 半角スペースかタブを二倍の大きさに変換
+    html.gsub!(/[\x20|\u3000]/, '  ')
     html
   end
 end

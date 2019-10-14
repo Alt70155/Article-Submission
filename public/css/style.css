@@ -306,7 +306,6 @@ footer p {
 
 #article img {
   max-width: 750px;
-  /* width: 100%; */
 }
 
 #article a {
@@ -709,7 +708,7 @@ footer p {
   height: 31px;
   margin-top: 30px;
   font-size: 12px;
-  color: grey;
+  color: black;
   padding: 6px 17px 0px 20px;
   background-color: white;
   border-style: none;

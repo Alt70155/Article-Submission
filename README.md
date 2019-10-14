@@ -189,3 +189,10 @@ end
 ```terminal
  bundle exec rake db:migrate
 ```
+
+## Markdown独自タグ
+
+```markdown
+--adsense--
+lang:ruby
+```

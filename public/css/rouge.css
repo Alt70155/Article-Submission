@@ -11,7 +11,11 @@
 
 @media screen and (max-width: 710px) {
   .highlight {
-    font-size: 13.5px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: scroll;
+    overflow-x: auto;
+    font-size: 12px;
   }
 }
 code {

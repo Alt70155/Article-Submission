@@ -23,8 +23,23 @@ helpers do
   end
 
   def replace_html(html)
-    html.gsub!(/<h2>/, '<div class="text-sub-title"><h2 class="sub-title-border">&nbsp;')
-       &.gsub!(%r{</h2>}, '</h2></div>')
+    # カスタムタグ一覧
+    # --adsense-- 記事
+    # --toc--     目次
+    # lang:ruby   コードブロックの言語名
+
+    # h2のカスタム
+    html.scan(/<h2>/).length.times do |i|
+      html.sub!(/<h2>/, %(<div class="text-sub-title"><h2 id="h2_title_#{i}" class="sub-title-border">&nbsp;))
+    end
+    html.gsub!(%r{</h2>}, '</h2></div>')
+    # h3のカスタム
+    html.scan(/<h3>/).length.times do |i|
+      html.sub!(/<h3>/, %(<h3 id="h3_title_#{i}">))
+    end
+    # 目次(table of contents)を追加する
+    html.sub!(%r{<p>--toc--</p>}, %(<div class="table-of-contents"></div>))
+    # 広告のカスタム
     html.gsub!(/--adsense--/, %[
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <ins class="adsbygoogle"

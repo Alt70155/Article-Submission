@@ -14,9 +14,9 @@ html
     link rel="shortcut icon" href="../img/favicon.png"
     - if @page_name == "article" && @post
       link rel="stylesheet" href="../css/rouge.css"
-      / script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"
       script (src="../js/sidebar-fixed.js" defer)
       script (src="../js/code-block-width-value-change.js" defer)
+      script (src="../js/create-table-of-contents.js" defer)
       meta name="twitter:card" content="summary"
       meta name="twitter:site" content="@70155"
       meta property="og:url"   content="https://Knowledge-blog.net/articles/#{@post.id}"

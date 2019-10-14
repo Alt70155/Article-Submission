@@ -13,13 +13,6 @@
   .highlight {
     font-size: 12px;
   }
-  code {
-    word-wrap: break-word;
-    word-break: break-all;
-    overflow: scroll;
-    overflow-x: auto;
-    overflow-scrolling: auto;
-  }
 }
 code {
   font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;

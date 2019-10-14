@@ -313,6 +313,17 @@ footer p {
   word-break: break-all;
 }
 
+/* 目次デザイン */
+
+#article .table-of-contents {
+  margin-left: 15px;
+}
+
+#article .table-of-contents a {
+  color: black;
+  text-decoration: none;
+}
+
 .posted-date-area {
   border-bottom: 1px solid black;
   margin-bottom: 40px;

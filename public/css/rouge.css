@@ -8,6 +8,12 @@
   overflow: scroll;
   overflow-x: auto;
 }
+
+@media screen and (max-width: 710px) {
+  .highlight {
+    font-size: 13.5px;
+  }
+}
 code {
   font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
 }

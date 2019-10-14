@@ -305,7 +305,8 @@ footer p {
 }
 
 #article img {
-  max-width: 700px;
+  max-width: 100%;
+  height: auto;
 }
 
 #article a {

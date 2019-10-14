@@ -6,6 +6,7 @@
   word-wrap: break-word;
   word-break: break-all;
   overflow: scroll;
+  overflow-x: auto;
 }
 code {
   font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;

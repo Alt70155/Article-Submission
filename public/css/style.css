@@ -505,7 +505,8 @@ footer p {
 /*--- サイドバーレスポンシブ ---*/
 @media screen and (max-width: 1079px) {
   .text-content {
-    width: 800px;
+    max-width: 850px;
+    width: 100%;
     margin: auto;
   }
 
@@ -561,7 +562,7 @@ footer p {
 }
 /*---コードブロックの設定---*/
 .language-tag {
-  max-width: 800px;
+  max-width: 700px;
   height: 16px;
   margin-top: 25px;
   font-family: 'Montserrat', sans-serif;

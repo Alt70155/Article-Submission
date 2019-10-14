@@ -3,10 +3,12 @@
 .highlight {
   margin: 15px 0px;
   padding: 0.1px 10px;
-  font-family: Courier,monospace;
   word-wrap: break-word;
   word-break: break-all;
   overflow: scroll;
+}
+code {
+  font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
 }
 .highlight, .highlight .w {
   color: white;

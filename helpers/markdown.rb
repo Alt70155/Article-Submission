@@ -43,8 +43,6 @@ helpers do
     language_list.each do |p|
       html.sub!(%r{<p>lang:.*</p>}, %(<div class="language-tag"><B>▼ #{p}</B></div>))
     end
-    # 半角スペースかタブを二倍の大きさに変換
-    html.gsub!(/[\x20|\u3000]/, '  ')
     html
   end
 end

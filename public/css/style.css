@@ -883,6 +883,6 @@ ins {
 
 /* ログインしてるかどうかの表示 */
 .is-login {
-  width: 1040px;
+  width: 700px;
   margin: auto;
 }

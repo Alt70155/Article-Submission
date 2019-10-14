@@ -13,11 +13,12 @@
   .highlight {
     font-size: 12px;
   }
-  pre {
+  code {
     word-wrap: break-word;
     word-break: break-all;
     overflow: scroll;
     overflow-x: auto;
+    overflow-scrolling: auto;
   }
 }
 code {

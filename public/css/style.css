@@ -301,7 +301,8 @@ footer p {
 #article h3 {
   color: black;
   margin-top: 10px;
-  margin-bottom: 5px;
+  margin: 10px 0px -15px 7px;
+  font-size: 21px;
 }
 
 #article img {
@@ -639,17 +640,26 @@ footer p {
 }
 
 .other-article-item .article-inside p {
-  font-size: 14px;
+  font-size: 13.2px;
+  line-height: 20.8px;
+}
+
+.other-article-item .date {
+  font-size: 12.5px;
 }
 
 /* その他記事レスポンシブ */
 @media screen and (max-width: 1050px) {
-  .other-article-item .article-inside p { font-size: 1.4vw; }
+  .other-article-item .article-inside p {
+    font-size: 1.35vw;
+    line-height: normal;
+  }
 }
 
 @media screen and (max-width: 860px) {
   .other-article-item { width: 43%; }
   .other-article-item .article-inside p { font-size: 2.2vw; }
+  .other-article-item .date { font-size: 14px; }
 }
 
 @media screen and (max-width: 540px) {
@@ -735,6 +745,75 @@ footer p {
   text-decoration: none;
   color: grey;
   background-color: #d3d3d3;
+}
+
+/* #article blockquote {
+  position: relative;
+  padding: 10px 15px 10px 50px;
+  box-sizing: border-box;
+  background: #efefef;
+  color: #555;
+}
+
+#article blockquote:before{
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: -3px;
+  content: "“";
+  font-family: sans-serif;
+  color: #cfcfcf;
+  font-size: 90px;
+  line-height: 1;
+}
+
+#article blockquote p {
+  padding: 0;
+  margin: 10px 8px 10px 0;
+  line-height: 1.7;
+}
+
+#article blockquote cite {
+  display: block;
+  text-align: right;
+  color: #888888;
+  font-size: 0.9em;
+} */
+
+
+#article blockquote {
+    position: relative;
+    padding: 10px 15px 10px 50px;
+    box-sizing: border-box;
+    /* font-style: italic; */
+    background: #efefef;
+    color: #555;
+}
+
+#article blockquote:before{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    content: "“";
+    font-family: sans-serif;
+    color: #cfcfcf;
+    font-size: 90px;
+    line-height: 1;
+}
+
+#article blockquote p {
+    padding: 0;
+    margin: 10px 8px 10px 0;
+    line-height: 2.1;
+    color: #555;
+}
+
+#article blockquote cite {
+    display: block;
+    text-align: right;
+    color: #888888;
+    font-size: 0.9em;
 }
 
 /*-----Article end-----*/

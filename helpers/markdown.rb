@@ -38,7 +38,7 @@ helpers do
       html.sub!(/<h3>/, %(<h3 id="h3_title_#{i}">))
     end
     # 目次(table of contents)を追加する
-    html.sub!(%r{<p>--toc--</p>}, %(<div class="table-of-contents"></div>))
+    # html.sub!(%r{<p>--toc--</p>}, %(<div class="table-of-contents"></div>))
     # 広告のカスタム
     html.gsub!(/--adsense--/, %[
       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

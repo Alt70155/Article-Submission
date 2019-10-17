@@ -190,9 +190,16 @@ end
  bundle exec rake db:migrate
 ```
 
-## Markdown独自タグ
+## yardでドキュメント生成
 
-```markdown
---adsense--
-lang:ruby
+ドキュメント生成
+
+```terminal
+yardoc file_name.rb
+```
+
+yardサーバー立ち上げ(port: 8808)
+
+```terminal
+yard server
 ```

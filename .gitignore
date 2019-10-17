@@ -13,3 +13,5 @@ app_config.rb
 public/img
 Rakefile
 database.yml
+doc/
+.yardoc

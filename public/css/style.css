@@ -298,23 +298,23 @@ footer p {
   height: auto;
 }
 
-#article h3 {
+#article .text-content h3 {
   color: black;
   margin-top: 10px;
   margin: 10px 0px -15px 7px;
   font-size: 21px;
 }
 
-#article img {
+#article .text-content img {
   max-width: 100%;
   height: auto;
 }
 
-#article a {
+#article .text-content a {
   word-break: break-all;
 }
 
-#article ul li {
+#article .text-content ul li {
   margin-left: 13px;
 }
 
@@ -746,40 +746,6 @@ footer p {
   color: grey;
   background-color: #d3d3d3;
 }
-
-/* #article blockquote {
-  position: relative;
-  padding: 10px 15px 10px 50px;
-  box-sizing: border-box;
-  background: #efefef;
-  color: #555;
-}
-
-#article blockquote:before{
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: -3px;
-  content: "“";
-  font-family: sans-serif;
-  color: #cfcfcf;
-  font-size: 90px;
-  line-height: 1;
-}
-
-#article blockquote p {
-  padding: 0;
-  margin: 10px 8px 10px 0;
-  line-height: 1.7;
-}
-
-#article blockquote cite {
-  display: block;
-  text-align: right;
-  color: #888888;
-  font-size: 0.9em;
-} */
-
 
 #article blockquote {
     position: relative;

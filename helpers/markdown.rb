@@ -18,46 +18,6 @@ helpers do
       tables:              true,
       space_after_headers: true # #の後に空行がないと見出しと認めない
     }
-    html = Redcarpet::Markdown.new(renderer, extensions).render(text)
-    replace_html(html)
-  end
-
-  def replace_html(html)
-    # カスタムタグ一覧
-    # --adsense-- 記事
-    # --toc--     目次
-    # lang:ruby   コードブロックの言語名
-
-    # h2のカスタム
-    html.scan(/<h2>/).length.times do |i|
-      html.sub!(/<h2>/, %(<div class="text-sub-title"><h2 id="h2_title_#{i}" class="sub-title-border">&nbsp;))
-    end
-    html.gsub!(%r{</h2>}, '</h2></div>')
-    # h3のカスタム
-    html.scan(/<h3>/).length.times do |i|
-      html.sub!(/<h3>/, %(<h3 id="h3_title_#{i}">))
-    end
-    # 目次(table of contents)を追加する
-    # html.sub!(%r{<p>--toc--</p>}, %(<div class="table-of-contents"></div>))
-    # 広告のカスタム
-    html.gsub!(/--adsense--/, %[
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <ins class="adsbygoogle"
-           style="display:block; text-align:center;"
-           data-ad-layout="in-article"
-           data-ad-format="fluid"
-           data-ad-client="ca-pub-7031203229342761"
-           data-ad-slot="7220498796"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    ])
-    # コードブロックが何言語かを探して置き換える
-    # フォーマット lang:ruby
-    language_list = html.scan(%r{<p>lang:.*</p>}).map { |e| e[8..-5] }
-    language_list.each do |p|
-      html.sub!(%r{<p>lang:.*</p>}, %(<div class="language-tag"><B>▼ #{p}</B></div>))
-    end
-    html
+    Redcarpet::Markdown.new(renderer, extensions).render(text)
   end
 end

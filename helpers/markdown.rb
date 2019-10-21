@@ -3,7 +3,7 @@ helpers do
     render_options = {
       filter_html: false, # htmlタグの入力を無効化(サニタイズ)
       hard_wrap:   true,  # 空行を改行ではなく、改行を改行に変換
-      link_attributes: { rel: 'noopener', target: "_blank" }
+      link_attributes: { rel: 'noopener', target: '_blank' }
     }
     # renderer = Redcarpet::Render::HTML.new(render_options)
     renderer = ::CustomMarkdownRenderer.new(render_options)

@@ -14,8 +14,7 @@ helpers do
       self.class.h3(text)
       self.class.adsense(text)
       self.class.code_block_language(text)
-      p "=" * 50
-      puts Post.find(39).top_picture
+      self.class.in_article_link(text)
       text
     end
 
@@ -58,18 +57,7 @@ helpers do
       # @return [String] text --adsense--を広告用スクリプトにした記事
       #
       def adsense(text)
-        text.gsub!(/--adsense--/, %[
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <ins class="adsbygoogle"
-               style="display:block; text-align:center;"
-               data-ad-layout="in-article"
-               data-ad-format="fluid"
-               data-ad-client="ca-pub-7031203229342761"
-               data-ad-slot="7220498796"></ins>
-          <script>
-               (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
-        ])
+        text.gsub!(/--adsense--/, %[<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;"data-ad-layout="in-article"data-ad-format="fluid"data-ad-client="ca-pub-7031203229342761"data-ad-slot="7220498796"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>])
       end
 
       #
@@ -81,18 +69,22 @@ helpers do
         text.gsub!(/lang:(.*)/, %(<div class="language-tag"><B>▼ \\1</B></div>))
       end
 
+      #
+      # --![post_id]タグを記事内リンクに変換する
+      # @param  [String] text markdownで記述された記事
+      # @return [String] text --![post_id]タグを記事内リンクに変換した記事
+      #
       def in_article_link(text)
-        text.gsub!(/--!\[(.*)\]/, %(
-          <div class="in-article-link-out">
-            <a href="../articles/10" target="_blank">
-              <div class="in-article-link">
-                <img src="../img/page10.jpg" alt="" class="portfolio-image-deco in-article-link-img">
-                  <h3>【flexbox】<br>justify-content:space-aroundで余白を埋める方法</h3>
-              </div>
-            </a>
-          </div>
-        ))
+        in_article_link_regxp = /--!\[(.*)\]/
+
+        text.scan(in_article_link_regxp).each do |_|
+          if in_article_link_regxp =~ text
+            post = Post.find_by(id: $~[1])
+            text.sub!(in_article_link_regxp, %(<div class="in-article-link-out"><a href="../articles/#{post.id}" target="_blank"><div class="in-article-link"><img src="../img/#{post.top_picture}" alt="" class="portfolio-image-deco in-article-link-img"><h3>#{post.title}</h3></div></a></div>))
+          end
+        end
       end
+
     end
   end
 end

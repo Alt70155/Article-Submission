@@ -20,9 +20,17 @@ helpers do
     }
     html = Redcarpet::Markdown.new(renderer, extensions).render(text)
     code_block_language(html)
+    h2(html)
+    html
   end
 
   def code_block_language(text)
     text.gsub!(%r{<p>lang:(.*)</p>}, %(<div class="language-tag"><B>▼ \\1</B></div>))
+  end
+
+  def h2(text)
+    text.scan(%r{<h2>.*</h2>}).each_with_index do |_, i|
+      text.sub!(%r{<h2>(.*)</h2>}, %(<div class="text-sub-title"><h2 id="h2_title_#{i}" class="sub-title-border">&nbsp;\\1</h2></div>))
+    end
   end
 end

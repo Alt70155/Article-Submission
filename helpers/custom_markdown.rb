@@ -10,11 +10,12 @@ helpers do
     #
     def preprocess(text)
       replace_text = self.class.table_of_contents(text)
-      replace_text = self.class.h2(replace_text)
+      # replace_text = self.class.h2(replace_text)
       replace_text = self.class.h3(replace_text)
       replace_text = self.class.adsense(replace_text)
       # replace_text = self.class.code_block_language(replace_text)
       replace_text = self.class.in_article_link(replace_text)
+      p replace_text
       replace_text
     end
 

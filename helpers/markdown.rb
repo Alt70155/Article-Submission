@@ -18,6 +18,11 @@ helpers do
       tables:              true,
       space_after_headers: true # #の後に空行がないと見出しと認めない
     }
-    Redcarpet::Markdown.new(renderer, extensions).render(text)
+    html = Redcarpet::Markdown.new(renderer, extensions).render(text)
+    code_block_language(html)
+  end
+
+  def code_block_language(text)
+    text.gsub!(%r{<p>lang:(.*)</p>}, %(<div class="language-tag"><B>▼ \\1</B></div>))
   end
 end

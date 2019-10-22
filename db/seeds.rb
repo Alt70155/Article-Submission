@@ -3,7 +3,7 @@
 
 User.create!(user_id: 'test', password: 'password', password_confirmation: 'password')
 
-24.times do |i|
+1.times do |i|
   Post.create!(
     category_id: 1,
     title:       'テストタイトル',

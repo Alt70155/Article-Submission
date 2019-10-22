@@ -8,16 +8,14 @@ helpers do
     # @param  [String] text markdownで記述された記事
     # @return [String] text 独自タグをHTMLタグに変換した記事
     #
-    def preprocess(text)
-      replace_text = self.class.table_of_contents(text)
-      # replace_text = self.class.h2(replace_text)
-      replace_text = self.class.h3(replace_text)
-      replace_text = self.class.adsense(replace_text)
-      # replace_text = self.class.code_block_language(replace_text)
-      replace_text = self.class.in_article_link(replace_text)
-      p replace_text
-      replace_text
-    end
+    # def preprocess(text)
+    #   replace_text = self.class.table_of_contents(text)
+    #   replace_text = self.class.h2(replace_text)
+    #   replace_text = self.class.h3(replace_text)
+    #   replace_text = self.class.adsense(replace_text)
+    #   replace_text = self.class.in_article_link(replace_text)
+    #   replace_text
+    # end
 
     class << self
 
@@ -61,15 +59,6 @@ helpers do
       #
       def adsense(text)
         text.gsub(/--adsense--/, %[<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block; text-align:center;"data-ad-layout="in-article"data-ad-format="fluid"data-ad-client="ca-pub-7031203229342761"data-ad-slot="7220498796"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>])
-      end
-
-      #
-      # lang:lang_nameタグをカスタムdivに変換する。
-      # @param  [String] text markdownで記述された記事
-      # @return [String] text lang:lang_nameタグをカスタムdivにした記事
-      #
-      def code_block_language(text)
-        text.gsub(/lang:(.*)/, %(<div class="language-tag"><B>▼ \\1</B></div>))
       end
 
       #

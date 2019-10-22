@@ -403,37 +403,75 @@ footer p {
   background-color: #f5f5f5;
 }
 
-/* 記事内のリンク設定 */
-.in-article-link-out {
-  width: 500px;
-  height: 120px;
-  margin: 30px 0 65px 10px;
+/* 記事内リンクの設定 */
+#article .in-article-link-item {
+  display: inline-block;
+  position: relative;
+  width: 600px;
+  height: 121.5px;
+  margin: 15px;
+  margin-bottom: 40px;
+  background-color: white;
+  box-shadow: 1px 5px 6px 2px rgba(0,0,0,.3);
 }
 
-.in-article-link-out:hover {
-  opacity: 0.6;
+#article .in-article-link-item::before {
+  content: "";
+  display: block;
+  padding-top: 20%;
+  padding-left: 100%;
 }
 
-.in-article-link {
-  width: 500px;
-  height: 120px;
+#article .in-article-link-item .article-inside {
+  position: absolute;
   display: flex;
-  border: 1px solid black;
-  padding: 15px;
-}
-
-.in-article-link-out a {
-  text-decoration: none;
-}
-
-/* #article img より優先度を上げるために指定 */
-#article .in-article-link-img {
+  justify-content: space-between;
+  top: 0;
+  left: 0;
   width: 45%;
-  height: auto;
+  height: 100%;
 }
 
-.in-article-link h3 {
-  margin-left: 20px;
+#article .in-article-link-item img {
+  width: 100%;
+  height: 100%;
+}
+
+#article .in-article-link-item a {
+  text-decoration: none;
+  color: black;
+}
+
+#article .in-article-link-item p {
+  width: 300px;
+  height: 300px;
+  height: 88%;
+  color: black;
+  margin-top: 5px;
+  margin-left: 15px;
+  line-height: 1.7em;
+  font-size: 15px;
+}
+
+#article .in-article-link-item .date {
+  font-size: 14px;
+  color: #CCCCCC;
+}
+
+#article .in-article-link-fly {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+}
+
+#article .in-article-link-fly:hover {
+  -webkit-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  transform: translateY(-5px);
+  /* 1番目：水平方向 2番目：垂直方向 3番目：ぼかし 4番目；広がり */
+  box-shadow: 1px 6px 10px 1px rgba(0,0,0,.3);
 }
 
 .main-aside-wrap {

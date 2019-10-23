@@ -786,38 +786,120 @@ footer p {
 }
 
 #article blockquote {
-    position: relative;
-    padding: 10px 15px 10px 50px;
-    box-sizing: border-box;
-    /* font-style: italic; */
-    background: #efefef;
-    color: #555;
+  position: relative;
+  padding: 10px 15px 10px 50px;
+  box-sizing: border-box;
+  /* font-style: italic; */
+  background: #efefef;
+  color: #555;
 }
 
 #article blockquote:before{
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    content: "“";
-    font-family: sans-serif;
-    color: #cfcfcf;
-    font-size: 90px;
-    line-height: 1;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  content: "“";
+  font-family: sans-serif;
+  color: #cfcfcf;
+  font-size: 90px;
+  line-height: 1;
 }
 
 #article blockquote p {
-    padding: 0;
-    margin: 10px 8px 10px 0;
-    line-height: 2.1;
-    color: #555;
+  padding: 0;
+  margin: 10px 8px 10px 0;
+  line-height: 2.1;
+  color: #555;
 }
 
 #article blockquote cite {
-    display: block;
-    text-align: right;
-    color: #888888;
-    font-size: 0.9em;
+  display: block;
+  text-align: right;
+  color: #888888;
+  font-size: 0.9em;
+}
+
+/* 前の記事・次の記事のデザイン */
+
+#article .prev-next-link {
+  margin-top: 40px;
+}
+
+#article .prev-next-link a {
+  border-bottom: 1px #ddd solid;
+  display: block;
+  text-decoration: none;
+  padding: 1px 40px 15px 40px;
+  color: #0bd;
+}
+
+#article .prev-next-link a:hover {
+  background-color: #f6f6f6;
+}
+
+#article .prev-next-link a:first-child {
+  border-top: 1px #ddd solid;
+}
+
+#article .prev-next-label {
+  font-size: .825rem;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* Arrows */
+#article .prev-link {
+  background: url(../css/arrow-prev.svg) no-repeat 10px center;
+}
+
+#article .next-link {
+  background: url(../css/arrow-next.svg) no-repeat right 10px center;
+}
+
+#article .prev-link {
+  background-size: 16px 28px;
+}
+#article .next-link {
+  background-size: 16px 28px;
+}
+
+/* Images */
+#article .thumb-wrap {
+  display: flex;
+}
+
+#article .thumb-wrap p {
+  margin: 0 0 0 16px;
+  font-size: 14.5px;
+  line-height: 26px;
+  color: #0bd;
+}
+
+#article .thumb-wrap img {
+  width: 35%;
+  height: 100%;
+}
+
+/* Larger devices */
+@media (min-width: 600px) {
+  #article .prev-next-link {
+    display: flex;
+  }
+
+  #article .prev-next-link a {
+    flex: 1;
+  }
+
+  #article .prev-next-link a {
+    border: none;
+  }
+  #article .prev-next-link a:first-child {
+    border: none;
+  }
+
+  #article .next-link {
+  }
 }
 
 /*-----Article end-----*/

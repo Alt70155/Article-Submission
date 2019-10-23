@@ -221,6 +221,13 @@ post '/article_update' do
       redirect env_var('edit_path')
     end
   end
+
+  if params[:article_img_files].present?
+    params[:article_img_files].each do |img|
+      File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
+    end
+  end
+
   @post.update_columns(title: params[:title],
                        body: params[:body],
                        category_id: params[:category_id],

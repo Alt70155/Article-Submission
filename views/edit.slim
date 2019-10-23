@@ -32,7 +32,10 @@ html
         .article-img-post-area
           .article-thumbnail-input
             p ・サムネイル画像
-            input#top_picture type="file" name="thumbnail" accept="image/*"
+            input type="file" name="thumbnail" accept="image/*"
+          .article-imgs-input
+            p ・記事内画像
+            input type="file" name="article_img_files[]" multiple="multiple" accept="image/*"
 
         / slimで論理属性(disabled)を追加するにはdisabled="disabled"とする
         .submit-wrap

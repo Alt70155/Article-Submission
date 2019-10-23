@@ -64,6 +64,10 @@ get '/articles/:id' do
     @other_articles = Post.order('id DESC').first(6)
     @description    = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
+    # 前後の記事を取得
+    @prev_post = Post.find_by(id: @post.id - 1)
+    @next_post = Post.find_by(id: @post.id + 1)
+
     if login?
       session[:page_number] = @post.id
       @edit_path = env_var('edit_path')

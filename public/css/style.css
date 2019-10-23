@@ -823,7 +823,7 @@ footer p {
 /* 前の記事・次の記事のデザイン */
 
 #article .prev-next-link {
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 #article .prev-next-link a {
@@ -843,7 +843,7 @@ footer p {
 }
 
 #article .prev-next-label {
-  font-size: .825rem;
+  font-size: 15px;
   color: #000;
   margin-bottom: 10px;
 }
@@ -877,12 +877,12 @@ footer p {
 }
 
 #article .thumb-wrap img {
-  width: 35%;
+  width: 40%;
   height: 100%;
 }
 
 /* Larger devices */
-@media (min-width: 600px) {
+@media (min-width: 810px) {
   #article .prev-next-link {
     display: flex;
   }

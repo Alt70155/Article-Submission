@@ -42,20 +42,21 @@
       (adsbygoogle = window.adsbygoogle || []).push({});
 
     .prev-next-link
-      a.prev-link[href="#"]
-        p.prev-next-label
-          | 前の記事
-        .thumb-wrap
-          img[src="../img/page8.jpg" alt=""]
-          p
-            |  コピペでできる！CSS3の素敵効果でテキストリンクを装飾する小技あれこれ
-      a.next-link[href="#"]
-        p.prev-next-label
-          | 次の記事
-        .thumb-wrap
-          img[src="../img/page8.jpg" alt=""]
-          p
-            |  ユーザビリティテストの被験者をしてみて感じた、テストの流れや重要ポイント
+      - if @prev_post.present?
+        a.prev-link[href="../articles/#{@prev_post.id}"]
+          p.prev-next-label
+            | 前の記事
+          .thumb-wrap
+            img[src="../img/#{@prev_post.top_picture}" alt=""]
+            p= @prev_post.title
+
+      - if @next_post.present?
+        a.next-link[href="../articles/#{@next_post.id}"]
+          p.prev-next-label
+            | 次の記事
+          .thumb-wrap
+            img[src="../img/#{@next_post.top_picture}" alt=""]
+            p= @next_post.title
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"

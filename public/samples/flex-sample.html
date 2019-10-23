@@ -5,69 +5,58 @@
     <title></title>
     <style>
 
-      /* 一番外側の枠の設定 */
-      .content {
-        margin: 0 auto;
-        max-width: 1160px;
-        border: 1px solid black;
-        height: auto;
-      }
+    /* 一番外側の枠の設定 */
+    .content {
+      margin: 0 auto;
+      /* 外枠の大きさ */
+      max-width: 1080px;
+      /* border: 1px solid black; */
+      min-height: 600px;
+    }
 
-      /* 記事全ての枠の設定 */
-      .container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap; /* 記事折り返し設定 */
-        margin: 100px auto 0 auto;
-        border: 1px solid black;
-      }
+    /* 記事全ての枠の設定 */
+    .container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      /* 記事折り返し設定 */
+      margin: 70px auto 0 auto;
+    }
 
+    .article-item {
+      border: 1px solid black;
+      /* 記事アイテムの一つの大きさ */
+      width: 30%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+
+    .article-item img {
+      /* 画像は親要素に対して100%にする */
+      width: 100%;
+      height: 100%;
+    }
+
+    .article-item p {
+      padding: 0px 10px;
+    }
+
+    @media screen and (max-width: 920px) {
+      /* 記事アイテムを大きくして二列にする */
       .article-item {
-        position: relative;
-        width: 30%;
-        height: auto;
-        margin: 15px;
+        width: 45%;
       }
-
-      .box::before {
-        content: "";
-        display: block;
-        padding-top: 100%;
-      }
-
-      .article-inside {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 45%;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-      }
-
       .article-item p {
-        margin-left: 8px;
-        margin-right: 7px;
-        line-height: 1.5em;
-        font-size: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
       }
+    }
 
-      @media screen and (max-width: 920px) {
-        .article-item {
-          width: 45%;
-          margin-bottom: -40px;
-        }
+    @media screen and (max-width: 620px) {
+      .article-item {
+        width: 85%;
       }
-
-      @media screen and (max-width: 620px) {
-        .article-item {
-          width: 85%;
-          margin-bottom: -100px;
-        }
-      }
+    }
     </style>
 
   </head>

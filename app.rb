@@ -123,7 +123,11 @@ post '/article_post' do
 
   if params[:back].nil? && @post.save
     # top画像ファイル保存
-    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) } if thumbnail_file
+    if thumbnail_file
+      File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
+      # webp形式に変換して保存
+      system("cwebp ./public/img/#{@post.top_picture} -o ./public/img/#{@post.top_picture}.webp")
+    end
     # 記事内画像があればそれも保存
     params[:article_img_files]&.each do |img|
       File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
@@ -219,8 +223,10 @@ post '/article_update' do
   # @post.update!(title: params[:title], body: params[:body], category_id: params[:category_id])
   # 今回はvalidationを回避したい為、update_columnsを使う
   # update_columnsはupdated_atを更新しないので自力で更新
-  unless params[:thumbnail].nil?
-    File.open("public/img/#{params[:thumbnail][:filename]}", 'wb') { |f| f.write(params[:thumbnail][:tempfile].read) }
+  thumbnail = params[:thumbnail]
+  if thumbnail.present?
+    File.open("public/img/#{thumbnail[:filename]}", 'wb') { |f| f.write(thumbnail[:tempfile].read) }
+    system("cwebp ./public/img/#{thumbnail[:filename]} -o ./public/img/#{thumbnail[:filename]}.webp")
     unless @post.update(top_picture: params[:thumbnail][:filename])
       redirect env_var('edit_path')
     end

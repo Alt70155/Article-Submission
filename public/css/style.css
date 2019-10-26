@@ -877,8 +877,7 @@ footer p {
 }
 
 #article .thumb-wrap img {
-  /* width: 40%; */
-  width: 150px;
+  width: 40%;
   height: 100%;
 }
 

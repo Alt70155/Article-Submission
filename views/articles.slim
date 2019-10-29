@@ -56,6 +56,7 @@
             | 次の記事
           .thumb-wrap
             img[src="../img/#{@next_post.top_picture}" alt=""]
+            p= @next_post.title
 
     ==slim :"partial/_other_list"
   ==slim :"partial/_right_bar"

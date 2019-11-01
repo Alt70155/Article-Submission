@@ -383,7 +383,7 @@ footer p {
 
 .text-content p, .article-title h1 {
   color: black;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', 'ヒラギノ角ゴ Pro W3', 'ヒラギノ角ゴ W3', 'メイリオ','ＭＳ Ｐゴシック', sans-serif;
 }
 
 .article-main-contents p {

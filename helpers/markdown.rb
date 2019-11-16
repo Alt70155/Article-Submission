@@ -58,7 +58,7 @@ helpers do
     html.scan(in_article_link_regxp).each do |_|
       if in_article_link_regxp =~ html
         post = Post.find_by(id: $~[1])
-        html.sub!(in_article_link_regxp, %(<div><a href="../articles/#{post&.id}" class="in-article-link-item in-article-link-fly"><article class="article-inside"><img src="../img/#{post&.top_picture}" alt=""><div><p><span class="date">Posted on #{post&.created_at.strftime('%Y/%m/%d')}</span><br>#{post&.title}</p></div></article></a></div>))
+        html.sub!(in_article_link_regxp, %(<div><a href="../articles/#{post&.id}" target="_blank" rel="noopener" class="in-article-link-item in-article-link-fly"><article class="article-inside"><img src="../img/#{post&.top_picture}" alt=""><div><p><span class="date">Posted on #{post&.created_at.strftime('%Y/%m/%d')}</span><br>#{post&.title}</p></div></article></a></div>))
       end
     end
   end

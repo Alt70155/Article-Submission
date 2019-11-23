@@ -13,9 +13,11 @@ User.create!(user_id: 'test', password: 'password', password_confirmation: 'pass
 end
 
 categories = %w(HTML/CSS JavaScript サイト運営 他記事)
+path = %w(html-css js site etc)
 categories.each_with_index do |n, i|
   Category.create!(
     category_id: i + 1,
-    cate_name:   n
+    cate_name:   n,
+    path:        path[i]
   )
 end

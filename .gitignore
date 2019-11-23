@@ -15,3 +15,4 @@ Rakefile
 database.yml
 doc/
 .yardoc
+db/seeds.rb

@@ -26,11 +26,11 @@ html lang="ja"
       meta property="og:description" content="#{@description}"
     / アナリティクスはログインしている時は表示しない
     - unless login?
-      / == slim :"partial/_analytics"
+      == slim :"partial/_analytics"
       / LogRocketタグ
-      / script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"
-      / javascript:
-      /   window.LogRocket && window.LogRocket.init('2ad11l/my-web-site');
+      script src="https://cdn.lr-ingest.io/LogRocket.min.js" crossorigin="anonymous"
+      javascript:
+        window.LogRocket && window.LogRocket.init('2ad11l/my-web-site');
 
   body id="#{@page_name}"
     / イコールを2個にしないとslimではエスケープされる

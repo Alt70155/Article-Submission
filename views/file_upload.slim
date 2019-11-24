@@ -1,10 +1,34 @@
 h1 File Uploader
 br
-form method="post" action="/file_upload" enctype="multipart/form-data"
+form method="post" action="/file_upload" enctype="multipart/form-data" onSubmit="return isSameNameImageCheck()"
   input type="hidden" name="csrf_token" value="#{@csrf_token}"
-  input type="file" name="file" accept="image/*"
-  input type="submit" value="投稿" name="submit"
+  input.file type="file" name="file" accept="image/*"
+  input.submit type="submit" value="投稿" name="submit"
 
 a href="/" topへ
 br
 a href="#{env_var(:create_article_path)}" 記事投稿画面へ
+
+div style="display:none;"
+  - @all_image_names.each do |f|
+    span.image-name= f
+
+javascript:
+  const submit = document.querySelector('.submit')
+  const imageList = document.querySelectorAll('.image-name')
+
+
+  const isSameNameImageCheck = () => {
+    const file = document.querySelector('.file')
+    let isSameNameImage = false
+    // 同名のファイルがないかをチェック
+    imageList.forEach(f => {
+      if (f.textContent === file.files[0].name) isSameNameImage = true
+    })
+
+    if (isSameNameImage) {
+      return window.confirm('同じ名前の画像が存在します。投稿しますか？')
+    } else {
+      return true
+    }
+  }

@@ -309,6 +309,8 @@ end
 get @env_hash[:file_upload_path] do
   login_required
   csrf_token_generate
+
+  @all_image_names = Dir.glob('public/img/*').map { |f| f.slice!(/public\/img\//);f }
   slim :file_upload, layout: nil
 end
 
@@ -317,5 +319,5 @@ post '/file_upload' do
   redirect '/' unless params[:csrf_token] == session[:csrf_token]
 
   File.open("public/img/#{params[:file][:filename]}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
-  redirect '/file_upload_path'
+  redirect env_var(:file_upload_path)
 end

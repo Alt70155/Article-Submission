@@ -14,6 +14,7 @@ html lang="ja"
     link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet"
     link rel="shortcut icon" href="../img/favicon.png"
     - if @page_name == "article" && @post
+      meta name="description" content="#{@description}"
       link rel="stylesheet" href="../css/rouge.css"
       script (src="../js/sidebar-fixed.js" defer)
       script (src="../js/code-block-width-value-change.js" defer)

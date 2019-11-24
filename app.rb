@@ -62,7 +62,7 @@ get '/articles/:id' do
     # その他記事を降順で6個取得
     @title          = @post.title
     @other_articles = Post.order('id DESC').first(6)
-    @description    = @post.body[0..100].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
+    @description    = @post.body[0..120].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
     # 前後の記事を取得
     @prev_post = Post.find_by(id: @post.id - 1)

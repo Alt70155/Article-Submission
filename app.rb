@@ -70,7 +70,7 @@ get '/articles/:id' do
 
     if login?
       session[:page_number] = @post.id
-      @edit_path = env_var('edit_path')
+      @edit_path = env_var(:edit_path)
     end
 
     slim :articles
@@ -80,7 +80,7 @@ get '/articles/:id' do
 end
 
 # create_article
-get @create_article_path do
+get @env_hash[:create_article_path] do
   login_required
   csrf_token_generate
 
@@ -93,7 +93,7 @@ post '/article_post' do
 
   @page_name = 'article'
 
-  redirect env_var('create_article_path') unless params[:csrf_token] == session[:csrf_token]
+  redirect env_var(:create_article_path) unless params[:csrf_token] == session[:csrf_token]
 
   # params[:file]がnilの場合、params[:file][:filename]で例外が発生する
   # prevから投稿する場合、画像は保存してあるのでparams[:pic_name]にファイル名を格納してそれを使う
@@ -162,7 +162,7 @@ post '/article_prev' do
 
   @page_name = 'article'
 
-  redirect env_var('create_article_path') unless params[:csrf_token] == session[:csrf_token]
+  redirect env_var(:create_article_path) unless params[:csrf_token] == session[:csrf_token]
 
   # 修正・投稿の両方にトークンが必要な為、最初に記述
   csrf_token_generate
@@ -206,7 +206,7 @@ end
 
 # ---- 編集機能 ----
 
-get @edit_path do
+get @env_hash[:edit_path] do
   login_required
   csrf_token_generate
   @post = Post.find(session[:page_number])
@@ -228,7 +228,7 @@ post '/article_update' do
     File.open("public/img/#{thumbnail[:filename]}", 'wb') { |f| f.write(thumbnail[:tempfile].read) }
     system("cwebp ./public/img/#{thumbnail[:filename]} -o ./public/img/#{thumbnail[:filename]}.webp")
     unless @post.update(top_picture: params[:thumbnail][:filename])
-      redirect env_var('edit_path')
+      redirect env_var(:edit_path)
     end
   end
 
@@ -266,8 +266,8 @@ end
 # ---- ログイン機能 ----
 
 # login
-get @login_path do
-  return redirect env_var('create_article_path') unless session[:user_id].nil?
+get @env_hash[:login_path] do
+  return redirect env_var(:create_article_path) unless session[:user_id].nil?
   slim :login, layout: nil
 end
 
@@ -277,7 +277,7 @@ post '/login' do
   # ユーザーが存在すればパスワードを比較する
   if user&.authenticate(params[:password])
     session[:user_id] = user.user_id
-    redirect env_var('create_article_path')
+    redirect env_var(:create_article_path)
   else
     slim :login, layout: nil
   end
@@ -287,7 +287,7 @@ delete '/logout' do
   login_required
   session.clear
 
-  redirect env_var('login_path')
+  redirect env_var(:login_path)
 end
 
 # ---- その他ルーティング ----
@@ -304,4 +304,18 @@ end
 
 not_found do
   slim :not_found
+end
+
+get @env_hash[:file_upload_path] do
+  login_required
+  csrf_token_generate
+  slim :file_upload, layout: nil
+end
+
+post '/file_upload' do
+  login_required
+  redirect '/' unless params[:csrf_token] == session[:csrf_token]
+
+  File.open("public/img/#{params[:file][:filename]}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
+  redirect '/file_upload_path'
 end

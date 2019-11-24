@@ -1,0 +1,10 @@
+h1 File Uploader
+br
+form method="post" action="/file_upload" enctype="multipart/form-data"
+  input type="hidden" name="csrf_token" value="#{@csrf_token}"
+  input type="file" name="file" accept="image/*"
+  input type="submit" value="投稿" name="submit"
+
+a href="/" topへ
+br
+a href="#{env_var(:create_article_path)}" 記事投稿画面へ

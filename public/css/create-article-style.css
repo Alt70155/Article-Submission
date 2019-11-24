@@ -113,6 +113,6 @@ input[type='text'], textarea {
   color: red;
 }
 
-.article-img-post-area {
+.article-img-post-area, .nav-button-area {
   display: flex;
 }

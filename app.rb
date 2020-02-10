@@ -302,9 +302,9 @@ get '/portfolio' do
   slim :portfolio
 end
 
-not_found do
-  slim :not_found
-end
+# not_found do
+#   slim :not_found
+# end
 
 get @env_hash[:file_upload_path] do
   login_required

@@ -116,3 +116,13 @@ input[type='text'], textarea {
 .article-img-post-area, .nav-button-area {
   display: flex;
 }
+
+.search-box-wrap {
+  margin-top: 7px;
+  margin-left: 1px;
+}
+
+.search-box {
+  height: 22px;
+  margin-right: 5px;
+}

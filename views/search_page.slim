@@ -1,0 +1,14 @@
+.container
+  - if @article
+    a.article-item.box.fly href="../articles/#{@article.id}"
+      article.article-inside
+        / webpが使えるブラウザではwebpを読み込む
+        picture
+          source type="image/webp" srcset="../img/#{@article.top_picture}.webp"
+          img src="../img/#{@article.top_picture}" alt=""
+        p
+          span.date Posted on #{@article.created_at.strftime('%Y/%m/%d')}
+          br
+          = @article.title
+  - else
+    p.black 存在しないページ

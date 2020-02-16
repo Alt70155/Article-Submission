@@ -17,7 +17,7 @@ get '/' do
 
   # パラメータがnil(パラメータ無し)か、数字の場合のみ
   if params[:page].nil? || /\A[1-9][0-9]*\z/ =~ params[:page] && params[:page].to_i <= pager_num
-    @post = Post.order('id DESC')
+    # @post = Post.order('id DESC')
     @page_name = 'index'
     @title = 'Blog'
     @pager = Post.paginate(page: params[:page], per_page: split_num).order('id DESC')
@@ -181,27 +181,19 @@ post '/article_prev' do
     img_files_in_article: image_name_in_article
   )
 
-  # プレビューでは記事をDBに保存しないのでvalid?でチェックし、画像は保存する
-  # if @post.valid?
-    if @post.top_picture
-      File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
-    end
+  if @post.top_picture
+    File.open("public/img/#{@post.top_picture}", 'wb') { |f| f.write(thumbnail_file[:tempfile].read) }
+  end
 
-    if @post.img_files_in_article
-      # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
-      session[:img_files_name_in_article] = params[:article_img_files].map do |img|
-        File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
-        img[:filename]
-      end
+  if @post.img_files_in_article
+    # 修正に戻る場合、記事内画像を削除するためにセッションでファイル名を保持する
+    session[:img_files_name_in_article] = params[:article_img_files].map do |img|
+      File.open("public/img/#{img[:filename]}", 'wb') { |f| f.write(img[:tempfile].read) }
+      img[:filename]
     end
+  end
 
-    # @category = Category.find_by(category_id: @post.category_id)
-    slim :article_prev
-  # else
-    # エラーメッセージを表示させたいのでレンダリング
-  #   @category = Category.all
-  #   slim :create_article, layout: nil
-  # end
+  slim :article_prev
 end
 
 # ---- 編集機能 ----
@@ -320,4 +312,12 @@ post '/file_upload' do
 
   File.open("public/img/#{params[:file][:filename]}", 'wb') { |f| f.write(params[:file][:tempfile].read) }
   redirect env_var(:file_upload_path)
+end
+
+post '/search_page' do
+  login_required
+  redirect '/' unless params[:csrf_token] == session[:csrf_token]
+
+  @article = Post.find_by(id: params[:page_num])
+  slim :search_page
 end

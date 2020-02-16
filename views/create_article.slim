@@ -18,6 +18,11 @@ html
         button style="margin: 10px 10px 10px 0;" type="button" name="button" class="readLocalStorage" 前回の内容を復元
         button style="margin: 10px;" type="button" name="button" onclick="location.href='/'" TOPへ
         button style="margin: 10px;" type="button" name="button" onclick="location.href='#{env_var(:file_upload_path)}'" 画像投稿へ
+        .search-box-wrap
+          form method="post" action="/search_page"
+            input type="hidden" name="csrf_token" value="#{@csrf_token}"
+            input.search-box type="text" name="page_num" placeholder="ページ検索"
+            input type="submit" value="検索" name="submit"
 
 
       form method="post" action="/article_post" enctype="multipart/form-data"

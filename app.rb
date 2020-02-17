@@ -318,6 +318,8 @@ post '/search_page' do
   login_required
   redirect '/' unless params[:csrf_token] == session[:csrf_token]
 
+  csrf_token_generate
   @article = Post.find_by(id: params[:page_num])
+
   slim :search_page
 end

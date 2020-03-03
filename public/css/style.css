@@ -61,7 +61,7 @@ a:hover {
 }
 
 .nav-flex {
-  max-width: 1080px;
+  max-width: 1150px;
   margin: auto;
   padding-left: 20px;
   display: flex;
@@ -100,7 +100,7 @@ a:hover {
 }
 
 .blog-nav {
-  max-width: 1080px;
+  max-width: 1150px;
   margin: auto;
   margin-top: 0px;
   position: absolute;
@@ -190,7 +190,7 @@ footer p {
 .container {
   display: flex;
   flex-wrap: wrap;
-  max-width: 1080px;
+  max-width: 1150px;
   height: auto;
   margin: 0 auto;
   justify-content: space-around;
@@ -293,7 +293,7 @@ footer p {
 #article .content {
   margin: 0 auto 80px auto;
   padding: 0 18px;
-  max-width: 1080px;
+  max-width: 1150px;
   background-color: white;
   height: auto;
 }
@@ -371,7 +371,7 @@ footer p {
 }
 
 .text-content {
-  width: 75%;
+  width: 70%;
   margin-right: auto;
   text-align: justify;
   text-justify: inter-ideograph;
@@ -490,12 +490,14 @@ footer p {
 
 .right-bar {
   position: absolute;
-  width: 250px;
+  width: 310px;
   height: 800px;
   margin-top: 50px;
+  margin-right: 10px;
+  padding-right: 50px;
 }
 
-/* 1080px以下の場合にこっちを使用する */
+/* 1150px以下の場合にこっちを使用する */
 /* JS側で操作する */
 .right-bar-is-down {
   width: 250px;
@@ -503,11 +505,44 @@ footer p {
   margin-top: 50px;
 }
 
+/* サイドバーのプロフィール部分 */
+.aside-prof-box {
+  width: 300px;
+  height: 200px;
+  margin-top: 67px;
+}
+
+.aside-prof-box h1 {
+  margin-bottom: -10px;
+  text-align: center;
+  background-color: #383434;
+}
+
+.aside-prof-box p {
+  color: black;
+  padding: 8px;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+/* 固定される部分のサイドバー */
 .aside-box {
-  width: 240px;
-  height: 220px;
-  margin: auto auto 50px auto;
-  border: 1px solid #383434;
+  width: 310px;
+  height: 66px;
+  margin-bottom: 20px;
+}
+
+.related-content-wrap {
+  display: flex;
+}
+
+.aside-box p {
+  color: #1ac8b7;
+  font-size: 12.5px;
+  margin: 0px;
+  padding: 0px; /* aside-box-insideのpaddingをうち消す */
+  padding-left: 8px;
+  line-height: 21px;
 }
 
 .aside-box-link {
@@ -523,22 +558,10 @@ footer p {
   height: 100%;
 }
 
-.aside-box h1 {
-  margin-bottom: -10px;
-  text-align: center;
-  background-color: #383434;
-}
-
-.aside-box p {
-  color: black;
-  padding: 8px;
-  font-size: 13px;
-  line-height: 22px;
-}
-
-.aside-box-inside img {
-  width: 240px;
-  height: 85%;
+.aside-inside-box img {
+  /* 画像の比率は6:4 */
+  width: 120px;
+  height: 66px;
 }
 
 .fixed{
@@ -577,7 +600,7 @@ footer p {
     height: 220px;
   }
 
-  .aside-box-inside {
+  .aside-inside-box {
     position: absolute;
     top: 0;
     left: 0;
@@ -585,12 +608,12 @@ footer p {
     height: 45%;
   }
 
-  .aside-box-inside img {
+  .aside-inside-box img {
     width: 100%;
     height: 85%;
   }
 
-  .aside-box-jstyping-p { margin-top: 0px; }
+  .aside-box p { margin-top: 0px; }
 
   .aside-box-ads {
     padding-left: 0px;

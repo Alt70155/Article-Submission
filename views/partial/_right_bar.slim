@@ -1,24 +1,28 @@
 aside.right-bar.hidden-item
-  .aside-box
-    .aside-box-inside
+  .aside-prof-box
+    .aside-inside-box
       h1 プロフィール
       p
         | Web開発・プログラミングが趣味な専門学生です！
+        br
         | 日々勉強したことや、制作したものの解説などをメインにブログを更新しています。
         br
         | このサイトも使いやすい・見やすいように改良中。
   .aside-box.aside-box-link
     a href="https://knowledge-blog.net/JSTyping/index.html" target="_blank"
-      .aside-box-inside
-        img alt="" src="../img/jstyping-img-side2.png" /
-        p.aside-box-jstyping-p
-          | JavaScriptの構文を問題としたタイピングゲームを作ってみました。
-          br
-          | 力試しに挑戦してみてください！
+      .aside-inside-box.related-content-wrap
+        img alt="" src="../img/jstyping-img-side9.png" /
+        p JavaScriptの構文を問題としたタイピングゲームを作ってみました。
+  - @aside_bar_post.each do |post|
+    .aside-box.aside-box-link
+      a href="https://knowledge-blog.net/articles/#{post.id}" target="_blank"
+        .aside-inside-box.related-content-wrap
+          img alt="" src="../img/#{post.top_picture}" /
+          p= post.title
 
   .aside-box.aside-box-ads
-    script (async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+    script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
     /! right-bar
-    ins class="adsbygoogle" style="display:inline-block;width:240px;height:220px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="4290910670"
+    ins.adsbygoogle[style="display:inline-block;width:310px;height:75px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="4290910670"]
     javascript:
-      (adsbygoogle = window.adsbygoogle || []).push({});
+      (adsbygoogle = window.adsbygoogle || []).push({}); 

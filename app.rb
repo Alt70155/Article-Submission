@@ -64,6 +64,10 @@ get '/articles/:id' do
     @other_articles = Post.order('id DESC').first(6)
     @description    = @post.body[0..120].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
+    # サイドバーに表示する記事を取得
+    article_ids = [3, 4] # 二個以上だとはみ出る可能性あり
+    @aside_bar_post = article_ids.map { |i| Post.find(i) }
+
     # 前後の記事を取得
     @prev_post = Post.find_by(id: @post.id - 1)
     @next_post = Post.find_by(id: @post.id + 1)

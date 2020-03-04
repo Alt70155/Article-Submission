@@ -1,6 +1,7 @@
 aside.right-bar.hidden-item
   .aside-box.aside-box-ads style="width:310px;height:160px"
     script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
+    /! right-bar-top
     ins.adsbygoogle[style="display:inline-block;width:310px;height:160px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="1148041236"]
     javascript:
       (adsbygoogle = window.adsbygoogle || []).push({}); 
@@ -20,12 +21,12 @@ aside.right-bar.hidden-item
         p JavaScriptの構文を問題としたタイピングゲームを作ってみました。
   - @aside_bar_post.each do |post|
     .aside-box.aside-box-link
-      a href="https://knowledge-blog.net/articles/#{post.id}" target="_blank"
+      a href="https://knowledge-blog.net/articles/#{post.id}"
         .aside-inside-box.related-content-wrap
           img alt="" src="../img/#{post.top_picture}" /
           p= post.title
 
-  .aside-box.aside-box-ads
+  .aside-box.aside-box-ads style="width:310px;height:75px"
     script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
     /! right-bar
     ins.adsbygoogle[style="display:inline-block;width:310px;height:75px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="4290910670"]

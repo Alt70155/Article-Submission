@@ -1,4 +1,4 @@
-const HALFWAY_POINT_WIDTH = 1080
+const HALFWAY_POINT_WIDTH = 1080 // CSS側のメディアクエリに合わせる
 const _window       = window
 const _rightBar     = document.querySelector('.right-bar')
 const _textContent  = document.querySelector('.text-content')
@@ -28,29 +28,34 @@ const updateLeftValOfSidebar = () => {
 }
 
 // プロフィール部分を飛ばすため位置を取得
-const asideBoxMarginBtmStr = _window.getComputedStyle(_asideBox).marginBottom
-const asideBoxMarginBtm    = Number(asideBoxMarginBtmStr.replace(/[^0-9]/g, ''))
-const asideBoxHeight       = _asideBox.clientHeight + (asideBoxMarginBtm * 1.5)
+const asideBoxHeight = _asideBox.clientHeight
+// 25は余白の大きさ、見た目に合わせて変更
+const topAsideBoxFullHeight = asideBoxHeight + 25
 
 // メインコンテンツより下(フッター内)の場合のtopの値を計算
 // left-barの位置をスクロール量を合わせて固定表示にする
-const SIDEBAR_TOP_FIXED_VAL = `${_textContent.getBoundingClientRect().bottom +
-  _window.pageYOffset - _rightBar.clientHeight - asideBoxHeight + (asideBoxMarginBtm * 1.5)}px`
+// 100はasideBoxHeightのmarginの値を引いた結果（値は大体）
+  const SIDEBAR_TOP_FIXED_VAL = `${_textContent.getBoundingClientRect().bottom +
+    _window.pageYOffset - _rightBar.clientHeight - 100}px`
 
 const fixSidebarWhenScrolled = () => {
   // スクロール量を取得
   const _windowScrollWeight = _window.pageYOffset
   // console.log(_windowScrollWeight)
   // メインコンテンツ内の場合固定する
-  if (_windowScrollWeight > headerHeight + asideBoxHeight && _windowScrollWeight < footerTop) {
-    _rightBar.style.top = `${-asideBoxHeight}px`
+  if (_windowScrollWeight > headerHeight + topAsideBoxFullHeight && _windowScrollWeight < footerTop) {
+    _rightBar.style.top = `${-topAsideBoxFullHeight}px`
     _rightBar.classList.add('fixed')
   } else {
     _rightBar.style.top = `${headerHeight + 1}px`
+    // console.log(_rightBar.style.top)
     _rightBar.classList.remove('fixed')
     // メインコンテンツより下(フッター内)の場合
     if (_windowScrollWeight > footerTop) {
-      _rightBar.style.top  = SIDEBAR_TOP_FIXED_VAL
+      console.log(SIDEBAR_TOP_FIXED_VAL)
+      // console.log(`footerTop: ${footerTop}`)
+      console.log(`windowScrollWeight: ${_windowScrollWeight}`)
+      _rightBar.style.top = SIDEBAR_TOP_FIXED_VAL
     }
   }
 }

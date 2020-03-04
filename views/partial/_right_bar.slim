@@ -1,21 +1,9 @@
-/ ================================================================================
-/ ================================================================================
-/ ================================================================================
-/ TODO: サイドバーのレスポンシブを修正する
-/ TODO: サイドバーの固定・解除のjsを滑らかにする
-/ TODO: 本番サーバーに適用したら、app.rbの値を更新し、jstyping-img-side9.pngの画像をアップする
-/ TODO: サイドバーのトップに広告を貼る
-/ ================================================================================
-/ ================================================================================
-/ ================================================================================
-
 aside.right-bar.hidden-item
-  .aside-box.aside-box-ads style="width:310px;height:160px;"
-      script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
-      /! right-bar
-      ins.adsbygoogle[style="display:inline-block;width:310px;height:75px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="4290910670"]
-      javascript:
-        (adsbygoogle = window.adsbygoogle || []).push({});
+  .aside-box.aside-box-ads style="width:310px;height:160px"
+    script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
+    ins.adsbygoogle[style="display:inline-block;width:310px;height:160px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="1148041236"]
+    javascript:
+      (adsbygoogle = window.adsbygoogle || []).push({}); 
   .aside-prof-box
     .aside-inside-box
       h1 プロフィール
@@ -37,7 +25,7 @@ aside.right-bar.hidden-item
           img alt="" src="../img/#{post.top_picture}" /
           p= post.title
 
-  .aside-box.aside-box-ads style="width:310px;height:75px;border:1px solid black;"
+  .aside-box.aside-box-ads
     script[async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]
     /! right-bar
     ins.adsbygoogle[style="display:inline-block;width:310px;height:75px" data-ad-client="ca-pub-7031203229342761" data-ad-slot="4290910670"]

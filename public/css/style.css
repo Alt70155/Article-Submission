@@ -633,7 +633,7 @@ footer p {
   }
 }
 
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 699px) {
   .right-bar-is-down {
     height: auto;
   }

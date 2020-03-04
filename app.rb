@@ -65,7 +65,7 @@ get '/articles/:id' do
     @description    = @post.body[0..120].gsub(/##/, '').gsub(/(\r\n?|\n)/, ' ')
 
     # サイドバーに表示する記事を取得
-    article_ids = [3, 4] # 二個以上だとはみ出る可能性あり
+    article_ids = [37, 35] # 二個以上だとはみ出る可能性あり
     @aside_bar_post = article_ids.map { |i| Post.find(i) }
 
     # 前後の記事を取得

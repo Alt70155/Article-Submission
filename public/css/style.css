@@ -492,7 +492,7 @@ footer p {
   position: absolute;
   width: 310px;
   height: 800px;
-  margin-top: 50px;
+  margin-top: 25px;
   margin-right: 10px;
   padding-right: 50px;
 }
@@ -507,9 +507,10 @@ footer p {
 
 /* サイドバーのプロフィール部分 */
 .aside-prof-box {
-  width: 300px;
-  height: 200px;
-  margin-top: 67px;
+  width: 310px;
+  height: 160px;
+  margin-top: 25px;
+  margin-bottom: 45px;
 }
 
 .aside-prof-box h1 {
@@ -587,17 +588,29 @@ footer p {
 
   .right-bar-is-down {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     width: 760px;
-    height: 250px;
+    height: 400px;
     margin: auto;
+    /* border: 1px solid black; */
   }
 
-  .aside-box {
+  .aside-prof-box, .aside-box {
     position: relative;
-    width: 27%;
-    height: 220px;
+    width: 310px;
+  }
+
+  .aside-prof-box {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .aside-prof-box p {
+    padding: 2px;
+    padding-top: 5px;
+    font-size: 13px;
+    line-height: 28px;
   }
 
   .aside-inside-box {
@@ -609,8 +622,8 @@ footer p {
   }
 
   .aside-inside-box img {
-    width: 100%;
-    height: 85%;
+    /* width: 100%;
+    height: 85%; */
   }
 
   .aside-box p { margin-top: 0px; }
@@ -620,21 +633,17 @@ footer p {
   }
 }
 
-@media screen and (max-width: 721px) {
+@media screen and (max-width: 710px) {
   .right-bar-is-down {
     height: auto;
   }
-  .aside-box {
-    width: 35%;
+  .aside-box, .aside-prof-box {
+    display: block;
+    margin: 0px 270px 40px 0px;
+    padding-right: 80px;
   }
 }
 
-@media screen and (max-width: 590px) {
-  .aside-box {
-    width: 60%;
-  }
-  .aside-box-ads { text-align: center; }
-}
 /*---コードブロックの設定---*/
 .language-tag {
   max-width: 700px;

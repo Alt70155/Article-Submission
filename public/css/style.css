@@ -561,7 +561,7 @@ footer p {
 
 .aside-inside-box img {
   /* 画像の比率は6:4 */
-  width: 120px;
+  min-width: 120px; /* min-widthにしないと崩れる可能性あり（要検証） */
   height: 66px;
 }
 

@@ -52,9 +52,6 @@ const fixSidebarWhenScrolled = () => {
     _rightBar.classList.remove('fixed')
     // メインコンテンツより下(フッター内)の場合
     if (_windowScrollWeight > footerTop) {
-      console.log(SIDEBAR_TOP_FIXED_VAL)
-      // console.log(`footerTop: ${footerTop}`)
-      console.log(`windowScrollWeight: ${_windowScrollWeight}`)
       _rightBar.style.top = SIDEBAR_TOP_FIXED_VAL
     }
   }

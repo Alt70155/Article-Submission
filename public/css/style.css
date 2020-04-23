@@ -486,6 +486,11 @@ footer p {
   /* widthは親要素のcontentで指定 */
 }
 
+/* Strongがフォントを個別指定しないと強調表示されないので以下で修正 */
+strong {
+  font-family: 'Montserrat', sans-serif;
+}
+
 /*--- サイドバー ---*/
 
 .right-bar {

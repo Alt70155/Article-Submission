@@ -203,3 +203,10 @@ yardサーバー立ち上げ(port: 8808)
 ```terminal
 yard server
 ```
+
+irbを使ってrails sのようにモデルを扱う場合、cofigファイルをrequireする必要がある
+
+```terminal
+irb
+require './app_config.rb'
+```
